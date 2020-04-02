@@ -10,11 +10,12 @@ import java.util.List;
  */
 public class Server extends Thread {
     private final int serverPort;
-    private ArrayList<ServerWorker> workerList = new ArrayList<>();
+    private ArrayList<ServerWorker> workerList;
 
     //constructor
-    public Server( int serverPort) {
+    public Server( int serverPort, ArrayList<ServerWorker> workerList) {
         this.serverPort = serverPort;
+        this.workerList = workerList;
     }
 
     public List<ServerWorker> getWorkerList(){
@@ -29,8 +30,11 @@ public class Server extends Thread {
                 Socket clientSocket = serverSocket.accept();
                 // create a new Thread for each user/Client
                 ServerWorker worker= new ServerWorker( this,clientSocket );
-                workerList.add(worker);
-                worker.start();
+                synchronized (workerList){
+                    workerList.add(worker);
+                    worker.start();
+                }
+
 
             }// end While
         }catch (IOException e){
@@ -40,5 +44,9 @@ public class Server extends Thread {
 
     public void removeWorker(ServerWorker serverWorker) {
         workerList.remove( serverWorker );
+    }
+
+    public int getServerPort(){
+        return this.serverPort;
     }
 }

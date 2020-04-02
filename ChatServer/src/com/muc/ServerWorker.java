@@ -36,25 +36,29 @@ public class ServerWorker extends Thread {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
-        while ( (line = reader.readLine()) != null) {
-            String[] tokens = line.split( " " );
-            if (tokens != null && tokens.length > 0) {
-                String cmd = tokens[0];
-                if ("logoff".equals(cmd) || "quit".equalsIgnoreCase(cmd)) {
-                    handleLogoff();
-                    break;
-                } else if ("login".equalsIgnoreCase(cmd)) {
-                    handleLogin(outputStream, tokens);
-                } else if ("msg".equalsIgnoreCase(cmd)) {
-                    String[] tokensMsg = line.split( " ",3 );
-                    handleMessage(tokensMsg);
-                } else if ("join".equalsIgnoreCase(cmd)) {
-                    handleJoin(tokens);
-                } else if ("leave".equalsIgnoreCase(cmd)) {
-                    handleLeave(tokens);
-                } else {
-                    String msg = "unknown " + cmd + "\n";
-                    outputStream.write(msg.getBytes());
+        while (true) {
+            line = reader.readLine();
+            if(line != null) {
+                System.out.println(line);
+                String[] tokens = line.split(" ");
+                if (tokens != null && tokens.length > 0) {
+                    String cmd = tokens[0];
+                    if ("logoff".equals(cmd) || "quit".equalsIgnoreCase(cmd)) {
+                        handleLogoff();
+                        break;
+                    } else if ("login".equalsIgnoreCase(cmd)) {
+                        handleLogin(outputStream, tokens);
+                    } else if ("msg".equalsIgnoreCase(cmd)) {
+                        String[] tokensMsg = line.split(" ", 3);
+                        handleMessage(tokensMsg);
+                    } else if ("join".equalsIgnoreCase(cmd)) {
+                        handleJoin(tokens);
+                    } else if ("leave".equalsIgnoreCase(cmd)) {
+                        handleLeave(tokens);
+                    } else {
+                        String msg = "unknown " + cmd + "\n";
+                        outputStream.write(msg.getBytes());
+                    }
                 }
             }
         }
@@ -131,7 +135,7 @@ public class ServerWorker extends Thread {
                 String msg = "ok login\n";
                 outputStream.write(msg.getBytes());
                 this.login = login;
-                System.out.println("User logged in succesfully: " + login);
+                System.out.println("User logged in succesfully: " + login + " Server: " + this.server.getServerPort());
 
                 List<ServerWorker> workerList = server.getWorkerList();
 

@@ -48,7 +48,7 @@ public class LoginWin extends JFrame {
         String password = passwordField.getText();
 
         try {
-            if (client.login(login, password)) {
+            if (client.login()) {
                 // bring up the user list window
                 UserGraphInterface userListPane = new UserGraphInterface(client);
                 JFrame frame = new JFrame("User List");

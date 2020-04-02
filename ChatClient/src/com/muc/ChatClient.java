@@ -1,18 +1,24 @@
 package com.muc;
 
 
+import javax.swing.tree.ExpandVetoException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 
-public class ChatClient {
-    private final String serverName;
-    private final int serverPort;
+public class ChatClient{
+    private String serverName;
+    private static int serverPort;
     private Socket socket;
     private InputStream serverIn;
     private OutputStream serverOut;
     private BufferedReader bufferedIn;
+    private BufferedReader inFromUser;
+    private PrintWriter clientOut;
+    private String username;
+    private String password;
 
     private ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>();
     private ArrayList<MessageListener> messageListeners = new ArrayList<>();
@@ -23,7 +29,10 @@ public class ChatClient {
     }
 
     public static void main(String[] args) throws IOException {
-        ChatClient client = new ChatClient("localhost", 9999);
+        Random rand = new Random();
+        serverPort = rand.nextInt((9999 - 9998) + 1) + 9998;
+        System.out.println(serverPort);
+        ChatClient client = new ChatClient("localhost", serverPort);
         client.addUserStatusListener(new UserStatusListener() {
             @Override
             public void online(String login) {
@@ -48,10 +57,10 @@ public class ChatClient {
         } else {
             System.out.println("Connect successful");
 
-            if (client.login("test1", "test1")) {
+            if (client.login()) {
                 System.out.println("Login successful");
 
-                client.msg("test2", "Hello World!");
+                //client.msg("test2", "Hello World!");
             } else {
                 System.err.println("Login failed");
             }
@@ -62,12 +71,18 @@ public class ChatClient {
 
     public void msg(String sendTo, String msgBody) throws IOException {
         String cmd = "msg " + sendTo + " " + msgBody + "\n";
-        serverOut.write(cmd.getBytes());
+        clientOut.print(cmd);
+        clientOut.flush();
     }
 
-    public boolean login(String login, String password) throws IOException {
-        String cmd = "login " + login + " " + password + "\n";
-        serverOut.write(cmd.getBytes());
+    public boolean login() throws IOException {
+        System.out.println("Username:");
+        username = inFromUser.readLine();;
+        System.out.println("Passwort:");
+        password = inFromUser.readLine();
+        String cmd = "login " + username + " " + password + "\n";
+        clientOut.print(cmd);
+        clientOut.flush();
 
         String response = bufferedIn.readLine();
         System.out.println("Response Line:" + response);
@@ -86,31 +101,43 @@ public class ChatClient {
     }
 
     private void startMessageReader() {
-        Thread t = new Thread() {
+        Thread t1 = new Thread() {
             @Override
             public void run() {
                 readMessageLoop();
             }
         };
-        t.start();
+        Thread t2 = new Thread() {
+            @Override
+            public void run() {
+                sendMessageLoop();
+            }
+        };
+        t1.start();
+        t2.start();
     }
 
     private void readMessageLoop() {
         try {
-            String line;
-            while ((line = bufferedIn.readLine()) != null) {
-                String[] tokens = line.split( " " );
-                if (tokens != null && tokens.length > 0) {
-                    String cmd = tokens[0];
-                    if ("online".equalsIgnoreCase(cmd)) {
-                        handleOnline(tokens);
-                    } else if ("offline".equalsIgnoreCase(cmd)) {
-                        handleOffline(tokens);
-                    } else if ("msg".equalsIgnoreCase(cmd)) {
-                        String[] tokensMsg = line.split( " ",3 );
-                        handleMessage(tokensMsg);
+            String clientIn;
+
+            while (true) {
+                if((clientIn = bufferedIn.readLine()) != null ) {
+                    System.out.println(clientIn);
+                    String[] tokens = clientIn.split(" ");
+                    if (tokens != null && tokens.length > 0) {
+                        String cmd = tokens[0];
+                        if ("online".equalsIgnoreCase(cmd)) {
+                            handleOnline(tokens);
+                        } else if ("offline".equalsIgnoreCase(cmd)) {
+                            handleOffline(tokens);
+                        } else if ("msg".equalsIgnoreCase(cmd)) {
+                            String[] tokensMsg = clientIn.split(" ", 3);
+                            handleMessage(tokensMsg);
+                        }
                     }
                 }
+
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -118,6 +145,25 @@ public class ChatClient {
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void sendMessageLoop(){
+        try {
+            String userIn;
+            while (true) {
+                if ((userIn = inFromUser.readLine()) != null){
+                    this.msg("test2", userIn);
+                    System.out.println(userIn);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            try {
+                socket.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
         }
     }
@@ -152,6 +198,8 @@ public class ChatClient {
             this.serverOut = socket.getOutputStream();
             this.serverIn = socket.getInputStream();
             this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
+            inFromUser = new BufferedReader(new InputStreamReader(System.in));
+            clientOut = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
