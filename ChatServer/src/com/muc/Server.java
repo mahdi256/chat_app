@@ -12,7 +12,7 @@ public class Server extends Thread {
 	private final int serverPort;
 	private ArrayList<ServerWorker> workerList;
 
-	// constructor
+	// constructor (Port und ServerWorkerListe wird von ServerMain übergeben)
 	public Server(int serverPort, ArrayList<ServerWorker> workerList) {
 		this.serverPort = serverPort;
 		this.workerList = workerList;
@@ -25,9 +25,9 @@ public class Server extends Thread {
 	@Override
 	public void run() {
 		try {
-			ServerSocket serverSocket = new ServerSocket(serverPort);
-			while (true) {
-				Socket clientSocket = serverSocket.accept();
+			ServerSocket serverSocket = new ServerSocket(serverPort); //Socket wird erstellt
+			while (true) { //Endlosschleife
+				Socket clientSocket = serverSocket.accept(); //Socket wartet auf Eröffung eines Sockets von einem Client
 				// create a new Thread for each user/Client
 				ServerWorker worker = new ServerWorker(this, clientSocket);
 				synchronized (workerList) {
