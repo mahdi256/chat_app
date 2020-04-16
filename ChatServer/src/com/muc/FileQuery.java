@@ -15,7 +15,7 @@ public class FileQuery {
 //	returnStringArray[0] is reserved for the username of the sender of the message in returnStringArray[1]
 
 	// Method for getting filename of a chat-file by providing all involved users in a String-Array
-	public File getFilename(String[] participant) {
+	private File getFilename(String[] participant) {
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
