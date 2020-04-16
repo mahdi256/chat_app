@@ -54,7 +54,7 @@ public class UserGraphInterface extends JPanel implements UserStatusListener {
 
         if (client.connect()){
            try {
-              client.login( "test1","test1" );
+              client.login();
           }catch (IOException e){
               e.printStackTrace();
           }
