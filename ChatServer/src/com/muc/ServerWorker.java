@@ -45,7 +45,7 @@ public class ServerWorker extends Thread {
 					if ("logoff".equals(cmd) || "quit".equalsIgnoreCase(cmd)) { //wenn logoff-Commando empfangen wird
 						handleLogoff();
 						break;
-					} else if ("login".equalsIgnoreCase(cmd)) { // wenn login-Comanndo empfangend wird
+					} else if ("login".equalsIgnoreCase(cmd)) { // wenn login-Comando empfangend wird
 						handleLogin(outputStream, tokens);
 					} else if ("msg".equalsIgnoreCase(cmd)) { // wenn msg-Commando empfangend wird
 						String[] tokensMsg = line.split(" ", 3);
@@ -58,6 +58,11 @@ public class ServerWorker extends Thread {
 						String msg = "unknown " + cmd + "\n"; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
 						outputStream.write(msg.getBytes());
 					}
+					//Kommando von Client wenn er Chat anfordert:
+						//Methode zum auslesen und zurückgeben eines Chats aufrufen
+					
+					//Kommando von Client wenn er neuen Chat erstellt hat
+						//Methode zum erstellen eines neuen Chats aufrufen
 				}
 			}
 		}
@@ -83,29 +88,36 @@ public class ServerWorker extends Thread {
 		}
 	}
 
+//zu ergänzen: Trennzeichen zwischen user und body oder user kennzeichen oder anders lösen
 	// format: "msg" "login" body...
-	// format: "msg" "#topic" body...
+	// format: "msg" "login1" "login2" "login3" "login4" body..
 	private void handleMessage(String[] tokens) throws IOException {
 		String sendTo = tokens[1];
+//ergänzen: sendTo Loop handeln
 		String body = tokens[2];
 
-		boolean isTopic = sendTo.charAt(0) == '#'; // Prüfen ob ertes Zeichen von sendTo # entspeicht -> # bedeutet Gruppenchat
+//Methode writeChatMessage(String[] participant,String sender, String message) aufrufen
+//Methode sendChatToAllParticipants(String[] users) aufrufen
 
-		List<ServerWorker> workerList = server.getWorkerList(); //erstellt lokale Kopie der WorkerList vom Server
-		for (ServerWorker worker : workerList) {
-			if (isTopic) { //wird ausgeführt wenn es sich um einen Gruppenchat handelt
-				if (worker.isMemberOfTopic(sendTo)) {
-					String outMsg = "msg " + sendTo + ":" + login + " " + body + "\n";
-					worker.send(outMsg); // Commando msg mit Topic:username wird an CLient gesendet
-	//Hier fehlt etwas: Es wird weder im ServerWorker noch beim Client geprüft ob der User teil der Topic(Gruppe) ist
-				}
-			} else { //wird ausgeführt, wenn es kein Gruppenchat ist
-				if (sendTo.equalsIgnoreCase(worker.getLogin())) {
-					String outMsg = "msg " + login + " " + body + "\n";
-					worker.send(outMsg); //Commando mit msg wird an Client gesendet
-				}
-			}
-		}
+		
+		
+//		boolean isTopic = sendTo.charAt(0) == '#'; // Prüfen ob ertes Zeichen von sendTo # entspeicht -> # bedeutet Gruppenchat
+
+//		List<ServerWorker> workerList = server.getWorkerList(); //erstellt lokale Kopie der WorkerList vom Server
+//		for (ServerWorker worker : workerList) {
+//			if (isTopic) { //wird ausgeführt wenn es sich um einen Gruppenchat handelt
+//				if (worker.isMemberOfTopic(sendTo)) {
+//					String outMsg = "msg " + sendTo + ":" + login + " " + body + "\n";
+//					worker.send(outMsg); // Commando msg mit Topic:username wird an CLient gesendet
+//	//Hier fehlt etwas: Es wird weder im ServerWorker noch beim Client geprüft ob der User teil der Topic(Gruppe) ist
+//				}
+//			} else { //wird ausgeführt, wenn es kein Gruppenchat ist
+//				if (sendTo.equalsIgnoreCase(worker.getLogin())) {
+//					String outMsg = "msg " + login + " " + body + "\n";
+//					worker.send(outMsg); //Commando mit msg wird an Client gesendet
+//				}
+//			}
+//		}
 	}
 
 	private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
@@ -131,36 +143,40 @@ public class ServerWorker extends Thread {
 			String login = tokens[1]; //login = username
 			String password = tokens[2];
 
-			if ((login.equals("test1") && password.equals("test1")) // username und password werden verglichen
-					|| (login.equals("test2") && password.equals("test2"))) {
-				String msg = "ok login\n";
+//			if ((login.equals("test1") && password.equals("test1")) // username und password werden verglichen
+//					|| (login.equals("test2") && password.equals("test2"))) {
+//hier wird checkLoginCredentials() aufgerufen
+// wenn Rückgabe = 2, rufe findeAlleChatsDesUsers(user) [diese Methode gibt alle Chats zurück] auf und sende "ok login Chat1 Chat2 Chat3 ChatN" an Client
+// wenn Rückgabe = 0, rufe addUserToUserlist() auf und rufe findeAlleChatsDesUsers(user) [diese Methode gibt alle Chats zurück] auf und sende "ok login Chat1 Chat2 Chat3 ChatN" an Client
+// wenn Rückgabe = 1, sende Fehler
+				String msg = "ocreateChatFile(String[] participant)k login\n";
 				outputStream.write(msg.getBytes()); // "ok login" wird an Client gesendet wenn Logindaten korrekt
 				this.login = login; //username wird in Klassen-Variable gespeichert
 				System.out.println("User logged in succesfully: " + login + " Server: " + this.server.getServerPort());
 
-				List<ServerWorker> workerList = server.getWorkerList(); // lokale Kopie der workerList vom sever wird erstellt
-
-				// send current user all other online logins (sendet Liste aller Clients die online sind an zu diesem ServerWorker gehörenden Client)
-				for (ServerWorker worker : workerList) {
-					if (worker.getLogin() != null) {
-						if (!login.equals(worker.getLogin())) {
-							String msg2 = "online " + worker.getLogin() + "\n";
-							send(msg2);
-						}
-					}
-				}
-
-				// send other online users current user's status (sendet Nachricht an alle Clients, dass dieser Client online gegangen ist)
-				String onlineMsg = "online " + login + "\n";
-				for (ServerWorker worker : workerList) {
-					if (!login.equals(worker.getLogin())) {
-						worker.send(onlineMsg);
-					}
-				}
-			} else {
-				String msg = "error login\n";
-				outputStream.write(msg.getBytes());
-			}
+//				List<ServerWorker> workerList = server.getWorkerList(); // lokale Kopie der workerList vom sever wird erstellt
+//
+//				// send current user all other online logins (sendet Liste aller Clients die online sind an zu diesem ServerWorker gehörenden Client)
+//				for (ServerWorker worker : workerList) {
+//					if (worker.getLogin() != null) {
+//						if (!login.equals(worker.getLogin())) {
+//							String msg2 = "online " + worker.getLogin() + "\n";
+//							send(msg2);
+//						}
+//					}
+//				}
+//
+//				// send other online users current user's status (sendet Nachricht an alle Clients, dass dieser Client online gegangen ist)
+//				String onlineMsg = "online " + login + "\n";
+//				for (ServerWorker worker : workerList) {
+//					if (!login.equals(worker.getLogin())) {
+//						worker.send(onlineMsg);
+//					}
+//				}
+//			} else {
+//				String msg = "error login\n";
+//				outputStream.write(msg.getBytes());
+//			}
 		}
 	}
 
@@ -169,4 +185,34 @@ public class ServerWorker extends Thread {
 			outputStream.write(msg.getBytes());
 		}
 	}
+	
+// Methode zum auslesen und zurückgeben eines Chats readChat()
+	//usernames werden mitgegeben
+	// readChat(String[] participant) ausfüren
+	//Nachricht an Client mit Chat-Verlauf senden
+	
+// Methode zum versenden des aktualisierten Chats an alle Chatmitglieder sendChatToAllParticipants()
+	//user[] wird übergeben
+	// Loop über user[] mit Index i
+	//	for (ServerWorker worker : workerList) {
+	//		if (worker.getLogin().equals(user[i])) {
+	//			worker.readChat();
+	//		}
+	//	}
+	
+// Methode zum erstellen eines neuen Chats
+	//usernames werden mitgegeben
+	// createChatFile(String[] participant) wird aufgerufen
+	// Loop über user[] mit Index i
+	//	for (ServerWorker worker : workerList) {
+	//		if (worker.getLogin().equals(user[i])) {
+	//			worker.findeAlleChatsDesUsers();
+	//		}
+	//	}
+	
+// Methode findeAlleChatsDesUsers()
+	// String username = this.getlogin();
+	// rufe auf FileQuery findeAlleChatsDesUsers(String username) auf [muss Luca ganz bald mal machen]
+	// zurückgegeben wird Chat[]
+	
 }
