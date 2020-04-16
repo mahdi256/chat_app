@@ -60,6 +60,7 @@ public class UserGraphInterface extends JPanel implements UserStatusListener {
           }
         }
 
+
     }
 
     @Override
