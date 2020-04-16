@@ -9,7 +9,7 @@ public class ServerWorker extends Thread {
 
 	private final Socket clientSocket;
 	private final Server server;
-	private String login = null;
+	private String username = null;
 	private OutputStream outputStream;
 	private HashSet<String> topicSet = new HashSet<>();
 
@@ -125,34 +125,62 @@ public class ServerWorker extends Thread {
 		List<ServerWorker> workerList = server.getWorkerList();
 
 		// send other online users current user's status
-		String onlineMsg = "offline " + login + "\n";
+		String onlineMsg = "offline " + username + "\n";
 		for (ServerWorker worker : workerList) {
-			if (!login.equals(worker.getLogin())) {
+			if (!username.equals(worker.getUsername())) {
 				worker.send(onlineMsg);
 			}
 		}
 		clientSocket.close(); //Socket wird geschlossen
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUsername() {
+		return username;
 	}
 
 	private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException { //Methode 
 		if (tokens.length == 3) {
-			String login = tokens[1]; //login = username
+			String username = tokens[1];
 			String password = tokens[2];
+			String msg = null;
 
-//			if ((login.equals("test1") && password.equals("test1")) // username und password werden verglichen
-//					|| (login.equals("test2") && password.equals("test2"))) {
-//hier wird checkLoginCredentials() aufgerufen
+			int CValue = FileQuery.checkLoginCredentials(username, password);
+
+			switch(CValue) {
+				case 0: // User nicht vorhanden, Neu-Registrierung
+					msg = "This account does not exist, would you like to create a new one with this credentials?\n";
+					outputStream.write(msg.getBytes());
+					//Fragefeld Ja oder Nein?
+					//if (true){
+					//   if(username != null && password != null) {
+					//FileQuery.addUserToUserlist(username, password);
+					msg = "user added\n";
+					outputStream.write(msg.getBytes());
+					//               openHomeScreen();
+					// 	 } else "Your username and password is empty!"
+					//} else schließt sich Fragefeld
+					// }
+					break;
+
+				case 1: // Passwort falsch
+					msg = "wrong password\n";
+					outputStream.write(msg.getBytes());
+					break;
+				case 2: // Login erfolgreich
+					msg = "ok login\n";
+					outputStream.write(msg.getBytes()); // "ok login" wird an Client gesendet wenn Logindaten korrekt
+					this.username = username; //username wird in Klassen-Variable gespeichert
+					System.out.println("User logged in succesfully: " + username + " Server: " + this.server.getServerPort());
+					//findAllChatsOfUser(username); LUCA
+					break;
+			}
+
+
+
+
 // wenn Rückgabe = 2, rufe findeAlleChatsDesUsers(user) [diese Methode gibt alle Chats zurück] auf und sende "ok login Chat1 Chat2 Chat3 ChatN" an Client
 // wenn Rückgabe = 0, rufe addUserToUserlist() auf und rufe findeAlleChatsDesUsers(user) [diese Methode gibt alle Chats zurück] auf und sende "ok login Chat1 Chat2 Chat3 ChatN" an Client
 // wenn Rückgabe = 1, sende Fehler
-				String msg = "ocreateChatFile(String[] participant)k login\n";
-				outputStream.write(msg.getBytes()); // "ok login" wird an Client gesendet wenn Logindaten korrekt
-				this.login = login; //username wird in Klassen-Variable gespeichert
-				System.out.println("User logged in succesfully: " + login + " Server: " + this.server.getServerPort());
 
 //				List<ServerWorker> workerList = server.getWorkerList(); // lokale Kopie der workerList vom sever wird erstellt
 //
@@ -181,14 +209,20 @@ public class ServerWorker extends Thread {
 	}
 
 	private void send(String msg) throws IOException { //Methode sendet Nachricht msg über outputStream an Client (flush wird nicht benötigt, wenn Nachricht \n enhält)
-		if (login != null) {
+		if (username != null) {
 			outputStream.write(msg.getBytes());
 		}
+	}
+
+	private void readChat(String[] participant){
+
+		//FileQuery.readChat(String[] participant);
+
 	}
 	
 // Methode zum auslesen und zurückgeben eines Chats readChat()
 	//usernames werden mitgegeben
-	// readChat(String[] participant) ausfüren
+	// readChat(String[] participant) ausführen
 	//Nachricht an Client mit Chat-Verlauf senden
 	
 // Methode zum versenden des aktualisierten Chats an alle Chatmitglieder sendChatToAllParticipants()
@@ -199,7 +233,8 @@ public class ServerWorker extends Thread {
 	//			worker.readChat();
 	//		}
 	//	}
-	
+
+	private void createChat(){}
 // Methode zum erstellen eines neuen Chats
 	//usernames werden mitgegeben
 	// createChatFile(String[] participant) wird aufgerufen
@@ -214,5 +249,28 @@ public class ServerWorker extends Thread {
 	// String username = this.getlogin();
 	// rufe auf FileQuery findeAlleChatsDesUsers(String username) auf [muss Luca ganz bald mal machen]
 	// zurückgegeben wird Chat[]
+
+	//Methode um UI-Input in String[] participants zu packen
+	private String[] createParticipantArray(/*String InputStream (participants)*/){
+		String[] temp = null;
+		String participantList = null;
+
+		try {
+			participantList = InputStream.readLine();
+			temp = participantList.split("|");
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+		String[] participants = new String[temp.length];
+
+		int x = 0;
+		for(int i = 0; i < temp.length; i++){
+			participants[i] = temp[x];
+			x++;
+		}
+
+		return participants;
+
+	}
 	
 }
