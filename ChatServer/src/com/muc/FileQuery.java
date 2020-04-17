@@ -114,6 +114,41 @@ public class FileQuery {
 
 		return returnStringArray;
 	}
+	
+	
+	//Diese Methode gibt die Namen aller Chats zurück in der sich eine Person befindet. 
+	// Das Übergabeparameter "user" ist case-sensitive!
+	public String[] getAllChatsOfUser(String user) {
+		
+		String path = null;
+		try {
+			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+		
+		String[] temp = new String[listOfFiles.length];
+		
+		int z = 0;
+		for (int i = 0; i < listOfFiles.length; i++) {
+		  if (listOfFiles[i].isFile()) {
+		    if(listOfFiles[i].getName().contains("#"+user+"#")) {
+		    	temp[z] = listOfFiles[i].getName();
+		    	z++;
+		    }
+		  }
+		}
+		
+		String[] Chat = new String[z];
+		
+		for (int i = 0; i < Chat.length; i++) {
+			Chat[i] = temp[i].substring(0, temp[i].length() - 4);
+		}
+
+		return Chat;
+	}
 
 	// Method for creating the userlist (should only be executed once)
 	public String createUserlist() {
