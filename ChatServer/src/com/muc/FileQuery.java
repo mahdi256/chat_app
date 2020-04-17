@@ -55,7 +55,7 @@ public class FileQuery {
 	
 
 	// Method for creating a file that contains a chat
-	public void createChatFile(String[] participant) {
+	public static void createChatFile(String[] participant) {
 
 		File chatfile = getFilename(participant);
 
@@ -72,7 +72,7 @@ public class FileQuery {
 	}
 
 	// Method for writing a chatmessage to file
-	public void writeChatMessage(String[] participant,String sender, String message) {
+	public static void writeChatMessage(String[] participant,String sender, String message) {
 
 		File chatfile = getFilename(participant);
 

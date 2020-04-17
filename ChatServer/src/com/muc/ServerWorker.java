@@ -1,7 +1,9 @@
 package com.muc;
 
+import javax.swing.text.AbstractDocument;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -10,8 +12,10 @@ public class ServerWorker extends Thread {
 	private final Socket clientSocket;
 	private final Server server;
 	private String username = null;
+	private String openedChat = null;
 	private OutputStream outputStream;
 	private HashSet<String> topicSet = new HashSet<>();
+	private ArrayList<ServerWorker> workerList;
 
 	public ServerWorker(Server server, Socket clientSocket) {
 		this.server = server;
@@ -35,7 +39,7 @@ public class ServerWorker extends Thread {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
-		while (true) { //Endlosschleifen
+		/*while (true) { //Endlosschleifen
 			line = reader.readLine(); //wartet auf eingehende Nachrichten
 			if (line != null) {
 				System.out.println(line);
@@ -67,9 +71,9 @@ public class ServerWorker extends Thread {
 			}
 		}
 
-		clientSocket.close();
+		clientSocket.close();*/
 	}
-
+/*
 	private void handleLeave(String[] tokens) {//Methode die Topic(Gruppe) aus tokens[1] der HashMap Topic entfernt
 		if (tokens.length > 1) {
 			String topic = tokens[1];
@@ -87,14 +91,23 @@ public class ServerWorker extends Thread {
 			topicSet.add(topic);
 		}
 	}
-
+*/
 //zu ergänzen: Trennzeichen zwischen user und body oder user kennzeichen oder anders lösen
 	// format: "msg" "login" body...
 	// format: "msg" "login1" "login2" "login3" "login4" body..
-	private void handleMessage(String[] tokens) throws IOException {
-		String sendTo = tokens[1];
+//	private void handleMessage(String[] tokens) throws IOException {
+//		String sendTo = tokens[1];
 //ergänzen: sendTo Loop handeln
-		String body = tokens[2];
+//		String body = tokens[2];
+
+	private void sendMessage(InputStream /* message */){
+		String username = getUsername();
+		String openedChat = getOpenedChat();
+		String[] participants = createParticipantArray(openedChat);
+		FileQuery.writeChatMessage(participants, username, /* message*/);
+		loadChatAll(openedChat);
+	}
+
 
 //Methode writeChatMessage(String[] participant,String sender, String message) aufrufen
 //Methode sendChatToAllParticipants(String[] users) aufrufen
@@ -118,13 +131,13 @@ public class ServerWorker extends Thread {
 //				}
 //			}
 //		}
-	}
+
 
 	private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
 		server.removeWorker(this);
 		List<ServerWorker> workerList = server.getWorkerList();
 
-		// send other online users current user's status
+		// send other online users current user's status, muss an UI angebunden werden
 		String onlineMsg = "offline " + username + "\n";
 		for (ServerWorker worker : workerList) {
 			if (!username.equals(worker.getUsername())) {
@@ -138,7 +151,12 @@ public class ServerWorker extends Thread {
 		return username;
 	}
 
-	private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException { //Methode 
+	public String getOpenedChat(){
+		return openedChat;
+	}
+
+	// Methode,  die Input des Login-Screens überprüft in dem Abgleich mit userlist
+	private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException {
 		if (tokens.length == 3) {
 			String username = tokens[1];
 			String password = tokens[2];
@@ -208,34 +226,43 @@ public class ServerWorker extends Thread {
 		}
 	}
 
-	private void send(String msg) throws IOException { //Methode sendet Nachricht msg über outputStream an Client (flush wird nicht benötigt, wenn Nachricht \n enhält)
+/*	private void send(String msg) throws IOException { //Methode sendet Nachricht msg über outputStream an Client (flush wird nicht benötigt, wenn Nachricht \n enhält)
 		if (username != null) {
 			outputStream.write(msg.getBytes());
 		}
+	}*/
+
+	// Methode, die aktualisierten Chat bei Klick auf Chatbutton lädt
+	private void loadChat(/*String Chattitel*/){
+		String input = ;//String Chattitel
+		// openedChat = String Chattitel
+		String[] participants = createParticipantArray(input);
+		String[][] chathistory = FileQuery.readChat(participants);
+		//Übergabe chathistory an UI
+
+	}
+	// Methode, die den Chat aller User aktualisiert, die in Chat drin sind & diesen gerade geöffnet haben
+	private void loadChatAll (/*String Chattitel (participants)*/){
+		String input = /*String Chattitel (participants)*/;
+		String[] participants = createParticipantArray(input);
+		for(ServerWorker worker : workerList){
+			for (i = 0; i < participants.length; i++){
+			if (worker.getUsername().equals(participants[i]) && worker.getOpenedChat().equals(input)){
+				worker.loadChat(/*input*/);
+				}
+		}}
 	}
 
-	private void readChat(String[] participant){
-
-		//FileQuery.readChat(String[] participant);
-
+	//Methode, die neuen Chat mit gegebenem Input erstellt & created-Message reinschreibt
+	private void createChat(/*String InputStream (participants)*/){
+		//String input = String InputStream (participants);
+		String[] participants = createParticipantArray(/*input*/);
+		FileQuery.createChatFile(participants);
+		String msg = "Chat created on " + System.currentTimeMillis();
+		FileQuery.writeChatMessage(participants, username, msg);
 	}
-	
-// Methode zum auslesen und zurückgeben eines Chats readChat()
-	//usernames werden mitgegeben
-	// readChat(String[] participant) ausführen
-	//Nachricht an Client mit Chat-Verlauf senden
-	
-// Methode zum versenden des aktualisierten Chats an alle Chatmitglieder sendChatToAllParticipants()
-	//user[] wird übergeben
-	// Loop über user[] mit Index i
-	//	for (ServerWorker worker : workerList) {
-	//		if (worker.getLogin().equals(user[i])) {
-	//			worker.readChat();
-	//		}
-	//	}
 
-	private void createChat(){}
-// Methode zum erstellen eines neuen Chats
+	// Methode zum erstellen eines neuen Chats
 	//usernames werden mitgegeben
 	// createChatFile(String[] participant) wird aufgerufen
 	// Loop über user[] mit Index i
@@ -245,22 +272,18 @@ public class ServerWorker extends Thread {
 	//		}
 	//	}
 	
-// Methode findeAlleChatsDesUsers()
+	// Methode findeAlleChatsDesUsers()
 	// String username = this.getlogin();
 	// rufe auf FileQuery findeAlleChatsDesUsers(String username) auf [muss Luca ganz bald mal machen]
 	// zurückgegeben wird Chat[]
 
-	//Methode um UI-Input in String[] participants zu packen
-	private String[] createParticipantArray(/*String InputStream (participants)*/){
+	//Methode, um UI-Input in String[] participants zu packen
+	private String[] createParticipantArray(String InputStream){
 		String[] temp = null;
-		String participantList = null;
+		InputStream = InputStream + username;
 
-		try {
-			participantList = InputStream.readLine();
-			temp = participantList.split("|");
-		} catch(IOException e){
-			e.printStackTrace();
-		}
+		temp = InputStream.split("#");
+
 		String[] participants = new String[temp.length];
 
 		int x = 0;
