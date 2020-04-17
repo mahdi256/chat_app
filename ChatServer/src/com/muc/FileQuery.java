@@ -15,7 +15,7 @@ public class FileQuery {
 //	returnStringArray[0] is reserved for the username of the sender of the message in returnStringArray[1]
 
 	// Method for getting filename of a chat-file by providing all involved users in a String-Array
-	private File getFilename(String[] participant) {
+	private static File getFilename(String[] participant) {
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
@@ -55,7 +55,7 @@ public class FileQuery {
 	
 
 	// Method for creating a file that contains a chat
-	public void createChatFile(String[] participant) {
+	public static void createChatFile(String[] participant) {
 
 		File chatfile = getFilename(participant);
 
@@ -72,7 +72,7 @@ public class FileQuery {
 	}
 
 	// Method for writing a chatmessage to file
-	public void writeChatMessage(String[] participant,String sender, String message) {
+	public static void writeChatMessage(String[] participant,String sender, String message) {
 
 		File chatfile = getFilename(participant);
 
@@ -87,7 +87,7 @@ public class FileQuery {
 	}
 
 	// Method for reading a chat from file
-	public String[][] readChat(String[] participant) {
+	public static String[][] readChat(String[] participant) {
 		String[] temp = null;
 		String chatfiletext = null;
 
@@ -114,6 +114,41 @@ public class FileQuery {
 
 		return returnStringArray;
 	}
+	
+	
+	//Diese Methode gibt die Namen aller Chats zurück in der sich eine Person befindet. 
+	// Das Übergabeparameter "user" ist case-sensitive! //
+	public String[] getAllChatsOfUser(String user) {
+		
+		String path = null;
+		try {
+			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+		
+		String[] temp = new String[listOfFiles.length];
+		
+		int z = 0;
+		for (int i = 0; i < listOfFiles.length; i++) {
+		  if (listOfFiles[i].isFile()) {
+		    if(listOfFiles[i].getName().contains("#"+user+"#")) {
+		    	temp[z] = listOfFiles[i].getName();
+		    	z++;
+		    }
+		  }
+		}
+		
+		String[] Chat = new String[z];
+		
+		for (int i = 0; i < Chat.length; i++) {
+			Chat[i] = temp[i].substring(0, temp[i].length() - 4);
+		}
+
+		return Chat;
+	}
 
 	// Method for creating the userlist (should only be executed once)
 	public String createUserlist() {
@@ -137,7 +172,7 @@ public class FileQuery {
 	}
 
 	// Method for checking Login credentials
-	public int checkLoginCredentials(String username, String password) {
+	public static int checkLoginCredentials(String username, String password) {
 		int loginCredentialsCorrect = 0; // 2 login credetials are correct, 1 user exists but password is incorrect, 0 user does not exist
 		
 		String path = null;
@@ -162,8 +197,10 @@ public class FileQuery {
 		for (int i = 0; i < temp.length; i = i+2) {
 			if(username.equals(temp[i])) {
 				System.out.println("Username exists");
+				loginCredentialsCorrect++;
 				if(password.equals(temp[i+1])){
 					System.out.println("Password ist also correct");
+					loginCredentialsCorrect++;
 				}
 			}
 		}
@@ -184,7 +221,7 @@ public class FileQuery {
 		try {
 			File userlist = new File(path +"/userlist.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(userlist, true));
-			writer.write(username+"~"+password+"#"); // # is used as seperator
+			writer.write(username+"#"+password+"#"); // # is used as seperator
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("Error while writing to file" + e.getStackTrace());
