@@ -118,7 +118,7 @@ public class FileQuery {
 	
 	//Diese Methode gibt die Namen aller Chats zurück in der sich eine Person befindet. 
 	// Das Übergabeparameter "user" ist case-sensitive! //
-	public String[] getAllChatsOfUser(String user) {
+	public static String[] getAllChatsOfUser(String user) {
 		
 		String path = null;
 		try {
