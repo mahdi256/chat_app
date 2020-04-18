@@ -1,3 +1,4 @@
+/*
 package com.muc;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.io.IOException;
 /**
  * Created by Mahmoud on 03,2020
  */
+/*
 public class LoginWin extends JFrame {
     private final ChatClient client;
     JTextField loginField = new JTextField(  );
@@ -75,3 +77,5 @@ public class LoginWin extends JFrame {
     }
 
 }
+
+*/

@@ -1,3 +1,5 @@
+/*
+
 package com.muc;
 
 import javax.swing.*;
@@ -6,9 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-/**
- * Created by Mahmoud on 03,2020
- */
+
+
 public class MessagePane extends JPanel implements MessageListener {
     private final String login;
     private final ChatClient client;
@@ -21,7 +22,7 @@ public class MessagePane extends JPanel implements MessageListener {
     public MessagePane(ChatClient client, String login) {
         this.client = client;
         this.login = login;
-        client.addMessageListener( this );
+        //client.addMessageListener( this );
         setLayout( new BorderLayout(  ) );
         add(new JScrollPane( messageList ), BorderLayout.CENTER );
         add(inputField, BorderLayout.SOUTH);
@@ -31,7 +32,7 @@ public class MessagePane extends JPanel implements MessageListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String text = inputField.getText();
-                    client.msg( login, text );
+                //    client.msg( login, text );
                     listModel.addElement("you: "+text);
                     inputField.setText( "" );
 
@@ -50,4 +51,4 @@ public class MessagePane extends JPanel implements MessageListener {
 
         }
     }
-}
+}*/
