@@ -26,17 +26,20 @@ public class GUI {
     JTextField  passwordField;
     JFrame      loginFrame;
     JPanel messagePanel = new JPanel();
+    String[][] chatHistory;
+    String username;
 
 
 
-    String[] lastChats = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
+    String[] lastChats = {}; //{"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
     //String[][] lastChatsPreview = {{"user a", "Me: vdmlfmvlkfdmvldkfmv"}, {"user b", "user b: dmklmlsmfösf,sfl,öd,"}, {"user c", "me: dfgkglkfoeföodskföoekfok"}, {"user d", "me: fdfklmliefmwefopmeo"}};
-    String[][] chatHistoryArray = {/* nur das hier zurückgeben*/{"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}, {"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}, {"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}};
-    List<String[]> chatHistory1 = Arrays.asList(chatHistoryArray);
-    List<String[]> chatHistory = new ArrayList<>(chatHistory1);
+    // {/* nur das hier zurückgeben*/{"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}, {"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}, {"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"},{"me", "14.04.2020 - 20:10", "erste Nachricht"}, {"user a", "14.04.2020 - 20:11", "zweite Nachricht"}};
+    //List<String[]> chatHistory1 = Arrays.asList(chatHistoryArray);
+    //List<String[]> chatHistory = new ArrayList<>(chatHistory1);
 
-    int numberOfMessages = chatHistory.size();
+    //int numberOfMessages = chatHistory.();
     public static void main(String[] args) {
+        /*
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -46,15 +49,19 @@ public class GUI {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                */
                 GUI gui = new GUI();
                 //gui.emojis();
-                gui.messanger();
-            }
-        });
+                //gui.messanger();
+                gui.login();
+          //  }
+      //  });
     }
 
     public boolean interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
+        return true;
+
 
     }
 
@@ -67,7 +74,12 @@ public class GUI {
 
     public void interfaceReceiveNewUserList(String[] userList){
         // ihr ruft die auf
+
         // ich baue links die User-Liste neu auf
+    }
+
+    public void interfaceSendClickedChat(String clickedChat){
+
     }
 
     public void interfaceUIReceiveNewChatHistory(String[] newChatHistory){
@@ -80,20 +92,22 @@ public class GUI {
 
         // Aufruf eurer Methode
 
-
-        String[] sentMessageArray = {"antwort user", "zeit", sentMessage};
+        // das dann entfernen, denn ich bekomme die neue History automatisch
+        String[][] sentMessageArray = {{"antwort user", "zeit", sentMessage}};
         interfaceReceiveMessage(sentMessageArray);
     }
 
 
-    public void interfaceReceiveMessage(String[] receivedMessage){
+    public void interfaceReceiveMessage(String[][] receivedMessage){
         updateChatHistory(receivedMessage);
     }
 
-    public void updateChatHistory(String[] newMessage){
-        chatHistory.add(chatHistory.size(), newMessage);
+    public void updateChatHistory(String[][] newChatHistory){
         messagePanel.removeAll();
-        numberOfMessages = chatHistory.size();
+        messagePanel.revalidate();
+        messagePanel.repaint();
+
+        int numberOfMessages = newChatHistory.length;
         messagePanel.setLayout(new GridBagLayout());
         for (int i = 0; i < numberOfMessages; i++) {
 
@@ -112,11 +126,12 @@ public class GUI {
             metaDataLabel.setContentType("text/html");
 
             // links oder rechts je nach Sender/Empfänger
-            if (chatHistory.get(i)[0] != "me") {
-                metaDataLabel.setText("<html> <font size=\"3\">"+ chatHistory.get(i)[1] + "</font><br/><font size=\"5\">" + chatHistory.get(i)[2] + "</font></html>");
+            if (newChatHistory[i][0] != username) {
+                metaDataLabel.setText("<html> <font size=\"3\">"+ newChatHistory[i][1] + "</font><br/><font size=\"5\">" + newChatHistory[i][2] + "</font></html>");
             }
+
             else {
-                metaDataLabel.setText("<html> <div align=\"right\"> <font size=\"3\">"+ chatHistory.get(i)[1] + "</font><br/><font size=\"5\">" + chatHistory.get(i)[2] + "</font></div></html>");
+                metaDataLabel.setText("<html> <div align=\"right\"> <font size=\"3\">"+ newChatHistory[i][1] + "</font><br/><font size=\"5\">" + newChatHistory[i][2] + "</font></div></html>");
             }
             messagePanel.add(metaDataLabel, gbc1);
             //metaDataLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -162,7 +177,7 @@ public class GUI {
 
 
 
-        JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+       JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 
@@ -178,21 +193,71 @@ public class GUI {
     } // Bestätigung zurück?
 
     public void login() {
-        messangerFrame.setVisible(true);
-        loginFrame = new JFrame(title);
-        usernameField = new JTextField(15);
-        passwordField = new JTextField(15);
+        JFrame loginFrame = new JFrame("Login");
+        loginFrame.setVisible(true);
+        //loginFrame = new JFrame("Login");
+        usernameField = new JTextField(20);
+        passwordField = new JTextField(20);
 
-        JLabel chooseUsernameLabel = new JLabel("Username:");
-        JButton enterServer = new JButton("Enter Chat Server");
-        enterServer.addActionListener(new ActionListener() {
+        JLabel usernameLabel = new JLabel("Username:");
+        JLabel passwordLabel = new JLabel("Password:");
+
+
+        JLabel empty1 = new JLabel("");
+        JLabel empty2 = new JLabel("");
+        JLabel empty3 = new JLabel("");
+        JButton loginButton = new JButton("Login");
+        JButton registerButton = new JButton("Register");
+        JLabel successMessageLabel = new JLabel("Please enter your crendentials!");
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    String[] loginDataArray= {usernameField.getText(), passwordField.getText()};
-                    interfaceLogin(loginDataArray);
+                    String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "login"};
+                    boolean success = interfaceLogin(loginDataArray);
+                    if(success){
+                        username = usernameField.getText();
+                        loginFrame.setVisible(false);
+                        messanger();
+
+
+                    }
+                    else {
+                        successMessageLabel.setText("Login failed");
+                    }
+
             }
         });
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "register"};
+                boolean success = interfaceLogin(loginDataArray);
+                if(success){
+                    username = usernameField.getText();
+                    loginFrame.setVisible(false);
+                    messanger();
+                }
+                else {
+                    successMessageLabel.setText("Choose another username!");
+                }
+
+            }
+        });
+        loginFrame.setLayout(new FlowLayout());
+        loginFrame.add(usernameLabel);
+        loginFrame.add(usernameField);
+        loginFrame.add(passwordLabel);
+        loginFrame.add(passwordField);
+        loginFrame.add(empty1);
+        loginFrame.add(loginButton);
+        loginFrame.add(empty2);
+        loginFrame.add(registerButton);
+        loginFrame.add(empty3);
+        loginFrame.add(successMessageLabel);
+        loginFrame.pack();
+
         //enterServer.addActionListener(new enterServerButtonListener());
+        /*
         JPanel loginPanel = new JPanel(new GridBagLayout());
 
         GridBagConstraints loginRight = new GridBagConstraints();
@@ -213,6 +278,8 @@ public class GUI {
         loginFrame.add(BorderLayout.SOUTH, enterServer);
         loginFrame.setSize(300, 300);
         loginFrame.setVisible(true);
+
+        */
 
     }
 
@@ -316,7 +383,7 @@ public class GUI {
 
         }*/
 
-
+        int numberOfMessages = 0;
         messagePanel.setLayout(new GridBagLayout());
         for (int i = 0; i < numberOfMessages; i++) {
 
@@ -333,11 +400,11 @@ public class GUI {
                 JEditorPane metaDataLabel = new JEditorPane();
                 metaDataLabel.setEditable(false);
                 metaDataLabel.setContentType("text/html");
-            if (chatHistory.get(i)[0] != "me") {
-                metaDataLabel.setText("<html> <font size=\"3\">"+ chatHistory.get(i)[1] + "</font><br/><font size=\"5\">" + chatHistory.get(i)[2] + "</font></html>");
+            if (chatHistory[i][0] != username) {
+                metaDataLabel.setText("<html> <font size=\"3\">"+ chatHistory[i][1] + "</font><br/><font size=\"5\">" + chatHistory[i][2] + "</font></html>");
                 }
                 else {
-                metaDataLabel.setText("<html> <div align=\"right\"> <font size=\"3\">"+ chatHistory.get(i)[1] + "</font><br/><font size=\"5\">" + chatHistory.get(i)[2] + "</font></div></html>");
+                metaDataLabel.setText("<html> <div align=\"right\"> <font size=\"3\">"+ chatHistory[i][1] + "</font><br/><font size=\"5\">" + chatHistory[i][2] + "</font></div></html>");
                 }
                 messagePanel.add(metaDataLabel, gbc1);
                 //metaDataLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -485,14 +552,20 @@ public class GUI {
             lastChatsPanel.setLayout(new GridBagLayout());
 
             for (int j = 0; j < numberChats; j++) {
-                JButton button = new JButton(lastChats[j]);//lastChats[i]);
+                JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
+                userButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        interfaceSendClickedChat(userButton.getText());
+                    }
+                });
                 //button.setPreferredSize(new Dimension(100, 100));
                 //   Dimension d = button.getPreferredSize();
                 // d.height = 50;
                 //button.setPreferredSize(d);
-                button.setFont(new Font("Arial", Font.PLAIN, 17));
-                button.setHorizontalAlignment(SwingConstants.LEFT);
-                button.setVerticalAlignment(SwingConstants.TOP);
+                userButton.setFont(new Font("Arial", Font.PLAIN, 17));
+                userButton.setHorizontalAlignment(SwingConstants.LEFT);
+                userButton.setVerticalAlignment(SwingConstants.TOP);
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = 0;
                 gbc.gridy = j;
@@ -502,7 +575,7 @@ public class GUI {
                     gbc.weightx = 1.0;
                     gbc.weighty = 1.0;
                 }
-                lastChatsPanel.add(button, gbc);
+                lastChatsPanel.add(userButton, gbc);
             }
             for (int k = 0; k < numberChats; k++) {
                 GridBagConstraints gbc = new GridBagConstraints();
