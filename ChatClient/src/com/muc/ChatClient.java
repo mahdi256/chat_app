@@ -35,6 +35,7 @@ class ChatClient{
         System.out.println(serverPort); // Port des Servers mit dem kommuniziert wird, wird ausgegeben
         ChatClient client = new ChatClient("localhost", serverPort); //Objekt von ChatClient wird erstellt mit Server Port und Server Adresse
 
+
         userInterface = new GUI(client);
         userInterface.login();
 
@@ -60,14 +61,16 @@ class ChatClient{
     }
 
     public void openChat(String chatName){
-        clientOut.print("openChat " + chatName);
+        clientOut.println("openChat " + chatName);
         clientOut.flush();
         activeChat = chatName;
     }
 
     public void createChat(String allOtherUsers){
         String participants = allOtherUsers + " " + username; // zu den übergebenen anderen usern fügen wir uns selbst hinzu
-        clientOut.print("createChat " + participants);
+        participants = "createChat " + participants;
+        System.out.println(participants);
+        clientOut.println(participants);
         clientOut.flush();
     }
 
@@ -139,29 +142,31 @@ class ChatClient{
         return false;
     }
 
-        //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
-       public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
-           String ChatName = activeChat.replace(" ", "#!#%#");
-        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message + "\n"; //Command wird erstellt aus Empfänger und Nachricht
-        clientOut.print(cmd);
+    //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
+    public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
+        String ChatName = activeChat.replace(" ", "#!#%#");
+        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message; //Command wird erstellt aus Empfänger und Nachricht
+        clientOut.println(cmd);
         clientOut.flush(); // Command wird an Server gesendet
     }
 
     // boolean Login
     public boolean login(String username, String password, String entryMethod) throws IOException { //benötigt Parameter: username und passwort
-        String msg = "login " + username + " " + password + " " + entryMethod + "\n"; //Commando zum login wird aus username und passwort zusammengesetzt
-        clientOut.print(msg);
+        String msg = "login " + username + " " + password + " " + entryMethod; //Commando zum login wird aus username und passwort zusammengesetzt
+        clientOut.println(msg);
         clientOut.flush(); //Commando wird an Server gesendet
         String response = bufferedIn.readLine(); // Client wartet auf Nachricht vom Server
         System.out.println("Response Line:" + response);
         if ("login successful".equalsIgnoreCase(response)) { //Server sendet "ok login", wenn erfoglreich eingeloggt
-            clientOut.print("chatList");
+            this.username = username;
+            clientOut.println("chatList");
             clientOut.flush();
             return true;
         } else if("login failed".equalsIgnoreCase(response)) {
             return false; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
         }else if("registration successful".equalsIgnoreCase(response)){
-            clientOut.print("chatList");
+            this.username = username;
+            clientOut.println("chatList");
             clientOut.flush();
             return true;
         }else if("registration failed".equalsIgnoreCase(response)){

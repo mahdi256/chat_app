@@ -64,7 +64,7 @@ public class ServerWorker extends Thread {
 	// format: "msg" "login" body...
 
 	// Methode,  die Input des Login-Screens überprüft in dem Abgleich mit userlist
-	private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException {
+	private void handleLogin(String[] tokens) throws IOException {
 			String[] internTokens = tokens[1].split(" ");
 			String username = internTokens[0];
 			String password = internTokens[1];
@@ -102,13 +102,14 @@ public class ServerWorker extends Thread {
 
 	//lädt alle begonnen Konversationen des User, Rückgabe als String[]
 	public void loadChatlist(){
-		String username = getUsername();
-		String[] chatlist = FileQuery.getAllChatsOfUser(username);
+		//String username = getUsername();
+		String[] chatlist = FileQuery.getAllChatsOfUser(this.username);
 		String msg = "chatlist ";
-		for(int i = 0; i<chatlist.length-1; i++){
+		for(int i = 0; i<chatlist.length; i++){
 			msg= msg + chatlist[i]+ " ";
 		}
-		msg = msg+chatlist[chatlist.length-1]+"\n";
+		msg = msg+"\n";
+		System.out.println(chatlist);
 		try {
 			outputStream.write(msg.getBytes());
 		}catch (IOException e){
@@ -175,9 +176,10 @@ public class ServerWorker extends Thread {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
 		while (true) { //Endlosschleifen
+			System.out.println("hier komm ich auch noch hin");
 			line = reader.readLine(); //wartet auf eingehende Nachrichten
 			if (line != null) {
-				System.out.println(line);
+				System.out.println("Hier kommt die zeile" + line);
 				String[] tokens = line.split(" ", 2); //Teilt Nachricht in Teile
 				if (tokens != null && tokens.length > 0) {
 					String msg = tokens[0];
@@ -185,7 +187,7 @@ public class ServerWorker extends Thread {
 						//handleLogoff();
 						break;
 					} else if ("login".equalsIgnoreCase(msg)) { // wenn login-Comando empfangend wird
-						handleLogin(outputStream, tokens);
+						handleLogin(tokens);
 					} else if("chatList".equalsIgnoreCase(msg)) {
 						loadChatlist();
 					} else if ("message".equalsIgnoreCase(msg)) {
@@ -193,7 +195,7 @@ public class ServerWorker extends Thread {
 					} else if ("openChat".equalsIgnoreCase(msg)){
 						loadChat(tokens[1]);
 					} else if("createChat".equalsIgnoreCase(msg)){
-						createChat(tokens);
+						createChat(tokens[1]);
 					} else {
 						msg = "unknown " + msg + "\n"; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
 						outputStream.write(msg.getBytes());
@@ -210,8 +212,8 @@ public class ServerWorker extends Thread {
 		clientSocket.close();
 	}
 
-	private void createChat(String[] tokens){
-		String[] participants = tokens[1].split(" ");
+	private void createChat(String tokens){
+		String[] participants = tokens.split(" ");
 		FileQuery.createChatFile(participants);
 		String msg = "Chat erstellt: " + System.currentTimeMillis();
 		FileQuery.writeChatMessage(participants,username,msg,System.currentTimeMillis()+"");
@@ -221,7 +223,7 @@ public class ServerWorker extends Thread {
 					worker.loadChatlist();
 				}
 		}
-		this.loadChat(tokens[1]);
+		this.loadChat(tokens);
 	}
 
 	private void handleMessage(String[] tokens){

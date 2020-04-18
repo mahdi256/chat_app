@@ -77,6 +77,7 @@ public class GUI {
 
     public void interfaceAddUser(String user){
         // wird aufgerufen, wenn ein neuer Chat erstellt wird
+        System.out.println("i bims hier");
         client.createChat(user);
 
     }
