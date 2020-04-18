@@ -3,8 +3,10 @@ package com.muc;
 
 import javax.swing.tree.ExpandVetoException;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -12,13 +14,14 @@ class ChatClient{
     private String serverName;
     private static int serverPort;
     private Socket socket;
-    private InputStream serverIn;
-    private OutputStream serverOut;
+    private InputStream inputStream;
+    private OutputStream outputStream;
     private BufferedReader bufferedIn;
     private BufferedReader inFromUser;
     private PrintWriter clientOut;
     private String username;
     private String password;
+    private static GUI userInterface;
 
     private ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>(); // ArrayList, die Objekte von Klassen enthält, die das Interface UserStatusListener implementiert haben
     private ArrayList<MessageListener> messageListeners = new ArrayList<>(); // ArrayList, die Objekte von Klassen enthält, die das Interface MessageListener implementiert haben
@@ -34,11 +37,14 @@ class ChatClient{
         System.out.println(serverPort); // Port des Servers mit dem kommuniziert wird, wird ausgegeben
         ChatClient client = new ChatClient("localhost", serverPort); //Objekt von ChatClient wird erstellt mit Server Port und Server Adresse
 
-        if (!client.connect()) { //connect-Methode wird aufgerufen und Socket wird erstellt
+        userInterface = new GUI(client);
+        userInterface.login();
+
+        /*if (!client.connect()) { //connect-Methode wird aufgerufen und Socket wird erstellt
             System.err.println("Connect failed.");
         } else {
             System.out.println("Connect successful");
-
+        }*/
 // rufe UI (login) auf!
 // Aufruf der Login-Methode wird in Action Listener der GUI verschoben
 //            if (client.login()) {
@@ -50,16 +56,16 @@ class ChatClient{
 //            }
 //
 //            //client.logoff();
-        }
+
     }
 
     //ToDo startMessageReader(Chat[])
     private void startMessageReader() { //Methode erstellt zwei Threads für das senden und empfangen von Nachrichten
         Thread t1 = new Thread() {
-            /*@Override
+            @Override
             public void run() {
                 readMessageLoop();
-            }*/
+            }
         };
 //        Thread t2 = new Thread() {
 //            @Override
@@ -73,7 +79,10 @@ class ChatClient{
 // neue Methode: ladeCHats() aufrufen
     }
 
-    /*
+    public void openChat(String chatName){
+
+    }
+
     private void readMessageLoop() { //Methode die auf Nachrichten vom Server wartet und diese entsprechend verarbeitet
         try {
             String clientIn;
@@ -81,17 +90,23 @@ class ChatClient{
             while (true) { //endlosschleife
                 if((clientIn = bufferedIn.readLine()) != null ) { //Empfangene Nachricht wird in ClientIn geschrieben
                     System.out.println(clientIn); //Ausgabe nur zum kontrolle! User sollte das Commando nicht sehen
-                    String[] tokens = clientIn.split(" "); //Commando wird Teile geteilt
+                    String[] tokens = clientIn.split(" ", 2); //Commando wird Teile geteilt
                     if (tokens != null && tokens.length > 0) {
-                        String cmd = tokens[0]; //cmd = Erster Teil des Commandos
-                        if ("online".equalsIgnoreCase(cmd)) { //prüft ob cmd gleich "online", Groß und Kleinschreibung wird ignoriert
+                        String msg = tokens[0]; //cmd = Erster Teil des Commandos
+                        if("chatList".equalsIgnoreCase(msg)){
+                            handleChatList(tokens);
+                        }
+                        if("chat".equalsIgnoreCase(msg)){
+                            handleChat(tokens);
+                        }
+                        /*if ("online".equalsIgnoreCase(cmd)) { //prüft ob cmd gleich "online", Groß und Kleinschreibung wird ignoriert
                             handleOnline(tokens); //geteilter Befehl wird als Array mitgegeben
                         } else if ("offline".equalsIgnoreCase(cmd)) {
                             handleOffline(tokens);
                         } else if ("msg".equalsIgnoreCase(cmd)) { //prüft ob cmd gleich "msg", Groß und Kleinschreibung wird ignoriert
                             String[] tokensMsg = clientIn.split(" ", 3); //die eingegangene Nachricht clientIn wird neu geteilt (diesmal nur in drei Teile, damit nicht bei Leerzeichen in der Nachricht geteilt wird)
                             handleMessage(tokensMsg);
-                        }
+                        }*/
                         //else if wenn Kommando vom Server in dem der vorher angefragte CHatverlauf steht
                         //dann wird neue Methode, die unten beschrieben ist, ausgeführt
 
@@ -109,17 +124,32 @@ class ChatClient{
                 e.printStackTrace();
             }
         }
-    }*/
+    }
+
+    private void handleChatList(String[] tokens){
+        String[] chatList = tokens[1].split(" ");
+        userInterface.interfaceReceiveNewUserList(chatList);
+    }
+
+    private void handleChat(String[] tokens){
+        String[] messages = tokens[1].split("#!!!#");
+        String[][] chatHistory = new String[messages.length][3];
+        for(int i = 0;i<messages.length; i++){
+            for(int j=0; j<3;j++){
+                String[] parameters = messages[i].split("#!#%#");
+                chatHistory[i][j] = parameters[j];
+            }
+        }
+    }
 
     public boolean connect() { //Methode erstellt einen Socket, einen BufferedReader (inFromUser) und einen PrintWriter (clientOut)
         try {
             this.socket = new Socket(serverName, serverPort); //erstellt einen Socket zum Server
             System.out.println("Client port is " + socket.getLocalPort()); // Ausgabe auf welchem Port der Socket beim Client läuft
-            this.serverOut = socket.getOutputStream();
-            this.serverIn = socket.getInputStream();
-            this.bufferedIn = new BufferedReader(new InputStreamReader(serverIn));
-            inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            clientOut = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.outputStream = socket.getOutputStream();
+            this.inputStream = socket.getInputStream();
+            this.bufferedIn = new BufferedReader(new InputStreamReader(inputStream));
+            clientOut = new PrintWriter(new OutputStreamWriter(outputStream));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -160,27 +190,32 @@ class ChatClient{
     }*/
 
     // boolean Login
-      /*   public boolean login() throws IOException { //benötigt Parameter: username und passwort
-//        System.out.println("Username:");
-//        username = inFromUser.readLine();; // Der vom User eigegebene Username wird eingelesen
-//        System.out.println("Passwort:");
-//        password = inFromUser.readLine(); // Das vom User eigegebene Passwort wird eingelesen
-        String cmd = "login " + username + " " + password + "\n"; //Commando zum login wird aus username und passwort zusammengesetzt
-        clientOut.print(cmd);
+    public boolean login(String username, String password, String entryMethod) throws IOException { //benötigt Parameter: username und passwort
+        String msg = "login " + username + " " + password + " " + entryMethod + "\n"; //Commando zum login wird aus username und passwort zusammengesetzt
+        clientOut.print(msg);
         clientOut.flush(); //Commando wird an Server gesendet
         String response = bufferedIn.readLine(); // Client wartet auf Nachricht vom Server
         System.out.println("Response Line:" + response);
 // Antwort des Servers: "ok login Chat1 Chat2 Chat3 ChatN"
 // Speichere alle Chats ab
 // rufe startMessageReader(Chat[])
-//        if ("ok login".equalsIgnoreCase(response)) { //Server sendet "ok login", wenn erfoglreich eingeloggt
-//            startMessageReader(); //Anzeige der Chat-Startseite
-//            return true;
-//        } else {
-//            return false; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
-//        }
+        if ("login successful".equalsIgnoreCase(response)) { //Server sendet "ok login", wenn erfoglreich eingeloggt
+//          startMessageReader(); //Anzeige der Chat-Startseite
+            clientOut.print("chatList");
+            clientOut.flush();
+            return true;
+        } else if("login failed".equalsIgnoreCase(response)) {
+            return false; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
+        }else if("registration successful".equalsIgnoreCase(response)){
+            clientOut.print("chatList");
+            clientOut.flush();
+            return true;
+        }else if("registration failed".equalsIgnoreCase(response)){
+            return false;
+        }
+        return false;
         // Einfügen, dass Nachricht ausgegeben wird, wenn sich user neu registriert hat
-    }*/
+    }
 
     // logoff, durch UI useless
       /* public void logoff() throws IOException { //Methode sendet Befehl "logoff/n" an den Server

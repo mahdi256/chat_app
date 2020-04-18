@@ -28,9 +28,13 @@ public class GUI {
     JPanel messagePanel = new JPanel();
     String[][] chatHistory;
     String username;
+    ChatClient client;
     JPanel messageAndTypePanel = new JPanel();
     JScrollPane messagePane;
 
+    public GUI(ChatClient client){
+        this.client = client;
+    }
 
 
     String[] lastChats = {}; //{"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
@@ -62,9 +66,18 @@ public class GUI {
 
     public boolean interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
-        return true;
-
-
+        if(client.connect()){
+            try{
+                if(client.login(loginData[0], loginData[1], loginData[2])){
+                    return true;
+                }else{
+                    return false;
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public void interfaceAddUser(String user){
@@ -105,11 +118,9 @@ public class GUI {
     }
 
     public void updateChatHistory(String[][] newChatHistory){
-        messageAndTypePanel.remove(messagePane);
-
-        //messagePanel.removeAll();
-        //messagePanel.revalidate();
-        //messagePanel.repaint();
+        messagePanel.removeAll();
+        messagePanel.revalidate();
+        messagePanel.repaint();
 
         int numberOfMessages = newChatHistory.length;
         messagePanel.setLayout(new GridBagLayout());
@@ -502,6 +513,7 @@ public class GUI {
         typeBar.add(typeBarTextFieldScrollPane);
             typeBar.add(typeBarButtonPanel);
         //    typeBar.add(typeBarSendButton);
+            JPanel messageAndTypePanel = new JPanel();
             messageAndTypePanel.setLayout(new BoxLayout(messageAndTypePanel, BoxLayout.Y_AXIS));
             typeBar.setMinimumSize(new Dimension(100, 200));
             messageAndTypePanel.add(messagePane);
