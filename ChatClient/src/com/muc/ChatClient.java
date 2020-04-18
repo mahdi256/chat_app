@@ -1,12 +1,9 @@
 package com.muc;
 
 
-import javax.swing.tree.ExpandVetoException;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -22,6 +19,7 @@ class ChatClient{
     private String username;
     private String password;
     private static GUI userInterface;
+    private String activeChat;
 
     private ArrayList<UserStatusListener> userStatusListeners = new ArrayList<>(); // ArrayList, die Objekte von Klassen enthält, die das Interface UserStatusListener implementiert haben
     private ArrayList<MessageListener> messageListeners = new ArrayList<>(); // ArrayList, die Objekte von Klassen enthält, die das Interface MessageListener implementiert haben
@@ -45,17 +43,6 @@ class ChatClient{
         } else {
             System.out.println("Connect successful");
         }*/
-// rufe UI (login) auf!
-// Aufruf der Login-Methode wird in Action Listener der GUI verschoben
-//            if (client.login()) {
-//                System.out.println("Login successful");
-//
-//                //client.msg("test2", "Hello World!");
-//            } else {
-//                System.err.println("Login failed");
-//            }
-//
-//            //client.logoff();
 
     }
 
@@ -67,20 +54,21 @@ class ChatClient{
                 readMessageLoop();
             }
         };
-//        Thread t2 = new Thread() {
-//            @Override
-//            public void run() {
-//                sendMessageLoop();
-//            }
-//        };
+
         t1.start();
-//        t2.start();
-// hier wird GUI Chatseite aufgerufen!
-// neue Methode: ladeCHats() aufrufen
+
     }
 
     public void openChat(String chatName){
+        clientOut.print("openChat " + chatName);
+        clientOut.flush();
+        activeChat = chatName;
+    }
 
+    public void createChat(String allOtherUsers){
+        String participants = allOtherUsers + " " + username; // zu den übergebenen anderen usern fügen wir uns selbst hinzu
+        clientOut.print("createChat " + participants);
+        clientOut.flush();
     }
 
     private void readMessageLoop() { //Methode die auf Nachrichten vom Server wartet und diese entsprechend verarbeitet
@@ -93,25 +81,13 @@ class ChatClient{
                     String[] tokens = clientIn.split(" ", 2); //Commando wird Teile geteilt
                     if (tokens != null && tokens.length > 0) {
                         String msg = tokens[0]; //cmd = Erster Teil des Commandos
-                        if("chatList".equalsIgnoreCase(msg)){
+                        if("chatList".equalsIgnoreCase(msg)) {
                             handleChatList(tokens);
-                        }
-                        if("chat".equalsIgnoreCase(msg)){
+                        } else if("chat".equalsIgnoreCase(msg)){
+                            tokens = clientIn.split( " ", 3);
                             handleChat(tokens);
                         }
-                        /*if ("online".equalsIgnoreCase(cmd)) { //prüft ob cmd gleich "online", Groß und Kleinschreibung wird ignoriert
-                            handleOnline(tokens); //geteilter Befehl wird als Array mitgegeben
-                        } else if ("offline".equalsIgnoreCase(cmd)) {
-                            handleOffline(tokens);
-                        } else if ("msg".equalsIgnoreCase(cmd)) { //prüft ob cmd gleich "msg", Groß und Kleinschreibung wird ignoriert
-                            String[] tokensMsg = clientIn.split(" ", 3); //die eingegangene Nachricht clientIn wird neu geteilt (diesmal nur in drei Teile, damit nicht bei Leerzeichen in der Nachricht geteilt wird)
-                            handleMessage(tokensMsg);
-                        }*/
-                        //else if wenn Kommando vom Server in dem der vorher angefragte CHatverlauf steht
-                        //dann wird neue Methode, die unten beschrieben ist, ausgeführt
 
-                        //else if wenn Kommando vom Server kommt in dem alle Chats des user gesndet werden
-                        //dann wird neue Methode ladeAlleChats() aufgerufen
                     }
                 }
 
@@ -132,7 +108,8 @@ class ChatClient{
     }
 
     private void handleChat(String[] tokens){
-        String[] messages = tokens[1].split("#!!!#");
+        String chatname = tokens[1];
+        String[] messages = tokens[2].split("#!!!#");
         String[][] chatHistory = new String[messages.length][3];
         for(int i = 0;i<messages.length; i++){
             for(int j=0; j<3;j++){
@@ -140,6 +117,11 @@ class ChatClient{
                 chatHistory[i][j] = parameters[j];
             }
         }
+        if(activeChat.equalsIgnoreCase(chatname)){ //prüfe, ob empfangener Chat gerade geöffnet ist
+            userInterface.interfaceReceiveMessage(chatHistory);
+        }
+
+
     }
 
     public boolean connect() { //Methode erstellt einen Socket, einen BufferedReader (inFromUser) und einen PrintWriter (clientOut)
@@ -157,37 +139,13 @@ class ChatClient{
         return false;
     }
 
-
-    /* optionale Methoden online/offline */
-    //     // folgender Code ist optional und implementiert zwei Methoden um auszugeben wenn client offline oder online
-//        client.addUserStatusListener(new UserStatusListener() { //fügt das Objekt in dem das Interface UserStatusListener implementiert wurde, in die ArrayList UserStatusListener ein
-//            @Override
-//            public void online(String login) {
-//                System.out.println("ONLINE: " + login); //gibt Online und den username des clients aus, der online gegangen ist
-//            }
-//
-//            @Override
-//            public void offline(String login) {
-//                System.out.println("OFFLINE: " + login); //gibt offline und den username des clients aus, der offline gegangen ist
-//            }
-//        });
-//     // optionaler Code Ende
-
-    // Interface MessageListener wird implementiert; onMessage gibt eine Nachricht und deren Absender aus, die der Methode übergegeben werden
-//        client.addMessageListener(new MessageListener() { //fügt das Objekt in dem das Interface MessageListener implementiert wurde, in die ArrayList MessageListener ein
-//            @Override
-//            public void onMessage(String fromLogin, String msgBody) {
-//                System.out.println("Nachricht von " + fromLogin + " : " + msgBody); //gibt eine Nachricht aus und von wem diese Nachrichst stammt
-//            }
-//        });
-
-    // Msg-Methode, wird bei Nutzung eines UIs unnötig
-     /*  public void msg(String sendTo, String msgBody) throws IOException { //Methode die eine Nachricht an den Server versendet
-        String cmd = "msg " + sendTo + " " + msgBody + "\n"; //Command wird erstellt aus Empfänger und Nachricht
-// ergänzen, dass nachricht auch mehrere empfänger haben kann (Loop)
+        //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
+       public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
+           String ChatName = activeChat.replace(" ", "#!#%#");
+        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message + "\n"; //Command wird erstellt aus Empfänger und Nachricht
         clientOut.print(cmd);
         clientOut.flush(); // Command wird an Server gesendet
-    }*/
+    }
 
     // boolean Login
     public boolean login(String username, String password, String entryMethod) throws IOException { //benötigt Parameter: username und passwort
@@ -196,11 +154,7 @@ class ChatClient{
         clientOut.flush(); //Commando wird an Server gesendet
         String response = bufferedIn.readLine(); // Client wartet auf Nachricht vom Server
         System.out.println("Response Line:" + response);
-// Antwort des Servers: "ok login Chat1 Chat2 Chat3 ChatN"
-// Speichere alle Chats ab
-// rufe startMessageReader(Chat[])
         if ("login successful".equalsIgnoreCase(response)) { //Server sendet "ok login", wenn erfoglreich eingeloggt
-//          startMessageReader(); //Anzeige der Chat-Startseite
             clientOut.print("chatList");
             clientOut.flush();
             return true;
@@ -216,46 +170,6 @@ class ChatClient{
         return false;
         // Einfügen, dass Nachricht ausgegeben wird, wenn sich user neu registriert hat
     }
-
-    // logoff, durch UI useless
-      /* public void logoff() throws IOException { //Methode sendet Befehl "logoff/n" an den Server
-       String cmd = "logoff\n";
-        serverOut.write(cmd.getBytes()); //Nachricht wird an Server gesendet (flush wird nicht gebraucht, da \n)
-       //eventuell Methoden removeUserStatusListener und removeMessageListener aufrufen um logoff zu versollständigen
-    }*/
-
-    // sendMessageLoop
-    //    private void sendMessageLoop(){ //Methode, die
-//        try {
-//            String userIn;
-//            while (true) { //Endlosschleife
-//                if ((userIn = inFromUser.readLine()) != null){ //Wenn Benutzer eine Nachricht in die Konsole eingibt, die nicht leer ist
-//                    this.msg("test2", userIn); //this = dieser client; msg wird ausgeführt und empfänger und Nachricht wereden mitgegeben //ToDo
-//                    System.out.println(userIn); // Nachticht, die gesendet wird, wird auch beim Sender ausgegeben
-//                }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            try {
-//                socket.close();
-//            } catch (IOException ioe) {
-//                ioe.printStackTrace();
-//            }
-//        }
-//    }
-
-    // handleMessage
-       /* private void handleMessage(String[] tokensMsg) {
-        String login = tokensMsg[1]; //login = username
-        String msgBody = tokensMsg[2]; //msgBody = empfangene Text-Nachricht
-        // prüfen ob Chat bereits geöffnet
-        // wenn ja: Chat aktualisieren
-        // wenn nein: nix tun
-        //
-        //        for(MessageListener listener : messageListeners) {
-        //            listener.onMessage(login, msgBody); //führt bei jedem Objekt der ArrayList messageListeners die Methode onMessage aus und gibt den username und die Nachricht mit
-        //        }
-    }*/
 
     // handleOffline
     /*private void handleOffline(String[] tokens) {
@@ -274,16 +188,12 @@ class ChatClient{
     }*/
 
     // Listener
-         /*public void addUserStatusListener(UserStatusListener listener) {
-        userStatusListeners.add(listener);
-    }
-    public void removeUserStatusListener(UserStatusListener listener) {
-        userStatusListeners.remove(listener);
-    }
+    /*
     public void addMessageListener(MessageListener listener) {
         messageListeners.add(listener);
     }
     public void removeMessageListener(MessageListener listener) {
         messageListeners.remove(listener);
-    }*/
+    }
+    */
 }

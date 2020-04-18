@@ -22,11 +22,11 @@ public class TestFileQuery {
 //		TestFileQuery.writeChatMessage(participant, "Luca", "Wie geht es dir?");
 //		TestFileQuery.writeChatMessage(participant, "Daniel", "Hallo Luca, mir gehts gut :)");
 //		TestFileQuery.writeChatMessage(participant, "Luca", "Das freut mich.");
-		String[][] Chat = TestFileQuery.readChat(participant);
-		for(int i = 0; i < Chat.length; i++) {
-			System.out.print(Chat[i][0] + " sagt: "); 
-			System.out.println(Chat[i][1]);
-		}
+		//String[][] Chat = TestFileQuery.readChat(participant);
+		//for(int i = 0; i < Chat.length; i++) {
+		//	System.out.print(Chat[i][0] + " sagt: ");
+		//	System.out.println(Chat[i][1]);
+		//}
 		
 	}
 

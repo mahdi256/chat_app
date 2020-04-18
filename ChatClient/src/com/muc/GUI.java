@@ -3,14 +3,8 @@ package com.muc;
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.*;
-import java.io.FileReader;
-import javax.swing.text.html.HTMLEditorKit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
 
 
 
@@ -44,8 +38,8 @@ public class GUI {
     //List<String[]> chatHistory = new ArrayList<>(chatHistory1);
 
     //int numberOfMessages = chatHistory.();
-    public static void main(String[] args) {
-        /*
+   /* public static void main(String[] args) {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -56,13 +50,14 @@ public class GUI {
                     e.printStackTrace();
                 }
                 */
-                GUI gui = new GUI();
+               // GUI gui = new GUI();
                 //gui.emojis();
                 //gui.messanger();
-                gui.login();
+              //  gui.login();
           //  }
       //  });
-    }
+    //}
+
 
     public boolean interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
@@ -81,8 +76,8 @@ public class GUI {
     }
 
     public void interfaceAddUser(String user){
-        // eure get-Methode
-
+        // wird aufgerufen, wenn ein neuer Chat erstellt wird
+        client.createChat(user);
 
     }
 
@@ -94,7 +89,7 @@ public class GUI {
     }
 
     public void interfaceSendClickedChat(String clickedChat){
-
+        client.openChat(clickedChat);
     }
 
     public void interfaceUIReceiveNewChatHistory(String[] newChatHistory){
@@ -103,11 +98,12 @@ public class GUI {
     }
 
     public void interfaceSendMessage(String sentMessage){
+        try {
+            client.sendMessage(sentMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-        // Aufruf eurer Methode
-
-        // das dann entfernen, denn ich bekomme die neue History automatisch
         String[][] sentMessageArray = {{"antwort user", "zeit", sentMessage}};
         interfaceReceiveMessage(sentMessageArray);
     }

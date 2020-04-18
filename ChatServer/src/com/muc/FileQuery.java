@@ -78,7 +78,7 @@ public class FileQuery {
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(chatfile, true));
-			writer.write(sender + "#!#%#" + time + "#!#%#" + message + "#!#%#");
+			writer.write(sender + "#!#%#" + time + "#!#%#" + message + "#!!!#");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("Error while writing to file" + e.getStackTrace());
@@ -139,7 +139,7 @@ public class FileQuery {
 	}
 
 	// Method for creating the userlist (should only be executed once)
-	public String createUserlist() {
+	public static String createUserlist() {
 		
 		String path = null;
 		try {
@@ -155,8 +155,8 @@ public class FileQuery {
 			e.printStackTrace();
 		}
 		
-		System.out.println("userlist succesfully created");
-		return "userlist succesfully created";
+		System.out.println("userlist succesfully created or found");
+		return "userlist succesfully created or found";
 	}
 
 	// Method for checking Login credentials
@@ -177,21 +177,24 @@ public class FileQuery {
 		try {
 			BufferedReader userlistreader = new BufferedReader(new FileReader(userlist));
 			String userlistline = userlistreader.readLine();
-			temp = userlistline.split("#");
+			if(userlistline != null) {
+				temp = userlistline.split("#");
+				for (int i = 0; i < temp.length; i = i+2) {
+					if(username.equals(temp[i])) {
+						System.out.println("Username exists");
+						loginCredentialsCorrect++;
+						if(password.equals(temp[i+1])){
+							System.out.println("Password ist also correct");
+							loginCredentialsCorrect++;
+						}
+					}
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		for (int i = 0; i < temp.length; i = i+2) {
-			if(username.equals(temp[i])) {
-				System.out.println("Username exists");
-				loginCredentialsCorrect++;
-				if(password.equals(temp[i+1])){
-					System.out.println("Password ist also correct");
-					loginCredentialsCorrect++;
-				}
-			}
-		}
+
 
 		return loginCredentialsCorrect;
 	}

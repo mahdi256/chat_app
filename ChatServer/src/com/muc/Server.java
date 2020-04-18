@@ -5,9 +5,6 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Mahmoud on 03,2020
- */
 public class Server extends Thread {
 	private final int serverPort;
 	private ArrayList<ServerWorker> workerList;
