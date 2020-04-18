@@ -52,6 +52,29 @@ public class GUI {
             }
         });
     }
+
+    public boolean interfaceLogin(String[] loginData){
+        // ihr könnt Login-Daten konsumieren
+
+    }
+
+    public void interfaceAddUser(String user){
+        // eure get-Methode
+
+
+    }
+
+
+    public void interfaceReceiveNewUserList(String[] userList){
+        // ihr ruft die auf
+        // ich baue links die User-Liste neu auf
+    }
+
+    public void interfaceUIReceiveNewChatHistory(String[] newChatHistory){
+        // ihr ruft die auf
+        // ich baue den Chatverlauf neu auf
+    }
+
     public void interfaceSendMessage(String sentMessage){
 
 
@@ -61,6 +84,8 @@ public class GUI {
         String[] sentMessageArray = {"antwort user", "zeit", sentMessage};
         interfaceReceiveMessage(sentMessageArray);
     }
+
+
     public void interfaceReceiveMessage(String[] receivedMessage){
         updateChatHistory(receivedMessage);
     }
@@ -85,6 +110,8 @@ public class GUI {
             JEditorPane metaDataLabel = new JEditorPane();
             metaDataLabel.setEditable(false);
             metaDataLabel.setContentType("text/html");
+
+            // links oder rechts je nach Sender/Empfänger
             if (chatHistory.get(i)[0] != "me") {
                 metaDataLabel.setText("<html> <font size=\"3\">"+ chatHistory.get(i)[1] + "</font><br/><font size=\"5\">" + chatHistory.get(i)[2] + "</font></html>");
             }
@@ -151,13 +178,20 @@ public class GUI {
     } // Bestätigung zurück?
 
     public void login() {
-        messangerFrame.setVisible(false);
+        messangerFrame.setVisible(true);
         loginFrame = new JFrame(title);
         usernameField = new JTextField(15);
         passwordField = new JTextField(15);
 
         JLabel chooseUsernameLabel = new JLabel("Username:");
         JButton enterServer = new JButton("Enter Chat Server");
+        enterServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    String[] loginDataArray= {usernameField.getText(), passwordField.getText()};
+                    interfaceLogin(loginDataArray);
+            }
+        });
         //enterServer.addActionListener(new enterServerButtonListener());
         JPanel loginPanel = new JPanel(new GridBagLayout());
 
@@ -428,6 +462,12 @@ public class GUI {
                 System.out.println(ex);
             }
 
+            searchContactsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    interfaceAddUser(searchContactsField.getText());
+                }
+            });
             searchContactsButton.setPreferredSize(new Dimension(39, 39));
             searchContactsButton.setMaximumSize(new Dimension(39, 39));
 

@@ -1,3 +1,4 @@
+/*
 package com.muc;
 
 import javax.swing.*;
@@ -6,9 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-/**
- * Created by Mahmoud on 03,2020
- */
+
 public class UserGraphInterface extends JPanel implements UserStatusListener {
     private final ChatClient client;
 
@@ -75,3 +74,5 @@ public class UserGraphInterface extends JPanel implements UserStatusListener {
 
     }
 }
+
+*/
