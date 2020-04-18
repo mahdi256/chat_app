@@ -16,6 +16,7 @@ public class ServerWorker extends Thread {
 	private OutputStream outputStream;
 	private HashSet<String> topicSet = new HashSet<>();
 	private ArrayList<ServerWorker> workerList;
+	private ObjectOutputStream objOut;
 
 	public ServerWorker(Server server, Socket clientSocket) {
 		this.server = server;
@@ -67,48 +68,71 @@ public class ServerWorker extends Thread {
 
 	// Methode,  die Input des Login-Screens überprüft in dem Abgleich mit userlist
 	private void handleLogin(OutputStream outputStream, String[] tokens) throws IOException {
-		if (tokens.length == 3) {
+		if (tokens.length == 4) {
 			String username = tokens[1];
 			String password = tokens[2];
 			String msg = null;
+			String entryMethod = tokens[3];
 
-			int CValue = FileQuery.checkLoginCredentials(username, password);
+			int cValue = FileQuery.checkLoginCredentials(username, password);
 
-			switch (CValue) {
-				case 0: // User nicht vorhanden, Neu-Registrierung
-					msg = "This account does not exist, would you like to create a new one with this credentials?\n";
-					outputStream.write(msg.getBytes());
-					//Fragefeld Ja oder Nein?
-					//if (true){
-					//   if(username != null && password != null) {
-					//FileQuery.addUserToUserlist(username, password);
-					msg = "user added\n";
-					outputStream.write(msg.getBytes());
-					//               openHomeScreen();
-					// 	 } else "Your username and password is empty!"
-					//} else schließt sich Fragefeld
-					// }
-					break;
+			if (entryMethod.equalsIgnoreCase("login")) {
+				/*switch (CValue) {
+					case 0: // User nicht vorhanden, Neu-Registrierung
+						msg = "not existing\n";
+						outputStream.write(msg.getBytes());
+						//Fragefeld Ja oder Nein?
+						//if (true){
+						//   if(username != null && password != null) {
+						//FileQuery.addUserToUserlist(username, password);
+						//msg = "user added\n";
+						//outputStream.write(msg.getBytes());
+						//               openHomeScreen();
+						// 	 } else "Your username and password is empty!"
+						//} else schließt sich Fragefeld
+						// }
+						break;
 
-				case 1: // Passwort falsch
-					msg = "wrong password\n";
-					outputStream.write(msg.getBytes());
-					break;
-				case 2: // Login erfolgreich
-					msg = "ok login\n";
+					case 1: // Passwort falsch
+						msg = "wrong password\n";
+						outputStream.write(msg.getBytes());
+						break;
+					case 2: // Login erfolgreich
+						msg = "login successful\n";
+						outputStream.write(msg.getBytes()); // "ok login" wird an Client gesendet wenn Logindaten korrekt
+						this.username = username; //username wird in Klassen-Variable gespeichert
+						System.out.println("User logged in succesfully: " + username + " Server: " + this.server.getServerPort());
+						//findAllChatsOfUser(username); LUCA
+						break;
+				}*/
+				if(cValue == 2){
+					msg = "login successful\n";
 					outputStream.write(msg.getBytes()); // "ok login" wird an Client gesendet wenn Logindaten korrekt
 					this.username = username; //username wird in Klassen-Variable gespeichert
 					System.out.println("User logged in succesfully: " + username + " Server: " + this.server.getServerPort());
 					//findAllChatsOfUser(username); LUCA
-					break;
+				}else{
+					msg = "login failed\n";
+					outputStream.write(msg.getBytes());
+				}
+			}else if(entryMethod.equalsIgnoreCase("register")){
+				if(cValue == 1 || cValue==2){
+					msg = "registration failed\n";
+					outputStream.write(msg.getBytes());
+				}else if(cValue == 0){
+					FileQuery.addUserToUserlist(username, password);
+					msg = "registration successful\n";
+					outputStream.write(msg.getBytes());
+				}
 			}
 		}
 	}
 
 	//Methode, die neuen Chat mit gegebenem Input erstellt & created-Message reinschreibt
-	private String[] createChat(/*String InputStream (participants)*/){
+
+	/*private void createChat(/*String InputStream (participants)){
 		//String input = String InputStream (participants);
-		String[] participants = createParticipantArray(/*input*/);
+		String[] participants = createParticipantArray(/*input);
 		String[] chatlist = null;
 		FileQuery.createChatFile(participants);
 		String msg = "Chat created on " + System.currentTimeMillis();
@@ -116,52 +140,68 @@ public class ServerWorker extends Thread {
 		for(ServerWorker worker : workerList){
 			for (int i = 0; i < participants.length; i++)
 				if (worker.getUsername().equals(participants[i])){
-					chatlist = worker.loadChatlist();
+					worker.loadChatlist();
 				}
 		}
-		return chatlist;
-	}
+	}*/
 
 	//lädt alle begonnen Konversationen des User, Rückgabe als String[]
-	public String[] loadChatlist(){
+	public void loadChatlist(){
 		String username = getUsername();
 		String[] chatlist = FileQuery.getAllChatsOfUser(username);
-		return chatlist;
+		String msg = "chatlist ";
+		for(int i = 0; i<chatlist.length-1; i++){
+			msg= msg + chatlist[i]+ " ";
+		}
+		msg = msg+chatlist[chatlist.length-1]+"\n";
+		try {
+			outputStream.write(msg.getBytes());
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	// Methode, die aktualisierten Chat bei Klick auf Chatbutton lädt
-	private void loadChat(/*String Chattitel*/){
-		String input = ;//String Chattitel
+	private void loadChat(String chatName){
 		// openedChat = String Chattitel
-		String[] participants = createParticipantArray(input);
+		String[] participants = createParticipantArray(chatName);
 		String[][] chathistory = FileQuery.readChat(participants);
+
+		String msg ="chat " + chathistory + "\n";
+
+		try{
+			outputStream.write(msg.getBytes());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
 		//Übergabe chathistory an UI
 
 	}
 
 	// Methode, die gesendete Nachricht in Chatverlauf schreibt und Chats aller User, die diesen geöffnet haben, aktualisiert
-	private void sendMessage(InputStream /* message */){
+	/*private void sendMessage(InputStream /* message ){
 		String username = getUsername();
 		String openedChat = getOpenedChat();
 		String[] participants = createParticipantArray(openedChat);
-		FileQuery.writeChatMessage(participants, username, /* message*/);
+		FileQuery.writeChatMessage(participants, username, /* message);
 		loadChatAll(openedChat);
-	}
+	}*/
 
 	// Methode, die den Chat aller User aktualisiert, die in Chat drin sind & diesen gerade geöffnet haben
-	private void loadChatAll (/*String Chattitel (participants)*/){
+	/*private void loadChatAll (/*String Chattitel (participants)){
 		//String input = String Chattitel (participants);
-		String[] participants = createParticipantArray(/*input*/);
+		String[] participants = createParticipantArray(/*input);
 		for(ServerWorker worker : workerList){
 			for (int i = 0; i < participants.length; i++){
-				if (worker.getUsername().equals(participants[i]) && worker.getOpenedChat().equals(/*input*/)){
-					worker.loadChat(/*input*/);
+				if (worker.getUsername().equals(participants[i]) && worker.getOpenedChat().equals(/*input)){
+					worker.loadChat(/*input);
 				}
 			}}
-	}
+	}*/
 
 	// Methode, die User auslogged, ServerWorker + Socket schließt
-	private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
+	/*private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
 		server.removeWorker(this);
 		List<ServerWorker> workerList = server.getWorkerList();
 
@@ -173,13 +213,9 @@ public class ServerWorker extends Thread {
 			}
 		}
 		clientSocket.close(); //Socket wird geschlossen
-	}
+	}*/
 
-	
-
-
- 	// HandleClientSocket-Methode auskommentiert
-	/*private void handleClientSocket() throws IOException, InterruptedException { //Methode wird beim starten des ServerWorkers aufgerufen
+	private void handleClientSocket() throws IOException, InterruptedException { //Methode wird beim starten des ServerWorkers aufgerufen
 		InputStream inputStream = clientSocket.getInputStream();
 		this.outputStream = clientSocket.getOutputStream();
 
@@ -191,21 +227,20 @@ public class ServerWorker extends Thread {
 				System.out.println(line);
 				String[] tokens = line.split(" "); //Teilt Nachricht in Teile
 				if (tokens != null && tokens.length > 0) {
-					String cmd = tokens[0];
-					if ("logoff".equals(cmd) || "quit".equalsIgnoreCase(cmd)) { //wenn logoff-Commando empfangen wird
-						handleLogoff();
+					String msg = tokens[0];
+					if ("logoff".equals(msg) || "quit".equalsIgnoreCase(msg)) { //wenn logoff-Commando empfangen wird
+						//handleLogoff();
 						break;
-					} else if ("login".equalsIgnoreCase(cmd)) { // wenn login-Comando empfangend wird
+					} else if ("login".equalsIgnoreCase(msg)) { // wenn login-Comando empfangend wird
 						handleLogin(outputStream, tokens);
-					} else if ("msg".equalsIgnoreCase(cmd)) { // wenn msg-Commando empfangend wird
+					} else if ("msg".equalsIgnoreCase(msg)) { // wenn msg-Commando empfangend wird
 						String[] tokensMsg = line.split(" ", 3);
-						handleMessage(tokensMsg);
-					} else if ("join".equalsIgnoreCase(cmd)) { //wenn join-Commando empfangen wird
-						handleJoin(tokens);
-					} else if ("leave".equalsIgnoreCase(cmd)) { //wenn leave-Commando empfangen wird
-						handleLeave(tokens);
-					} else {
-						String msg = "unknown " + cmd + "\n"; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
+						//handleMessage(tokensMsg);
+					} else if("chatList".equalsIgnoreCase(msg)) {
+						loadChatlist();
+					}
+					else {
+						msg = "unknown " + msg + "\n"; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
 						outputStream.write(msg.getBytes());
 					}
 					//Kommando von Client wenn er Chat anfordert:
@@ -218,7 +253,7 @@ public class ServerWorker extends Thread {
 		}
 
 		clientSocket.close();
-	}*/
+	}
 
 	// handleLeave, isMemberOfTopic, handleJoin auskommentiert
 	/*

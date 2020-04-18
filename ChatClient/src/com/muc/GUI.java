@@ -7,6 +7,7 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.*;
 import java.io.FileReader;
 import javax.swing.text.html.HTMLEditorKit;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +27,11 @@ public class GUI {
     JTextField  passwordField;
     JFrame      loginFrame;
     JPanel messagePanel = new JPanel();
+    ChatClient client;
 
+    public GUI(ChatClient client){
+        this.client = client;
+    }
 
 
     String[] lastChats = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
@@ -36,7 +41,7 @@ public class GUI {
     List<String[]> chatHistory = new ArrayList<>(chatHistory1);
 
     int numberOfMessages = chatHistory.size();
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -51,11 +56,22 @@ public class GUI {
                 gui.messanger();
             }
         });
-    }
+    }*/
 
     public boolean interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
-
+        if(client.connect()){
+            try{
+                if(client.login(loginData[0], loginData[1], loginData[2])){
+                    return true;
+                }else{
+                    return false;
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public void interfaceAddUser(String user){
