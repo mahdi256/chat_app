@@ -72,13 +72,13 @@ public class FileQuery {
 	}
 
 	// Method for writing a chatmessage to file
-	public static void writeChatMessage(String[] participant,String sender, String message) {
+	public static void writeChatMessage(String[] participant,String sender, String message, String time) {
 
 		File chatfile = getFilename(participant);
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(chatfile, true));
-			writer.write(sender + "#" + message + "#");
+			writer.write(sender + "#!#%#" + time + "#!#%#" + message + "#!#%#");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("Error while writing to file" + e.getStackTrace());
@@ -87,7 +87,7 @@ public class FileQuery {
 	}
 
 	// Method for reading a chat from file
-	public static String[][] readChat(String[] participant) {
+	public static String readChat(String[] participant) {
 		String[] temp = null;
 		String chatfiletext = null;
 
@@ -96,23 +96,11 @@ public class FileQuery {
 		try {
 			BufferedReader chatfilereader = new BufferedReader(new FileReader(chatfile));
 			chatfiletext = chatfilereader.readLine();
-			temp = chatfiletext.split("#");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//combine Messages and Senders into returnStringArray[][]
-		String[][] returnStringArray = new String[temp.length / 2][2];
-		
-		int x = 0;
-		for(int i = 0; i < temp.length/2; i++){
-			returnStringArray[i][0] = temp[x];
-			x++;
-			returnStringArray[i][1] = temp[x];
-			x++;
-		}
 
-		return returnStringArray;
+		return chatfiletext;
 	}
 	
 	
