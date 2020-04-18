@@ -165,7 +165,7 @@ public class ServerWorker extends Thread {
 	private void loadChat(String chatName){
 		// openedChat = String Chattitel
 		String[] participants = createParticipantArray(chatName);
-		String[][] chathistory = FileQuery.readChat(participants);
+		String chathistory = FileQuery.readChat(participants);
 
 		String msg ="chat " + chathistory + "\n";
 

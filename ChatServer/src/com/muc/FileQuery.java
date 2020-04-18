@@ -197,7 +197,7 @@ public class FileQuery {
 	}
 
 	// Method for adding a user to the userlist
-	public String addUserToUserlist(String username, String password) {
+	public static String addUserToUserlist(String username, String password) {
 
 		String path = null;
 		try {

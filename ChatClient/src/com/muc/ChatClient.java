@@ -90,7 +90,7 @@ class ChatClient{
             while (true) { //endlosschleife
                 if((clientIn = bufferedIn.readLine()) != null ) { //Empfangene Nachricht wird in ClientIn geschrieben
                     System.out.println(clientIn); //Ausgabe nur zum kontrolle! User sollte das Commando nicht sehen
-                    String[] tokens = clientIn.split(" "); //Commando wird Teile geteilt
+                    String[] tokens = clientIn.split(" ", 2); //Commando wird Teile geteilt
                     if (tokens != null && tokens.length > 0) {
                         String msg = tokens[0]; //cmd = Erster Teil des Commandos
                         if("chatList".equalsIgnoreCase(msg)){
@@ -127,7 +127,7 @@ class ChatClient{
     }
 
     private void handleChatList(String[] tokens){
-        String[] chatList = Arrays.copyOfRange(tokens, 1, tokens.length-1);
+        String[] chatList = tokens[1].split(" ");
         userInterface.interfaceReceiveNewUserList(chatList);
     }
 
