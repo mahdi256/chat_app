@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2884de49-1b82-4bef-9932-f19cc491d42b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="b62863e0-a303-4dcc-af15-767981ed1a37" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessageListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessageListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessagePane$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessagePane$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessagePane.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessagePane.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserStatusListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserStatusListener.class" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/obsolet_LoginWin.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/obsolet_MessagePane.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/obsolet_UserGraphInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$3.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/LoginWin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserGraphInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerWorker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerWorker.class" afterDir="false" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,109 +23,36 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/chat_app$ChatClient.ic" NAME="ChatClient Coverage Results" MODIFIED="1585574702417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.muc.*</FILTER>
-    </SUITE>
-  </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-57887550">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="10" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.10" value="3" />
-          <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.15" value="2" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.8" value="2" />
-          <entry key="project.opened" value="11" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="17" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="17" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="7005" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="7005" />
-        </counts>
-      </usages-collector>
-    </session>
-<<<<<<< HEAD
     <session id="1005470642">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.13" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.24" value="1" />
-          <entry key="project.open.time.25" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="3609" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="3609" />
-        </counts>
-      </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="java" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
-=======
-    <session id="1032587575">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.5" value="4" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="7" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="23" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="23" />
+          <entry key="JAVA" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1812" />
+          <entry key="java" value="5023" />
+          <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1812" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+          <entry key="JAVA" value="5023" />
+          <entry key="XML" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -153,72 +60,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-<<<<<<< HEAD
-        <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2460">
-              <caret line="130" column="38" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="820">
-              <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-=======
-        <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="140">
+              <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
+        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="500">
-              <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
-=======
-            <state relative-caret-position="561">
-              <caret line="35" column="17" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1189#1190#0" expanded="true" />
-                <element signature="e#1238#1239#0" expanded="true" />
-                <element signature="e#1271#1272#0" expanded="true" />
-                <element signature="e#1309#1310#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="1680">
-              <caret line="91" column="21" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
+            <state relative-caret-position="840">
+              <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -229,44 +83,66 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="920">
-              <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-=======
-            <state relative-caret-position="648">
-              <caret line="154" column="26" selection-start-line="154" selection-start-column="26" selection-end-line="154" selection-end-column="26" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+            <state relative-caret-position="560">
+              <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2340">
+              <caret line="128" column="13" selection-start-line="128" selection-start-column="13" selection-end-line="128" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2803#2804#0" expanded="true" />
-                <element signature="e#2873#2874#0" expanded="true" />
-                <element signature="e#2944#2945#0" expanded="true" />
-                <element signature="e#3015#3016#0" expanded="true" />
-                <element signature="e#3201#3329#0" expanded="true" />
-                <element signature="e#3328#3329#0" expanded="true" />
-                <element signature="e#3350#3477#0" expanded="true" />
-                <element signature="e#3476#3477#0" expanded="true" />
-                <element signature="e#6652#6653#0" expanded="true" />
-                <element signature="e#6701#6702#0" expanded="true" />
-                <element signature="e#6774#6775#0" expanded="true" />
-                <element signature="e#6826#6827#0" expanded="true" />
-                <element signature="e#6890#6891#0" expanded="true" />
-                <element signature="e#6936#6937#0" expanded="true" />
-                <element signature="e#7003#7004#0" expanded="true" />
-                <element signature="e#7052#7053#0" expanded="true" />
+                <element signature="e#5912#5913#0" expanded="true" />
+                <element signature="e#5962#5963#0" expanded="true" />
+                <element signature="e#21197#21198#0" expanded="true" />
+                <element signature="e#21261#21262#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.desktop/java/awt/GridBagConstraints.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4040">
-              <caret line="235" column="43" lean-forward="true" selection-start-line="235" selection-start-column="43" selection-end-line="235" selection-end-column="43" />
+            <state relative-caret-position="132">
+              <caret line="576" selection-start-line="576" selection-end-line="576" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/util/AbstractList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="152" selection-start-line="152" selection-end-line="152" />
+              <folding>
+                <element signature="e#5145#5146#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/EmojiClickListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="660">
+              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="48" column="14" selection-start-line="48" selection-start-column="14" selection-end-line="48" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -285,15 +161,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessageListener.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="140">
@@ -302,8 +169,6 @@
           </provider>
         </entry>
       </file>
-=======
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -316,57 +181,33 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-<<<<<<< HEAD
-      <find>//messangerFrame2.gridwidth = 2;</find>
-      <find>add</find>
-      <find>textf</find>
-      <find>borderlayout.ce</find>
-      <find>filerea</find>
-      <find>try</find>
+      <find>typeBar</find>
+      <find>/u</find>
+      <find>&gt;</find>
+      <find>typeBarSendButton</find>
+      <find>searchContactsButton</find>
+      <find>loupe</find>
+      <find>searchImage</find>
+      <find>img</find>
+      <find>jedit</find>
+      <find>editorpan</find>
+      <find>font size</find>
+      <find>br</find>
+      <find>emoji</find>
+      <find>typebar</find>
+      <find>emojis()</find>
+      <find>setContentType</find>
       <find>font</find>
-      <find>{                 JButton button = new JButton(lastChats[i]);//lastChats[i]);                 //button.setPreferredSize(new Dimension(100, 100));                 //   Dimension d = button.getPreferredSize();                 // d.height = 50;                 //button.setPreferredSize(d);                 button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 17));                 button.setHorizontalAlignment(SwingConstants.LEFT);                 button.setVerticalAlignment(SwingConstants.TOP);                 GridBagConstraints gbc = new GridBagConstraints();                 gbc.gridx = 0;                 gbc.gridy = i;                 gbc.fill = GridBagConstraints.HORIZONTAL;                 gbc.anchor = GridBagConstraints.NORTHWEST;                 if (i + 1 == numberChats) {                     gbc.weightx = 1.0;                     gbc.weighty = 1.0;                 }                 lastChatsPanel.add(button, gbc);             }</find>
-      <find>usernameField</find>
+      <find>emojip</find>
+      <find>1F6A5</find>
+      <find>&amp;#</find>
+      <find>chatHistory</find>
+      <find>SendMessage</find>
       <find>messagePanel</find>
-      <find>editorpa</find>
-      <find>JScrollPane</find>
-      <find>messagePane</find>
-      <find>me&quot;</find>
-      <find>textfiel</find>
-      <find>text</find>
-      <find>typeBarTextField</find>
-      <find>scroll</find>
-      <find>messagepa</find>
-      <find>button</find>
-      <find>for</find>
-      <find>editor</find>
-      <find>message</find>
-      <find>rightPanel</find>
-      <find>jfram</find>
-      <find>messanger</find>
-      <find>messangerfra</find>
-      <find>BoxLayout</find>
-      <find>messangerFrame.a</find>
-      <find>boxl</find>
-=======
-      <find>Login failed</find>
-      <find>login</find>
-      <find>socket</find>
-      <find>readmess</find>
-      <find>startmessage</find>
-      <find>online</find>
-      <find>messageListeners</find>
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+      <find>send</find>
+      <find>actionl</find>
+      <find>numberOfMessages</find>
     </findStrings>
-    <replaceStrings>
-      <replace />
-      <replace>messanger</replace>
-      <replace>messangerFrame</replace>
-      <replace>loginFrame</replace>
-      <replace>login</replace>
-      <replace>lastChatsPanel</replace>
-      <replace>leftPanel</replace>
-      <replace>searchContactsField</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -374,27 +215,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/dummyTest.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/UserStratusListener.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/UserStatusListener.java" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" />
-=======
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/MessageListener.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/img/NewFrame.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" />
-=======
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/ClientMain.java" />
-        <option value="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" />
-        <option value="$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java" />
-        <option value="$PROJECT_DIR$/ChatServer/src/com/muc/Server.java" />
         <option value="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/EmojiClickListener.java" />
+        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" />
       </list>
     </option>
   </component>
@@ -405,31 +230,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-<<<<<<< HEAD
-    <option name="x" value="301" />
-    <option name="y" value="57" />
+    <option name="x" value="357" />
+    <option name="y" value="37" />
     <option name="width" value="1390" />
-    <option name="height" value="1100" />
-=======
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="1242" />
-    <option name="height" value="672" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State />
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Android</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
+    <option name="height" value="1123" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -439,11 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-<<<<<<< HEAD
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-=======
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -454,6 +254,11 @@
             <path>
               <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat_app" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat_app" type="462c0819:PsiDirectoryNode" />
               <item name="ChatClient" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -480,45 +285,59 @@
             <path>
               <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat_app" type="462c0819:PsiDirectoryNode" />
-              <item name="ChatServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat_app" type="462c0819:PsiDirectoryNode" />
-              <item name="ChatServer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat_app" type="462c0819:PsiDirectoryNode" />
-              <item name="ChatServer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="muc" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
               <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat_app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 11 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
+              <item name="data" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
+            </path>
+            <path>
+              <item name="chat_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
+              <item name="schema" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-<<<<<<< HEAD
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587017082950" />
-=======
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1585832562501" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-    <property name="jdk.selected.JAVA_MODULE" value="11" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587209143213" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Verteilte Systeme 2/chat_app" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -532,11 +351,7 @@
       </list>
     </option>
   </component>
-<<<<<<< HEAD
   <component name="RunManager" selected="Application.GUI">
-=======
-  <component name="RunManager" selected="Application.ChatClient">
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
     <configuration name="ChatClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.muc.ChatClient" />
       <module name="ChatClient" />
@@ -550,13 +365,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.muc.GUI" />
-=======
-    <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.muc.ClientMain" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
       <module name="ChatClient" />
       <extension name="coverage">
         <pattern>
@@ -612,28 +422,15 @@
       <item itemvalue="Application.ServerMain" />
       <item itemvalue="Application.UserGraphInterface" />
       <item itemvalue="Application.LoginWin" />
-<<<<<<< HEAD
       <item itemvalue="Application.GUI" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.GUI" />
         <item itemvalue="Application.LoginWin" />
-=======
-      <item itemvalue="Application.ClientMain" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.ChatClient" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
         <item itemvalue="Application.ServerMain" />
-        <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.UserGraphInterface" />
-<<<<<<< HEAD
         <item itemvalue="Application.ChatClient" />
-=======
-        <item itemvalue="Application.LoginWin" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
       </list>
     </recent_temporary>
   </component>
@@ -642,75 +439,42 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2884de49-1b82-4bef-9932-f19cc491d42b" name="Default Changelist" comment="" />
+      <changelist id="b62863e0-a303-4dcc-af15-767981ed1a37" name="Default Changelist" comment="" />
       <created>1583789671117</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583789671117</updated>
-      <workItem from="1585128739378" duration="19059000" />
-      <workItem from="1585576945326" duration="28485000" />
-      <workItem from="1585852068324" duration="1413000" />
-      <workItem from="1586875029791" duration="669000" />
-      <workItem from="1586950740399" duration="16934000" />
-      <workItem from="1587017050175" duration="663000" />
+      <workItem from="1587049174042" duration="35461000" />
+      <workItem from="1587189604278" duration="7413000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67223000" />
+    <option name="totallyTimeSpent" value="44323000" />
   </component>
   <component name="ToolWindowManager">
-<<<<<<< HEAD
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.111409396" />
-=======
-    <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.117693834" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27248323" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-<<<<<<< HEAD
-      <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.27659574" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.0" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32907802" />
-      <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
-=======
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21840873" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28368795" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3290993" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32839313" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.48085105" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -719,38 +483,8 @@
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
-      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32962227" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+      <window_info anchor="right" id="Database" order="8" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09622266" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21840873" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3290993" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32839313" />
-      <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.32962227" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -763,121 +497,31 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java</url>
-          <line>388</line>
+          <line>385</line>
           <properties />
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java</url>
-          <line>281</line>
+          <line>72</line>
           <properties />
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java</url>
-          <line>144</line>
-          <properties />
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Thread.java" />
-    <entry file="file://$PROJECT_DIR$/src/Main.java" />
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/UserStratusListener.java" />
-<<<<<<< HEAD
-=======
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessageListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/UserStatusListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dummyTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="36" lean-forward="true" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/img/NewFrame.java" />
     <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2460">
-          <caret line="130" column="38" selection-start-line="130" selection-start-column="33" selection-end-line="130" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-=======
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="51" column="48" lean-forward="true" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="51" column="79" lean-forward="true" selection-start-line="51" selection-start-column="79" selection-end-line="51" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="327" selection-start-line="327" selection-end-line="327" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/ClientMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="6" selection-end-column="23" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+        <state relative-caret-position="2680">
+          <caret line="141" column="33" selection-start-line="141" selection-start-column="33" selection-end-line="141" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="500">
-          <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+        <state relative-caret-position="560">
+          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -886,83 +530,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="91" column="21" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
-=======
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="1880">
+          <caret line="98" column="3" selection-start-line="98" selection-start-column="3" selection-end-line="98" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="35" column="17" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+        <state relative-caret-position="140">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1189#1190#0" expanded="true" />
-            <element signature="e#1238#1239#0" expanded="true" />
-            <element signature="e#1271#1272#0" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/EmojiClickListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="920">
-          <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-=======
-        <state relative-caret-position="238">
-          <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="960">
+          <caret line="48" column="14" selection-start-line="48" selection-start-column="14" selection-end-line="48" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/lang/Throwable.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="12100">
           <caret line="637" column="16" selection-start-line="637" selection-start-column="16" selection-end-line="637" selection-end-column="16" />
           <folding>
             <element signature="e#26290#26291#0" expanded="true" />
             <element signature="e#26333#26334#0" expanded="true" />
-=======
-        <state relative-caret-position="648">
-          <caret line="154" column="26" selection-start-line="154" selection-start-column="26" selection-end-line="154" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2803#2804#0" expanded="true" />
-            <element signature="e#2873#2874#0" expanded="true" />
-            <element signature="e#2944#2945#0" expanded="true" />
-            <element signature="e#3015#3016#0" expanded="true" />
-            <element signature="e#3201#3329#0" expanded="true" />
-            <element signature="e#3328#3329#0" expanded="true" />
-            <element signature="e#3350#3477#0" expanded="true" />
-            <element signature="e#3476#3477#0" expanded="true" />
-            <element signature="e#6652#6653#0" expanded="true" />
-            <element signature="e#6701#6702#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6826#6827#0" expanded="true" />
-            <element signature="e#6890#6891#0" expanded="true" />
-            <element signature="e#6936#6937#0" expanded="true" />
-            <element signature="e#7003#7004#0" expanded="true" />
-            <element signature="e#7052#7053#0" expanded="true" />
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
           </folding>
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -973,17 +594,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/util/AbstractList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4040">
-          <caret line="235" column="43" lean-forward="true" selection-start-line="235" selection-start-column="43" selection-end-line="235" selection-end-column="43" />
+        <state relative-caret-position="109">
+          <caret line="152" selection-start-line="152" selection-end-line="152" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#5145#5146#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-=======
->>>>>>> 18a58f1803c0750f208b36d3b5d7f3fd28461c4f
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.desktop/java/awt/GridBagConstraints.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="576" selection-start-line="576" selection-end-line="576" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2340">
+          <caret line="128" column="13" selection-start-line="128" selection-start-column="13" selection-end-line="128" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5912#5913#0" expanded="true" />
+            <element signature="e#5962#5963#0" expanded="true" />
+            <element signature="e#21197#21198#0" expanded="true" />
+            <element signature="e#21261#21262#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

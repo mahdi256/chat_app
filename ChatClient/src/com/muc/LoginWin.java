@@ -45,7 +45,7 @@ public class LoginWin extends JFrame {
 
     private void doLogin() {
         String login = loginField.getText();
-        String password = passwordField.getText();
+       // String password = passwordField.getText();
 
         try {
             if (client.login()) {
