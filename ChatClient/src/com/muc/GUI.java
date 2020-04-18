@@ -28,6 +28,8 @@ public class GUI {
     JPanel messagePanel = new JPanel();
     String[][] chatHistory;
     String username;
+    JPanel messageAndTypePanel = new JPanel();
+    JScrollPane messagePane;
 
 
 
@@ -103,9 +105,11 @@ public class GUI {
     }
 
     public void updateChatHistory(String[][] newChatHistory){
-        messagePanel.removeAll();
-        messagePanel.revalidate();
-        messagePanel.repaint();
+        messageAndTypePanel.remove(messagePane);
+
+        //messagePanel.removeAll();
+        //messagePanel.revalidate();
+        //messagePanel.repaint();
 
         int numberOfMessages = newChatHistory.length;
         messagePanel.setLayout(new GridBagLayout());
@@ -498,7 +502,6 @@ public class GUI {
         typeBar.add(typeBarTextFieldScrollPane);
             typeBar.add(typeBarButtonPanel);
         //    typeBar.add(typeBarSendButton);
-            JPanel messageAndTypePanel = new JPanel();
             messageAndTypePanel.setLayout(new BoxLayout(messageAndTypePanel, BoxLayout.Y_AXIS));
             typeBar.setMinimumSize(new Dimension(100, 200));
             messageAndTypePanel.add(messagePane);
