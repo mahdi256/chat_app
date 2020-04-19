@@ -130,8 +130,8 @@ public class ServerWorker extends Thread {
 	}
 
 	// Methode, die aktualisierten Chat bei Klick auf Chatbutton lädt
-	private void loadChat(String chatName){
-		String[] participants = chatName.split(" ")/*createParticipantArray(chatName)*/;
+	private void loadChat(String chatName){ //chatName format: #username#username#
+		String[] participants = chatName.split("#");
 		for(int i = 0;i<participants.length;i++){
 			System.out.println(participants[i]);
 		}
@@ -195,10 +195,10 @@ public class ServerWorker extends Thread {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
 		while (true) { //Endlosschleifen
-			System.out.println("hier komm ich auch noch hin");
+			//System.out.println("handleClientSocket: warte auf eingehende Nachricht");
 			line = reader.readLine(); //wartet auf eingehende Nachrichten
 			if (line != null) {
-				System.out.println("Hier kommt die zeile" + line);
+				System.out.println("Eingehende Nachricht: " + line);
 				String[] tokens = line.split(" ", 2); //Teilt Nachricht in Teile
 				if (tokens != null && tokens.length > 0) {
 					String msg = tokens[0];
@@ -233,8 +233,8 @@ public class ServerWorker extends Thread {
 		clientSocket.close();
 	}
 
-	private void createChat(String tokens){
-		String[] participants = tokens.split(" ");
+	private void createChat(String participantsString){
+		String[] participants = participantsString.split("#"); //old format: #user#user#
 		if(!FileQuery.findChatFile(participants)){
             FileQuery.createChatFile(participants);
             String msg = "Chat erstellt: " + System.currentTimeMillis();
@@ -245,17 +245,17 @@ public class ServerWorker extends Thread {
                         worker.loadChatlist();
                     }
             }
-            System.out.println("tokens: "+tokens);
-            this.loadChat(tokens);
+            System.out.println("tokens: "+participantsString);
+            this.loadChat(participantsString);
         }else{
-		    System.out.println("gibts schon");
+		    System.out.println("Chat bereits vorhanden");
         }
 	}
 
 	private void handleMessage(String[] tokens){
 		String[] internTokens = tokens[1].split(" ", 4);
 		String message = internTokens[3];
-		String[] chatname = internTokens[0].split("#!#%#");
+		String[] chatname = internTokens[0].split("#");
 		String sender = internTokens[1];
 		String time = internTokens[2];
 
@@ -266,7 +266,7 @@ public class ServerWorker extends Thread {
 		for (ServerWorker worker : workerList){
 			for(int i = 0; i < chatname.length; i++) {
 				if (chatname[i].equalsIgnoreCase(worker.username)) {//prüfen ob Client, der dem worker zugeordnet ist, Teil des Chats ist
-					worker.loadChat(internTokens[0].replace("#!#%#", " ")); //loadChat() bei serverWorker aufrufen
+					worker.loadChat(internTokens[0]); //loadChat() bei serverWorker aufrufen
 				}
 			}
 		}

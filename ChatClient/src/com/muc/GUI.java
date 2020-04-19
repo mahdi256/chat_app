@@ -86,17 +86,15 @@ public class GUI {
         return true;
     }
 
-    public void interfaceAddUser(String user){
+    public void interfaceAddUser(String user){ //"user1 user2 user3"
         // eure get-Methode
+        user = "#" + user.replace(" ","#") + "#";
         client.createChat(user);
 
     }
 
 
     public void interfaceReceiveNewUserList(String[] userList){
-        //this.lastChats = userList;
-        // ihr ruft die auf
-
         for(int i=0; i<userList.length;i++){
             userList[i] = userList[i].replace("#", " ");
         }
@@ -107,7 +105,8 @@ public class GUI {
 
     public void interfaceSendClickedChat(String clickedChat){
         currentChatBar.setText(clickedChat);
-
+        System.out.println("participants werden von GUI an openchat gegeben als : "+clickedChat.replace(" ", "#"));
+        client.openChat(clickedChat.replace(" ", "#"));
 
     }
 
@@ -124,10 +123,19 @@ public class GUI {
 
 
         // Aufruf eurer Methode
+        try {
+            if(sentMessage.isEmpty() || sentMessage == null || sentMessage == ""){
+                JOptionPane.showMessageDialog(messangerFrame,
+                        "Es dürfen keine leeren Nachrichten versendet werden!",
+                        "Fehler",
+                        JOptionPane.WARNING_MESSAGE);
 
-        // das dann entfernen, denn ich bekomme die neue History automatisch
-        String[][] sentMessageArray = {{"user0", "zeit", sentMessage}};
-        interfaceReceiveMessage(sentMessageArray);
+            } else {
+                client.sendMessage(sentMessage);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

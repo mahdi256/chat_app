@@ -34,7 +34,6 @@ class ChatClient{
         System.out.println(serverPort); // Port des Servers mit dem kommuniziert wird, wird ausgegeben
         ChatClient client = new ChatClient("localhost", serverPort); //Objekt von ChatClient wird erstellt mit Server Port und Server Adresse
 
-
         userInterface = new GUI(client);
         userInterface.login();
 
@@ -66,9 +65,9 @@ class ChatClient{
     }
 
     public void createChat(String allOtherUsers){
-        String participants = allOtherUsers + " " + username; // zu den übergebenen anderen usern fügen wir uns selbst hinzu
+        String participants = allOtherUsers + username + "#"; // zu den übergebenen anderen usern fügen wir uns selbst hinzu
         participants = "createChat " + participants;
-        System.out.println(participants);
+        System.out.println(participants); // participants format: #username#username#
         clientOut.println(participants);
         clientOut.flush();
     }
@@ -78,7 +77,7 @@ class ChatClient{
             String clientIn;
 
             while (true) { //endlosschleife
-                System.out.println("ich warte hier");
+                System.out.println("Client wartet auf eingehende Commands");
                 if((clientIn = bufferedIn.readLine()) != null ) { //Empfangene Nachricht wird in ClientIn geschrieben
                     System.out.println(clientIn); //Ausgabe nur zum kontrolle! User sollte das Commando nicht sehen
                     String[] tokens = clientIn.split(" ", 2); //Commando wird Teile geteilt
@@ -87,8 +86,8 @@ class ChatClient{
                         if("chatList".equalsIgnoreCase(msg)) {
                             handleChatList(tokens);
                         } else if("chat".equalsIgnoreCase(msg)){
-                            tokens = clientIn.split( " ", 3);
-                            handleChat(tokens);
+                            String[] tokens2 = clientIn.split( " ", 3);
+                            handleChat(tokens2);
                         }
 
                     }
@@ -114,9 +113,15 @@ class ChatClient{
         String chatname = tokens[1];
         String[] messages = tokens[2].split("#!!!#");
         String[][] chatHistory = new String[messages.length][3];
+       String[] parameters;
+        System.out.println("Tokens[2]:" + tokens[2]);
+        System.out.println("Message[0]: "+messages[0]);
         for(int i = 0;i<messages.length; i++){
+            parameters = messages[i].split("#!#%#");
+            for(int x= 0; x < parameters.length;x++){
+                System.out.println(parameters[x]);
+            }
             for(int j=0; j<3;j++){
-                String[] parameters = messages[i].split("#!#%#");
                 chatHistory[i][j] = parameters[j];
             }
         }
@@ -141,10 +146,13 @@ class ChatClient{
         return false;
     }
 
-    //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
-    public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
-        String ChatName = activeChat.replace(" ", "#!#%#");
-        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message; //Command wird erstellt aus Empfänger und Nachricht
+        //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
+       public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
+        if(activeChat == null) return; //es ist nicht möglich eine Nachricht zu versenden, wenn kein Chat ausgewählt wurde
+           String ChatName = activeChat;
+           System.out.println("->im Client verarbeitete Message: " + Message);
+        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message ; //Command wird erstellt aus Empfänger und Nachricht
+           System.out.println("gesendeter Massage Command: " + cmd);
         clientOut.println(cmd);
         clientOut.flush(); // Command wird an Server gesendet
     }
