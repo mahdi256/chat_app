@@ -70,20 +70,17 @@ public class GUI {
         //  });
     }*/
 
-    public boolean interfaceLogin(String[] loginData){
+    public String[] interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
         if(client.connect()){
             try{
-                if(client.login(loginData[0], loginData[1], loginData[2])){
-                    return true;
-                }else{
-                    return false;
-                }
+                String[] chatlist = client.login(loginData[0], loginData[1], loginData[2]);
+                return chatlist;
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
-        return true;
+        return null;
     }
 
     public void interfaceAddUser(String user){ //"user1 user2 user3"
@@ -311,13 +308,17 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "login"};
-                boolean success = interfaceLogin(loginDataArray);
-                if(success){
+                String[] userList = interfaceLogin(loginDataArray);
+                if(userList != null){
+                    for(int i=0; i<userList.length;i++){
+                        userList[i] = userList[i].replace("#", " ");
+                    }
+                    lastChats = userList;
+
                     username = usernameField.getText();
                     System.out.println("login" + username);
                     loginFrame.setVisible(false);
                     messanger();
-
 
                 }
                 else {
@@ -330,8 +331,13 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "register"};
-                boolean success = interfaceLogin(loginDataArray);
-                if(success){
+                String[] userList = interfaceLogin(loginDataArray);
+                if(userList!=null){
+                    for(int i=0; i<userList.length;i++){
+                        userList[i] = userList[i].replace("#", " ");
+                    }
+                    lastChats = userList;
+
                     username = usernameField.getText();
                     loginFrame.setVisible(false);
                     messanger();
