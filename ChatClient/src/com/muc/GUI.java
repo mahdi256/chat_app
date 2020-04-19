@@ -84,8 +84,8 @@ public class GUI {
 
 
     public void interfaceReceiveNewUserList(String[] userList){
+        this.lastChats = userList;
         // ihr ruft die auf
-
         // ich baue links die User-Liste neu auf
     }
 

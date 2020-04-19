@@ -47,7 +47,7 @@ public class FileQuery {
 	
 	
 	// Method to check if a chatfile exists
-	public Boolean findChatFile(String[] participant) {
+	public static Boolean findChatFile(String[] participant) {
 		File chatfile = getFilename(participant);
 		Boolean exits = chatfile.exists();
 		return exits;

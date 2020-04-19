@@ -14,7 +14,6 @@ class ChatClient{
     private InputStream inputStream;
     private OutputStream outputStream;
     private BufferedReader bufferedIn;
-    private BufferedReader inFromUser;
     private PrintWriter clientOut;
     private String username;
     private String password;
@@ -79,6 +78,7 @@ class ChatClient{
             String clientIn;
 
             while (true) { //endlosschleife
+                System.out.println("ich warte hier");
                 if((clientIn = bufferedIn.readLine()) != null ) { //Empfangene Nachricht wird in ClientIn geschrieben
                     System.out.println(clientIn); //Ausgabe nur zum kontrolle! User sollte das Commando nicht sehen
                     String[] tokens = clientIn.split(" ", 2); //Commando wird Teile geteilt
@@ -106,7 +106,7 @@ class ChatClient{
     }
 
     private void handleChatList(String[] tokens){
-        String[] chatList = tokens[1].split(" ");
+        String[] chatList = tokens[1].split("#");
         userInterface.interfaceReceiveNewUserList(chatList);
     }
 
@@ -161,6 +161,7 @@ class ChatClient{
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
+            startMessageReader();
             return true;
         } else if("login failed".equalsIgnoreCase(response)) {
             return false; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
@@ -168,6 +169,7 @@ class ChatClient{
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
+            startMessageReader();
             return true;
         }else if("registration failed".equalsIgnoreCase(response)){
             return false;
