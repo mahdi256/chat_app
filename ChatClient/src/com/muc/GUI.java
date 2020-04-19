@@ -94,11 +94,15 @@ public class GUI {
 
 
     public void interfaceReceiveNewUserList(String[] userList){
-        this.lastChats = userList;
+        //this.lastChats = userList;
         // ihr ruft die auf
 
+        for(int i=0; i<userList.length;i++){
+            userList[i] = userList[i].replace("#", " ");
+        }
+
         // ich baue links die User-Liste neu auf
-        updateUserList(lastChats);
+        updateUserList(userList);
     }
 
     public void interfaceSendClickedChat(String clickedChat){
@@ -131,9 +135,9 @@ public class GUI {
         updateChatHistory(receivedMessage);
 
         // TODO: rausnehmen und an den richtigen Ort verlegen
-        String[] newUserArray = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
+        //String[] newUserArray = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
 
-        updateUserList(newUserArray);
+        //updateUserList(newUserArray);
     }
 
     public void updateUserList(String[] lastChats) {
