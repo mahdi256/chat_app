@@ -193,6 +193,7 @@ public class FileQuery {
 		return "userlist succesfully created or found";
 	}
 
+
 	// Method for checking Login credentials
 	public static int checkLoginCredentials(String username, String password) {
 		int loginCredentialsCorrect = 0; // 2 login credetials are correct, 1 user exists but password is incorrect, 0 user does not exist

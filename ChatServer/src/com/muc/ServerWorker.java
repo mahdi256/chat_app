@@ -2,7 +2,9 @@ package com.muc;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -238,8 +240,13 @@ public class ServerWorker extends Thread {
 		}
 		if(!FileQuery.findChatFile(participants) && allUsersExist){
             FileQuery.createChatFile(participants);
-            String msg = "Chat erstellt: " + System.currentTimeMillis();
-            FileQuery.writeChatMessage(participants,username,msg,System.currentTimeMillis()+"");
+
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			String time = sdf.format(cal.getTime());
+
+            String msg = "Chat erstellt um " + time;
+            FileQuery.writeChatMessage(participants,username,msg,time);
             this.server.redirectMsg("chatlist "+participantsString);
             for(ServerWorker worker : workerList){
                 for (int i = 1; i < participants.length; i++) {

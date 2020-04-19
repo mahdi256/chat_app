@@ -7,11 +7,11 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.*;
 import java.io.FileReader;
 import javax.swing.text.html.HTMLEditorKit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.io.*;
+import java.util.List;
 
 
 public class GUI {
@@ -148,10 +148,6 @@ public class GUI {
     public void interfaceReceiveMessage(String[][] receivedMessage){
         updateChatHistory(receivedMessage);
 
-        // TODO: rausnehmen und an den richtigen Ort verlegen
-        //String[] newUserArray = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
-
-        //updateUserList(newUserArray);
     }
 
     public void updateUserList(String[] lastChats) {
@@ -227,8 +223,11 @@ public class GUI {
             metaDataLabel.setContentType("text/html");
 
             // links oder rechts je nach Sender/Empfänger
+
+
+
             if (newChatHistory[i][0] != username) {
-                metaDataLabel.setText("<html> <font size=\"3\">"+ newChatHistory[i][1] + "</font><br/><font size=\"5\">" + newChatHistory[i][2] + "</font></html>");
+                metaDataLabel.setText("<html> <font size=\"3\">"+ newChatHistory[i][0] + " schrieb um " + newChatHistory[i][1] + ":" + "</font><br/><font size=\"5\">" + newChatHistory[i][2] + "</font></html>");
             }
 
             else {
@@ -259,9 +258,6 @@ public class GUI {
                 messageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
                 //messageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
                 //metaDataLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-
-
-
             } */
 
         }
@@ -276,8 +272,6 @@ public class GUI {
             messagePanel.add(filler, gbc2);
         }
 
-
-
         //JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         //       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -288,13 +282,14 @@ public class GUI {
         //    bar.setValue(bar.getMaximum());
         // });
 
+        //JScrollBar bar = messagePane.getVerticalScrollBar();
+        //bar.validate();
+        //bar.setValue(bar.getMaximum());
+
         messagePanel.revalidate();
         messagePanel.repaint();
 
-
-
-
-    } // Bestätigung zurück?
+    }
 
     public void login() {
         JFrame loginFrame = new JFrame("Login");
@@ -574,6 +569,8 @@ public class GUI {
 
         SwingUtilities.invokeLater(() -> {
             JScrollBar bar = messagePane.getVerticalScrollBar();
+            messagePane.validate();
+            bar.validate();
             bar.setValue(bar.getMaximum());
         });
 

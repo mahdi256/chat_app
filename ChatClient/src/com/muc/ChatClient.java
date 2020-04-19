@@ -3,7 +3,9 @@ package com.muc;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 
@@ -156,7 +158,12 @@ class ChatClient{
         if(activeChat == null) return; //es ist nicht möglich eine Nachricht zu versenden, wenn kein Chat ausgewählt wurde
            String ChatName = activeChat;
            System.out.println("->im Client verarbeitete Message: " + Message);
-        String cmd = "message " + ChatName + " " + username + " " + System.currentTimeMillis() + " " + Message ; //Command wird erstellt aus Empfänger und Nachricht
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String time = sdf.format(cal.getTime());
+
+        String cmd = "message " + ChatName + " " + username + " " + time + " " + Message ; //Command wird erstellt aus Empfänger und Nachricht
            System.out.println("gesendeter Massage Command: " + cmd);
         clientOut.println(cmd);
         clientOut.flush(); // Command wird an Server gesendet
