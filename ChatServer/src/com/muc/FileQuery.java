@@ -88,6 +88,38 @@ public class FileQuery {
 
 	}
 
+	// Methode, die überprüft ob ein nutzername in der nutzerliste vorkommt
+	public static Boolean checkUsername(String username){
+
+		String path = null;
+		try {
+			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		File userlist = new File(path +"/userlist.txt");
+
+		String[] temp = null;
+
+		try {
+			BufferedReader userlistreader = new BufferedReader(new FileReader(userlist));
+			String userlistline = userlistreader.readLine();
+			if(userlistline != null) {
+				temp = userlistline.split("#");
+				for (int i = 0; i < temp.length; i = i+2) {
+					if(username.equals(temp[i])) {
+						//System.out.println("Username exists in userlist");
+						return true;
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	// Method for reading a chat from file
 	public static String readChat(String[] participant) {
 		String[] temp = null;

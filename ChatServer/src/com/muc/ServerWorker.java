@@ -172,19 +172,12 @@ public class ServerWorker extends Thread {
 	}*/
 
 	// Methode, die User auslogged, ServerWorker + Socket schließt
-	/*private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
+	private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
 		server.removeWorker(this);
-		List<ServerWorker> workerList = server.getWorkerList();
+		this.workerList = server.getWorkerList();
 
-		// send other online users current user's status, muss an UI angebunden werden
-		String onlineMsg = "offline " + username + "\n";
-		for (ServerWorker worker : workerList) {
-			if (!username.equals(worker.getUsername())) {
-				worker.send(onlineMsg);
-			}
-		}
 		clientSocket.close(); //Socket wird geschlossen
-	}*/
+	}
 
 	private void handleClientSocket() throws IOException, InterruptedException { //Methode wird beim starten des ServerWorkers aufgerufen
 	    this.inputStream = clientSocket.getInputStream();
@@ -215,17 +208,14 @@ public class ServerWorker extends Thread {
 						loadChat(tokens[1]);
 					} else if("createChat".equalsIgnoreCase(msg)){
 						createChat(tokens[1]);
-					} else {
+					} else if("logOff".equalsIgnoreCase(msg)){
+						handleLogoff();
+					}else{
 						msg = "unknown " + msg; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
 						//outputStream.write(msg.getBytes());
 						printWriter.println(msg);
 						printWriter.flush();
 					}
-					//Kommando von Client wenn er Chat anfordert:
-						//Methode zum auslesen und zurückgeben eines Chats aufrufen
-
-					//Kommando von Client wenn er neuen Chat erstellt hat
-						//Methode zum erstellen eines neuen Chats aufrufen
 				}
 			}
 		}
@@ -235,12 +225,19 @@ public class ServerWorker extends Thread {
 
 	private void createChat(String participantsString){
 		String[] participants = participantsString.split("#"); //old format: #user#user#
-		if(!FileQuery.findChatFile(participants)){
+		boolean allUsersExist=true;
+		for(int i=1; i<participants.length;i++){
+			if(!FileQuery.checkUsername(participants[i])){
+				System.out.println(participants[i] + "false");
+				allUsersExist=false;
+			}
+		}
+		if(!FileQuery.findChatFile(participants) && allUsersExist){
             FileQuery.createChatFile(participants);
             String msg = "Chat erstellt: " + System.currentTimeMillis();
             FileQuery.writeChatMessage(participants,username,msg,System.currentTimeMillis()+"");
             for(ServerWorker worker : workerList){
-                for (int i = 0; i < participants.length; i++)
+                for (int i = 1; i < participants.length; i++)
                     if (worker.getUsername().equals(participants[i])){
                         worker.loadChatlist();
                     }
@@ -248,7 +245,7 @@ public class ServerWorker extends Thread {
             System.out.println("tokens: "+participantsString);
             this.loadChat(participantsString);
         }else{
-		    System.out.println("Chat bereits vorhanden");
+		    System.out.println("Chat bereits vorhanden oder ein User ist nicht registriert");
         }
 	}
 

@@ -58,6 +58,11 @@ class ChatClient{
 
     }
 
+    public void logOff(){
+        clientOut.println("logOff");
+        clientOut.flush();
+    }
+
     public void openChat(String chatName){
         clientOut.println("openChat " + chatName);
         clientOut.flush();

@@ -72,13 +72,22 @@ public class GUI {
 
     public String[] interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
-        if(client.connect()){
-            try{
-                String[] chatlist = client.login(loginData[0], loginData[1], loginData[2]);
-                return chatlist;
-            }catch (IOException e){
-                e.printStackTrace();
+        boolean correctLogin = true;
+        if(loginData[0].contains(" ") || loginData[0].contains("#") || loginData[0].isEmpty() || loginData[0] == null || loginData[1].contains(" ") || loginData[1].contains("#") || loginData[1].isEmpty() || loginData[1] == null){
+            correctLogin = false;
+        }
+        if(correctLogin) {
+            if(client.connect()){
+
+                try {
+                    String[] chatlist = client.login(loginData[0], loginData[1], loginData[2]);
+                    return chatlist;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }else {
+            System.out.println("Login Daten falsch");
         }
         return null;
     }
