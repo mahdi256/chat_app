@@ -149,7 +149,9 @@ public class GUI {
     }
 
     public void updateUserList(String[] lastChats) {
+
         lastChatsPanel.removeAll();
+        lastChatsPanel.setLayout(new GridBagLayout());
 
         int numberChats = lastChats.length;
         //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
@@ -584,8 +586,15 @@ public class GUI {
         typeBarSendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                interfaceSendMessage(typeBarTextField.getText().replace("<html>", "").replace("</p>","").replace("<head>", "").replace("<body>", "").replace("</html>", "").replace("</head>", "").replace("</body>", "").replace("<p style=\"margin-top: 0\">", "")); // Zeitstempel & Sender werden vom Server gesetzt, damit keine Manipulation möglich ist, oder?
-                System.out.println(typeBarTextField.getText());
+
+                String interfaceSendMessageString = typeBarTextField.getText().replace("<html>", "").replace("</p>","").replace("<head>", "").replace("<body>", "").replace("</html>", "").replace("</head>", "").replace("</body>", "").replace("<p style=\"margin-top: 0\">", "").replace("\n", "").replace("\n", ""); // Zeitstempel & Sender werden vom Server gesetzt, damit keine Manipulation möglich ist, oder?
+                String[] splitStr = interfaceSendMessageString.split("\\s+");
+                String newString = "";
+                for (String str : splitStr){
+                    if(str != ""){
+                        newString = newString + str + " ";}
+                }
+                interfaceSendMessage(newString.substring(1));
             }
         });
         //typeBarSendButton.setMinimumSize(new Dimension(20, 100));

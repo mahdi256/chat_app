@@ -147,7 +147,7 @@ class ChatClient{
     }
 
         //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"
-       public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
+    public void sendMessage(String Message) throws IOException { //Methode die eine Nachricht an den Server versendet
         if(activeChat == null) return; //es ist nicht möglich eine Nachricht zu versenden, wenn kein Chat ausgewählt wurde
            String ChatName = activeChat;
            System.out.println("->im Client verarbeitete Message: " + Message);
@@ -158,7 +158,7 @@ class ChatClient{
     }
 
     // boolean Login
-    public boolean login(String username, String password, String entryMethod) throws IOException { //benötigt Parameter: username und passwort
+    public String[] login(String username, String password, String entryMethod) throws IOException { //benötigt Parameter: username und passwort
         String msg = "login " + username + " " + password + " " + entryMethod; //Commando zum login wird aus username und passwort zusammengesetzt
         clientOut.println(msg);
         clientOut.flush(); //Commando wird an Server gesendet
@@ -168,20 +168,26 @@ class ChatClient{
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
+            String chatlist = bufferedIn.readLine();
+            String[] components = chatlist.split(" ", 2);
+            String[] chatListArray = components[1].split(" ");
             startMessageReader();
-            return true;
+            return chatListArray;
         } else if("login failed".equalsIgnoreCase(response)) {
-            return false; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
+            return null; //wenn Server nicht "ok login" sendet, endet login() mit return false -> Login ist gescheitert
         }else if("registration successful".equalsIgnoreCase(response)){
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
+            String chatlist = bufferedIn.readLine();
+            String[] components = chatlist.split(" ", 2);
+            String[] chatListArray = components[1].split(" ");
             startMessageReader();
-            return true;
+            return chatListArray;
         }else if("registration failed".equalsIgnoreCase(response)){
-            return false;
+            return null;
         }
-        return false;
+        return null;
         // Einfügen, dass Nachricht ausgegeben wird, wenn sich user neu registriert hat
     }
 
