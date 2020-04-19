@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cbcff2a0-2f1f-493f-b324-72b998777aa2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/FileQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/FileQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,13 +50,13 @@
     <session id="1032587575">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3232" />
+          <entry key="java" value="3285" />
           <entry key="txt" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3232" />
+          <entry key="JAVA" value="3285" />
           <entry key="PLAIN_TEXT" value="40" />
         </counts>
       </usages-collector>
@@ -81,22 +74,19 @@
         <counts>
           <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
-              <caret line="126" column="5" lean-forward="true" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="5" />
-              <folding>
-                <element signature="e#1989#2116#0" expanded="true" />
-                <element signature="e#2115#2116#0" expanded="true" />
-              </folding>
+              <caret line="126" column="5" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -104,14 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-683">
+            <state relative-caret-position="2376">
               <caret line="139" column="23" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
-              <folding>
-                <element signature="e#754#755#0" expanded="true" />
-                <element signature="e#776#777#0" expanded="true" />
-                <element signature="e#851#852#0" expanded="true" />
-                <element signature="e#875#876#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -125,21 +109,21 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="85" column="43" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="43" />
+            <state relative-caret-position="468">
+              <caret line="110" column="27" lean-forward="true" selection-start-line="110" selection-start-column="27" selection-end-line="110" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#676#677#0" expanded="true" />
-                <element signature="e#712#713#0" expanded="true" />
-                <element signature="e#27177#27178#0" expanded="true" />
-                <element signature="e#27241#27242#0" expanded="true" />
-                <element signature="e#29850#29851#0" expanded="true" />
-                <element signature="e#29937#29938#0" expanded="true" />
-                <element signature="e#30920#30921#0" expanded="true" />
-                <element signature="e#31014#31015#0" expanded="true" />
+                <element signature="e#992#993#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+                <element signature="e#8352#8353#0" expanded="true" />
+                <element signature="e#8438#8439#0" expanded="true" />
+                <element signature="e#27840#27841#0" expanded="true" />
+                <element signature="e#27896#27897#0" expanded="true" />
+                <element signature="e#31527#31528#0" expanded="true" />
+                <element signature="e#31613#31614#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,7 +132,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
+            <state relative-caret-position="450">
               <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -163,7 +147,7 @@
         <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -180,7 +164,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>chatHistory</find>
       <find>SendMessage</find>
       <find>messagePanel</find>
       <find>send</find>
@@ -210,6 +193,7 @@
       <find>handlechat</find>
       <find>activechat</find>
       <find>username</find>
+      <find>user1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -222,9 +206,9 @@
         <option value="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" />
         <option value="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" />
         <option value="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" />
-        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" />
         <option value="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" />
         <option value="$PROJECT_DIR$/ChatServer/src/com/muc/FileQuery.java" />
+        <option value="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" />
       </list>
     </option>
   </component>
@@ -260,8 +244,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,12 +299,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587259054030" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1587300390950" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -488,7 +472,7 @@
     <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15347913" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15467197" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -645,44 +629,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-683">
+        <state relative-caret-position="2376">
           <caret line="139" column="23" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
-          <folding>
-            <element signature="e#754#755#0" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-            <element signature="e#851#852#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="85" column="43" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#27177#27178#0" expanded="true" />
-            <element signature="e#27241#27242#0" expanded="true" />
-            <element signature="e#29850#29851#0" expanded="true" />
-            <element signature="e#29937#29938#0" expanded="true" />
-            <element signature="e#30920#30921#0" expanded="true" />
-            <element signature="e#31014#31015#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#476#477#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -693,20 +641,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#476#477#0" expanded="true" />
+            <element signature="e#500#501#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="126" column="5" lean-forward="true" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="5" />
+          <caret line="126" column="5" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="110" column="27" lean-forward="true" selection-start-line="110" selection-start-column="27" selection-end-line="110" selection-end-column="27" />
           <folding>
-            <element signature="e#1989#2116#0" expanded="true" />
-            <element signature="e#2115#2116#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#8352#8353#0" expanded="true" />
+            <element signature="e#8438#8439#0" expanded="true" />
+            <element signature="e#27840#27841#0" expanded="true" />
+            <element signature="e#27896#27897#0" expanded="true" />
+            <element signature="e#31527#31528#0" expanded="true" />
+            <element signature="e#31613#31614#0" expanded="true" />
           </folding>
         </state>
       </provider>

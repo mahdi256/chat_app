@@ -3,9 +3,15 @@ package com.muc;
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.*;
-import java.io.IOException;
-
+import java.io.FileReader;
+import javax.swing.text.html.HTMLEditorKit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.io.*;
 
 
 public class GUI {
@@ -19,15 +25,21 @@ public class GUI {
     JTextField  usernameField;
     JTextField  passwordField;
     JFrame      loginFrame;
+    JPanel messageAndTypePanel = new JPanel();
+
     JPanel messagePanel = new JPanel();
-    String[][] chatHistory;
+    String[][] chatHistory = {{"a","b","c"}};
     String username;
     ChatClient client;
-    JPanel messageAndTypePanel = new JPanel();
-    JScrollPane messagePane;
+    JPanel lastChatsPanel = new JPanel();
+    JLabel currentChatBar = new JLabel();
+
+
+
+    int numberOfMessages;
 
     public GUI(ChatClient client){
-        this.client = client;
+         this.client = client;
     }
 
 
@@ -38,8 +50,8 @@ public class GUI {
     //List<String[]> chatHistory = new ArrayList<>(chatHistory1);
 
     //int numberOfMessages = chatHistory.();
-   /* public static void main(String[] args) {
-
+    /*public static void main(String[] args) {
+        /*
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -49,15 +61,14 @@ public class GUI {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                */
-               // GUI gui = new GUI();
-                //gui.emojis();
-                //gui.messanger();
-              //  gui.login();
-          //  }
-      //  });
-    //}
 
+        GUI gui = new GUI();
+        //gui.emojis();
+        //gui.messanger();
+        gui.login();
+        //  }
+        //  });
+    }*/
 
     public boolean interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
@@ -72,12 +83,11 @@ public class GUI {
                 e.printStackTrace();
             }
         }
-        return false;
+        return true;
     }
 
     public void interfaceAddUser(String user){
-        // wird aufgerufen, wenn ein neuer Chat erstellt wird
-        System.out.println("i bims hier");
+        // eure get-Methode
         client.createChat(user);
 
     }
@@ -86,41 +96,100 @@ public class GUI {
     public void interfaceReceiveNewUserList(String[] userList){
         this.lastChats = userList;
         // ihr ruft die auf
+
         // ich baue links die User-Liste neu auf
+        updateUserList(lastChats);
     }
 
     public void interfaceSendClickedChat(String clickedChat){
-        client.openChat(clickedChat);
+        currentChatBar.setText(clickedChat);
+
+
     }
 
     public void interfaceUIReceiveNewChatHistory(String[] newChatHistory){
         // ihr ruft die auf
         // ich baue den Chatverlauf neu auf
+
+
     }
 
     public void interfaceSendMessage(String sentMessage){
-        try {
-            client.sendMessage(sentMessage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // TODO: remove Konsolenausgabe
+        System.out.println(sentMessage);
 
-        String[][] sentMessageArray = {{"antwort user", "zeit", sentMessage}};
+
+        // Aufruf eurer Methode
+
+        // das dann entfernen, denn ich bekomme die neue History automatisch
+        String[][] sentMessageArray = {{"user0", "zeit", sentMessage}};
         interfaceReceiveMessage(sentMessageArray);
     }
 
 
     public void interfaceReceiveMessage(String[][] receivedMessage){
         updateChatHistory(receivedMessage);
+
+        // TODO: rausnehmen und an den richtigen Ort verlegen
+        String[] newUserArray = {"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" ,"user a", "user b", "user c", "user d","user a", "user b", "user c", "user d" };
+
+        updateUserList(newUserArray);
+    }
+
+    public void updateUserList(String[] lastChats) {
+        lastChatsPanel.removeAll();
+
+        int numberChats = lastChats.length;
+        //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
+
+        for (int j = 0; j < numberChats; j++) {
+            JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
+            userButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    interfaceSendClickedChat(userButton.getText());
+                }
+            });
+            //button.setPreferredSize(new Dimension(100, 100));
+            //   Dimension d = button.getPreferredSize();
+            // d.height = 50;
+            //button.setPreferredSize(d);
+            userButton.setFont(new Font("Arial", Font.PLAIN, 17));
+            userButton.setHorizontalAlignment(SwingConstants.LEFT);
+            userButton.setVerticalAlignment(SwingConstants.TOP);
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = j;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            if (j + 1 == numberChats) {
+                gbc.weightx = 1.0;
+                gbc.weighty = 1.0;
+            }
+            lastChatsPanel.add(userButton, gbc);
+        }
+        for (int k = 0; k < numberChats; k++) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = numberChats;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            //gbc.weightx = 1.0;
+            //gbc.weighty = 1.0;
+            JPanel filler = new JPanel();
+            filler.setOpaque(false);
+            lastChatsPanel.add(filler, gbc);
+        }
+        lastChatsPanel.revalidate();
+        lastChatsPanel.repaint();
     }
 
     public void updateChatHistory(String[][] newChatHistory){
         messagePanel.removeAll();
-        messagePanel.revalidate();
-        messagePanel.repaint();
+
 
         int numberOfMessages = newChatHistory.length;
-        messagePanel.setLayout(new GridBagLayout());
+        //messagePanel.setLayout(new GridBagLayout());
         for (int i = 0; i < numberOfMessages; i++) {
 
             GridBagConstraints gbc1 = new GridBagConstraints();
@@ -189,15 +258,18 @@ public class GUI {
 
 
 
-       JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        //       JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        //      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+        //  SwingUtilities.invokeLater(() -> {
+        //     JScrollBar bar = messagePane.getVerticalScrollBar();
+        //    bar.setValue(bar.getMaximum());
+        // });
 
-
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar bar = messagePane.getVerticalScrollBar();
-            bar.setValue(bar.getMaximum());
-        });
+        messagePanel.revalidate();
+        messagePanel.repaint();
 
 
 
@@ -224,18 +296,19 @@ public class GUI {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "login"};
-                    boolean success = interfaceLogin(loginDataArray);
-                    if(success){
-                        username = usernameField.getText();
-                        loginFrame.setVisible(false);
-                        messanger();
+                String[] loginDataArray= {usernameField.getText(), passwordField.getText(), "login"};
+                boolean success = interfaceLogin(loginDataArray);
+                if(success){
+                    username = usernameField.getText();
+                    System.out.println("login" + username);
+                    loginFrame.setVisible(false);
+                    messanger();
 
 
-                    }
-                    else {
-                        successMessageLabel.setText("Login failed");
-                    }
+                }
+                else {
+                    successMessageLabel.setText("Login failed");
+                }
 
             }
         });
@@ -377,7 +450,6 @@ public class GUI {
         messangerFrame.add(rightPanel, messangerFrame2);
         //messangerFrame.add(topPanel);
 
-        JLabel currentChatBar = new JLabel("Daniel Kossack");
         currentChatBar.setFont(new Font("Arial", Font.PLAIN, 25));
         /*JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
@@ -395,40 +467,42 @@ public class GUI {
 
         }*/
 
-        int numberOfMessages = 0;
+        // TODO rausnehmen
+        numberOfMessages = chatHistory.length;
+
         messagePanel.setLayout(new GridBagLayout());
         for (int i = 0; i < numberOfMessages; i++) {
 
-                GridBagConstraints gbc1 = new GridBagConstraints();
-                gbc1.gridx = 0;
-                gbc1.gridy = i;
-                gbc1.fill = GridBagConstraints.HORIZONTAL;
-                gbc1.anchor = GridBagConstraints.NORTHWEST;
-                if (i + 1 == numberOfMessages) {
-                    gbc1.weightx = 1.0;
-                    gbc1.weighty = 1.0;
-                }
+            GridBagConstraints gbc1 = new GridBagConstraints();
+            gbc1.gridx = 0;
+            gbc1.gridy = i;
+            gbc1.fill = GridBagConstraints.HORIZONTAL;
+            gbc1.anchor = GridBagConstraints.NORTHWEST;
+            if (i + 1 == numberOfMessages) {
+                gbc1.weightx = 1.0;
+                gbc1.weighty = 1.0;
+            }
 
-                JEditorPane metaDataLabel = new JEditorPane();
-                metaDataLabel.setEditable(false);
-                metaDataLabel.setContentType("text/html");
+            JEditorPane metaDataLabel = new JEditorPane();
+            metaDataLabel.setEditable(false);
+            metaDataLabel.setContentType("text/html");
             if (chatHistory[i][0] != username) {
                 metaDataLabel.setText("<html> <font size=\"3\">"+ chatHistory[i][1] + "</font><br/><font size=\"5\">" + chatHistory[i][2] + "</font></html>");
-                }
-                else {
+            }
+            else {
                 metaDataLabel.setText("<html> <div align=\"right\"> <font size=\"3\">"+ chatHistory[i][1] + "</font><br/><font size=\"5\">" + chatHistory[i][2] + "</font></div></html>");
-                }
-                messagePanel.add(metaDataLabel, gbc1);
-                //metaDataLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                //metaDataLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-                //JLabel emptyMetaDataLabel = new JLabel();
-                //messagePanel.add(emptyMetaDataLabel);
-                //JLabel messageLabel = new JLabel(chatHistory[i][2], SwingConstants.LEFT);
-                //messageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-                //messagePanel.add(messageLabel);
-                //messageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                //JLabel emptyMessageLabel = new JLabel();
-                //messagePanel.add(emptyMessageLabel);
+            }
+            messagePanel.add(metaDataLabel, gbc1);
+            //metaDataLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+            //metaDataLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+            //JLabel emptyMetaDataLabel = new JLabel();
+            //messagePanel.add(emptyMetaDataLabel);
+            //JLabel messageLabel = new JLabel(chatHistory[i][2], SwingConstants.LEFT);
+            //messageLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+            //messagePanel.add(messageLabel);
+            //messageLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+            //JLabel emptyMessageLabel = new JLabel();
+            //messagePanel.add(emptyMessageLabel);
 
            /* } else {
                 //JLabel emptyMetaDataLabel = new JLabel();
@@ -462,8 +536,10 @@ public class GUI {
 
 
 
-            JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        //messagePane.add(messagePanel);
 
 
 
@@ -476,134 +552,133 @@ public class GUI {
 
 
         //DefaultStyledDocument document = new DefaultStyledDocument();
-            //JTextPane messageTextPane = new JTextPane(document);
-            //JScrollPane messagePane = new JScrollPane(messageTextPane);
-            //messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
-            JPanel typeBar = new JPanel();
-            typeBar.setLayout(new BoxLayout(typeBar, BoxLayout.X_AXIS));
-            JEditorPane typeBarTextField = new JEditorPane();
-            JScrollPane typeBarTextFieldScrollPane = new JScrollPane(typeBarTextField);
-            typeBarTextField.setContentType("text/html");
-            typeBarTextField.setText("<html></html>");
-            JButton typeBarEmojiButton = new JButton("emojis");
-            typeBarEmojiButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    emojis(typeBarTextField);
-                }
-            });
-            JButton typeBarSendButton = new JButton("send");
-            typeBarSendButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    interfaceSendMessage(typeBarTextField.getText()); // Zeitstempel & Sender werden vom Server gesetzt, damit keine Manipulation möglich ist, oder?
-                    System.out.println(typeBarTextField.getText());
-                }
-            });
-            //typeBarSendButton.setMinimumSize(new Dimension(20, 100));
-            JPanel typeBarButtonPanel = new JPanel();
-            typeBarButtonPanel.setLayout(new GridLayout(2,1));
-            typeBarButtonPanel.setMinimumSize(new Dimension(10, 100));
-            typeBarButtonPanel.add(typeBarEmojiButton);
-            typeBarButtonPanel.add(typeBarSendButton);
+        //JTextPane messageTextPane = new JTextPane(document);
+        //JScrollPane messagePane = new JScrollPane(messageTextPane);
+        //messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+        JPanel typeBar = new JPanel();
+        typeBar.setLayout(new BoxLayout(typeBar, BoxLayout.X_AXIS));
+        JEditorPane typeBarTextField = new JEditorPane();
+        JScrollPane typeBarTextFieldScrollPane = new JScrollPane(typeBarTextField);
+        typeBarTextField.setContentType("text/html");
+        typeBarTextField.setText("<html></html>");
+        JButton typeBarEmojiButton = new JButton("emojis");
+        typeBarEmojiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                emojis(typeBarTextField);
+            }
+        });
+        JButton typeBarSendButton = new JButton("send");
+        typeBarSendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                interfaceSendMessage(typeBarTextField.getText().replace("<html>", "").replace("</p>","").replace("<head>", "").replace("<body>", "").replace("</html>", "").replace("</head>", "").replace("</body>", "").replace("<p style=\"margin-top: 0\">", "")); // Zeitstempel & Sender werden vom Server gesetzt, damit keine Manipulation möglich ist, oder?
+                System.out.println(typeBarTextField.getText());
+            }
+        });
+        //typeBarSendButton.setMinimumSize(new Dimension(20, 100));
+        JPanel typeBarButtonPanel = new JPanel();
+        typeBarButtonPanel.setLayout(new GridLayout(2,1));
+        typeBarButtonPanel.setMinimumSize(new Dimension(10, 100));
+        typeBarButtonPanel.add(typeBarEmojiButton);
+        typeBarButtonPanel.add(typeBarSendButton);
 
         typeBar.add(typeBarTextFieldScrollPane);
-            typeBar.add(typeBarButtonPanel);
+        typeBar.add(typeBarButtonPanel);
         //    typeBar.add(typeBarSendButton);
-            JPanel messageAndTypePanel = new JPanel();
-            messageAndTypePanel.setLayout(new BoxLayout(messageAndTypePanel, BoxLayout.Y_AXIS));
-            typeBar.setMinimumSize(new Dimension(100, 200));
-            messageAndTypePanel.add(messagePane);
-            messageAndTypePanel.add(typeBar);
-            rightPanel.add(messageAndTypePanel, BorderLayout.CENTER);
-            rightPanel.add(currentChatBar, BorderLayout.NORTH);
-            //rightPanel.add(typeBar, BorderLayout.SOUTH);
+        messageAndTypePanel.setLayout(new BoxLayout(messageAndTypePanel, BoxLayout.Y_AXIS));
+        typeBar.setMinimumSize(new Dimension(100, 200));
+        messageAndTypePanel.add(messagePane);
+        messageAndTypePanel.add(typeBar);
+        rightPanel.add(messageAndTypePanel, BorderLayout.CENTER);
+        rightPanel.add(currentChatBar, BorderLayout.NORTH);
+        //rightPanel.add(typeBar, BorderLayout.SOUTH);
 
 
-            //messangerFrame.add()
+        //messangerFrame.add()
 
 
-            JPanel searchContactsBar = new JPanel();
-            searchContactsBar.setLayout(new BorderLayout());
+        JPanel searchContactsBar = new JPanel();
+        searchContactsBar.setLayout(new BorderLayout());
 
-            // user zum neuen Chat beginnen suchen
-            JTextField searchContactsField = new JTextField();
-            //ImageIcon searchImage = new ImageIcon("loupe.png");
+        // user zum neuen Chat beginnen suchen
+        JTextField searchContactsField = new JTextField();
+        //ImageIcon searchImage = new ImageIcon("loupe.png");
 
-            // neuen Chat beginnen -> bei Click erhält GUI neuen (meist leeren) Verlauf
-            JButton searchContactsButton = new JButton("+");
-            try {
-                Image img = ImageIO.read(getClass().getResource("loupe.png"));
-                //Image img = im.getScaledInstance( 25, 25,  java.awt.Image.SCALE_SMOOTH ) ;
-                //BufferedImage thumbnail = resize(img, Method.ULTRA_QUALITY, 125, OP_ANTIALIAS);
-                //searchContactsButton.setIcon(new ImageIcon(img));
-            } catch (Exception ex) {
-                System.out.println(ex);
+        // neuen Chat beginnen -> bei Click erhält GUI neuen (meist leeren) Verlauf
+        JButton searchContactsButton = new JButton("+");
+        try {
+            Image img = ImageIO.read(getClass().getResource("loupe.png"));
+            //Image img = im.getScaledInstance( 25, 25,  java.awt.Image.SCALE_SMOOTH ) ;
+            //BufferedImage thumbnail = resize(img, Method.ULTRA_QUALITY, 125, OP_ANTIALIAS);
+            //searchContactsButton.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        searchContactsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                interfaceAddUser(searchContactsField.getText());
+                searchContactsField.setText("");
             }
+        });
+        searchContactsButton.setPreferredSize(new Dimension(49, 49));
+        searchContactsButton.setMaximumSize(new Dimension(49, 49));
 
-            searchContactsButton.addActionListener(new ActionListener() {
+
+        //searchContactsButton.setIcon(new ImageIcon("loupe.png"));
+
+        leftPanel.add(searchContactsBar, BorderLayout.NORTH);
+
+        searchContactsBar.add(searchContactsField, BorderLayout.CENTER);
+        searchContactsBar.add(searchContactsButton, BorderLayout.EAST);
+        //String[] lastChats = {"user1","user2"};
+        int numberChats = lastChats.length;
+        //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
+        lastChatsPanel.setLayout(new GridBagLayout());
+
+        for (int j = 0; j < numberChats; j++) {
+            JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
+            userButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    interfaceAddUser(searchContactsField.getText());
+                    interfaceSendClickedChat(userButton.getText());
                 }
             });
-            searchContactsButton.setPreferredSize(new Dimension(39, 39));
-            searchContactsButton.setMaximumSize(new Dimension(39, 39));
-
-
-            //searchContactsButton.setIcon(new ImageIcon("loupe.png"));
-
-            leftPanel.add(searchContactsBar, BorderLayout.NORTH);
-
-            searchContactsBar.add(searchContactsField, BorderLayout.CENTER);
-            searchContactsBar.add(searchContactsButton, BorderLayout.EAST);
-
-            JPanel lastChatsPanel = new JPanel();
-            int numberChats = lastChats.length;
-            //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
-            lastChatsPanel.setLayout(new GridBagLayout());
-
-            for (int j = 0; j < numberChats; j++) {
-                JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
-                userButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        interfaceSendClickedChat(userButton.getText());
-                    }
-                });
-                //button.setPreferredSize(new Dimension(100, 100));
-                //   Dimension d = button.getPreferredSize();
-                // d.height = 50;
-                //button.setPreferredSize(d);
-                userButton.setFont(new Font("Arial", Font.PLAIN, 17));
-                userButton.setHorizontalAlignment(SwingConstants.LEFT);
-                userButton.setVerticalAlignment(SwingConstants.TOP);
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = 0;
-                gbc.gridy = j;
-                gbc.fill = GridBagConstraints.HORIZONTAL;
-                gbc.anchor = GridBagConstraints.NORTHWEST;
-                if (j + 1 == numberChats) {
-                    gbc.weightx = 1.0;
-                    gbc.weighty = 1.0;
-                }
-                lastChatsPanel.add(userButton, gbc);
+            //button.setPreferredSize(new Dimension(100, 100));
+            //   Dimension d = button.getPreferredSize();
+            // d.height = 50;
+            //button.setPreferredSize(d);
+            userButton.setFont(new Font("Arial", Font.PLAIN, 17));
+            userButton.setHorizontalAlignment(SwingConstants.LEFT);
+            userButton.setVerticalAlignment(SwingConstants.TOP);
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = j;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            if (j + 1 == numberChats) {
+                gbc.weightx = 1.0;
+                gbc.weighty = 1.0;
             }
-            for (int k = 0; k < numberChats; k++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = 0;
-                gbc.gridy = numberChats;
-                gbc.fill = GridBagConstraints.HORIZONTAL;
-                gbc.anchor = GridBagConstraints.NORTHWEST;
-                //gbc.weightx = 1.0;
-                //gbc.weighty = 1.0;
-                JPanel filler = new JPanel();
-                filler.setOpaque(false);
-                lastChatsPanel.add(filler, gbc);
-            }
+            lastChatsPanel.add(userButton, gbc);
+        }
+        for (int k = 0; k < numberChats; k++) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = numberChats;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.anchor = GridBagConstraints.NORTHWEST;
+            //gbc.weightx = 1.0;
+            //gbc.weighty = 1.0;
+            JPanel filler = new JPanel();
+            filler.setOpaque(false);
+            lastChatsPanel.add(filler, gbc);
+        }
 
-            JScrollPane lastChatsScrollPane = new JScrollPane(lastChatsPanel);
-            leftPanel.add(lastChatsScrollPane, BorderLayout.CENTER);
+        JScrollPane lastChatsScrollPane = new JScrollPane(lastChatsPanel);
+        leftPanel.add(lastChatsScrollPane, BorderLayout.CENTER);
 
         /*
 
@@ -665,7 +740,7 @@ public class GUI {
     }
 
     */
-        }}
+    }}
 /*
         class enterServerButtonListener implements ActionListener {
             public void actionPerformed(ActionEvent event) {
