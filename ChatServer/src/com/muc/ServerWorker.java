@@ -35,14 +35,18 @@ public class ServerWorker extends Thread {
 		}
 	}
 
+	public PrintWriter getPrintWriter(){
+		return this.printWriter;
+	}
+
 	//gibt Username als String zurück
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	//gibt geöffneten Chat als String zurück
 	public String getOpenedChat(){
-		return openedChat;
+		return this.openedChat;
 	}
 
 
@@ -130,11 +134,11 @@ public class ServerWorker extends Thread {
 	}
 
 	// Methode, die aktualisierten Chat bei Klick auf Chatbutton lädt
-	private void loadChat(String chatName){ //chatName format: #username#username#
+	public void loadChat(String chatName){ //chatName format: #username#username#
 		String[] participants = chatName.split("#");
-		for(int i = 0;i<participants.length;i++){
+		/*for(int i = 0;i<participants.length;i++){
 			System.out.println(participants[i]);
-		}
+		}*/
 		String chathistory = FileQuery.readChat(participants);
 
 		String msg ="chat " + chatName  + " " + chathistory;
@@ -236,11 +240,13 @@ public class ServerWorker extends Thread {
             FileQuery.createChatFile(participants);
             String msg = "Chat erstellt: " + System.currentTimeMillis();
             FileQuery.writeChatMessage(participants,username,msg,System.currentTimeMillis()+"");
+            this.server.redirectMsg("chatlist "+participantsString);
             for(ServerWorker worker : workerList){
-                for (int i = 1; i < participants.length; i++)
-                    if (worker.getUsername().equals(participants[i])){
-                        worker.loadChatlist();
-                    }
+                for (int i = 1; i < participants.length; i++) {
+					if (worker.getUsername().equals(participants[i])) {
+						worker.loadChatlist();
+					}
+				}
             }
             System.out.println("tokens: "+participantsString);
             this.loadChat(participantsString);
@@ -259,7 +265,7 @@ public class ServerWorker extends Thread {
 		FileQuery.writeChatMessage(chatname,sender,message,time);
 
 		// refresh des Chats bei allen Clients(, die Chat offen haben)!
-
+		this.server.redirectMsg("message "+tokens[1]);
 		for (ServerWorker worker : workerList){
 			for(int i = 0; i < chatname.length; i++) {
 				if (chatname[i].equalsIgnoreCase(worker.username)) {//prüfen ob Client, der dem worker zugeordnet ist, Teil des Chats ist
