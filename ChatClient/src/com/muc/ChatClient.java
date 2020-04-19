@@ -106,7 +106,7 @@ class ChatClient{
     }
 
     private void handleChatList(String[] tokens){
-        String[] chatList = tokens[1].split("#");
+        String[] chatList = tokens[1].split(" ");
         userInterface.interfaceReceiveNewUserList(chatList);
     }
 
@@ -120,10 +120,9 @@ class ChatClient{
                 chatHistory[i][j] = parameters[j];
             }
         }
-        if(activeChat.equalsIgnoreCase(chatname)){ //prüfe, ob empfangener Chat gerade geöffnet ist
+        if(activeChat==null||activeChat.equalsIgnoreCase(chatname)) {
             userInterface.interfaceReceiveMessage(chatHistory);
         }
-
 
     }
 

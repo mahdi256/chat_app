@@ -16,7 +16,7 @@ public class FileQuery {
 
 	// Method for getting filename of a chat-file by providing all involved users in a String-Array
 	private static File getFilename(String[] participant) {
-		String path = null;
+		String path = "#";
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -37,6 +37,7 @@ public class FileQuery {
 		}
 		
 		// build path
+		path = path+"#";
 		for (int i = 0; i < participant.length; i++) {
 			path = path + participant[i] + "#"; // # is used as seperator
 		}
