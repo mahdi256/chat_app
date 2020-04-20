@@ -6,14 +6,14 @@ public class TestFileQuery {
 	
 	public static void main(String[] args) {
 		
-		FileQuery TestFileQuery = new FileQuery();
+		//FileQuery TestFileQuery = new FileQuery();
 		
 //		TestFileQuery.createUserlist();
 //		TestFileQuery.addUserToUserlist("Luca", "secret");
 //		TestFileQuery.addUserToUserlist("Ruben", "passwort");
 //		TestFileQuery.addUserToUserlist("Daniel", "67123781263");
 		
-		System.out.println(TestFileQuery.checkLoginCredentials("Daniel","67123781263"));
+		//System.out.println(TestFileQuery.checkLoginCredentials("Daniel","67123781263"));
 		
 		String[] participant = {"Luca", "Ruben", "Lucas", "Daniel", "Nina", "Rosa", "Leon", "Raphael", "masterxx34", "1superturtle", "126762731", "gang$ter"};
 		

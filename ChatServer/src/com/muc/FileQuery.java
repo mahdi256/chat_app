@@ -13,12 +13,22 @@ public class FileQuery {
 
 //	important notes:
 //	returnStringArray[0] is reserved for the username of the sender of the message in returnStringArray[1]
+	private Server server;
+	private static boolean hasBeenUsed = false;
 
+	public FileQuery(Server server){
+		this.server = server;
+	}
 	// Method for getting filename of a chat-file by providing all involved users in a String-Array
-	private static File getFilename(String[] participant) {
+	public File getFilename(String[] participant) {
 		String path = "";
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"Server1/";
+			}else if(server.getServerPort()==9998){
+				path = path+"Server2/";
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -49,7 +59,7 @@ public class FileQuery {
 	
 	
 	// Method to check if a chatfile exists
-	public static Boolean findChatFile(String[] participant) {
+	public Boolean findChatFile(String[] participant) {
 		File chatfile = getFilename(participant);
 		Boolean exits = chatfile.exists();
 		return exits;
@@ -57,10 +67,15 @@ public class FileQuery {
 	
 
 	// Method for creating a file that contains a chat
-	public static void createChatFile(String[] participant) {
+	public void createChatFile(String[] participant) {
 
 		File chatfile = getFilename(participant);
-
+		System.out.println("chatfile path: "+chatfile.getPath());
+		String msg ="createChat ";
+		for(int i = 0;i<participant.length;i++){
+			msg=msg+participant[i]+" ";
+		}
+		server.redirectMsg(msg);
 		try {
 			if (chatfile.createNewFile()) {
 				System.out.println("chatfile created succesfully at: " + chatfile);
@@ -74,10 +89,20 @@ public class FileQuery {
 	}
 
 	// Method for writing a chatmessage to file
-	public static void writeChatMessage(String[] participant,String sender, String message, String time) {
+	public void writeChatMessage(String[] participant,String sender, String message, String time) {
 
 		File chatfile = getFilename(participant);
-
+		String msg="writeMessage ";
+		for(int i = 0;i<participant.length;i++){
+			msg=msg+participant[i]+"#";
+		}
+		msg=msg+" "+sender+" "+time+" "+message;
+		if(!hasBeenUsed) {
+			server.redirectMsg(msg);
+			hasBeenUsed=true;
+		}else {
+			hasBeenUsed=false;
+		}
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(chatfile, true));
 			writer.write(sender + "#!#%#" + time + "#!#%#" + message + "#!!!#");
@@ -85,15 +110,19 @@ public class FileQuery {
 		} catch (IOException e) {
 			System.out.println("Error while writing to file" + e.getStackTrace());
 		}
-
 	}
 
 	// Methode, die überprüft ob ein nutzername in der nutzerliste vorkommt
-	public static Boolean checkUsername(String username){
+	public Boolean checkUsername(String username){
 
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"/Server1";
+			}else{
+				path = path+"/Server2";
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +150,7 @@ public class FileQuery {
 	}
 
 	// Method for reading a chat from file
-	public static String readChat(String[] participant) {
+	public String readChat(String[] participant) {
 		String[] temp = null;
 		String chatfiletext = null;
 
@@ -140,11 +169,16 @@ public class FileQuery {
 	
 	//Diese Methode gibt die Namen aller Chats zurück in der sich eine Person befindet. 
 	// Das Übergabeparameter "user" ist case-sensitive! //
-	public static String[] getAllChatsOfUser(String user) {
+	public String[] getAllChatsOfUser(String user) {
 		
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"/Server1";
+			}else{
+				path = path+"/Server2";
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -173,11 +207,18 @@ public class FileQuery {
 	}
 
 	// Method for creating the userlist (should only be executed once)
-	public static String createUserlist() {
+	public String createUserlist() {
 		
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"/Server1";
+				System.out.println("userliste wird hier erstellt: "+path);
+			}else{
+				path = path+"/Server2";
+				System.out.println("userliste wird hier erstellt: "+path);
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -195,12 +236,17 @@ public class FileQuery {
 
 
 	// Method for checking Login credentials
-	public static int checkLoginCredentials(String username, String password) {
+	public int checkLoginCredentials(String username, String password) {
 		int loginCredentialsCorrect = 0; // 2 login credetials are correct, 1 user exists but password is incorrect, 0 user does not exist
 		
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"/Server1";
+			}else{
+				path = path+"/Server2";
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -235,15 +281,25 @@ public class FileQuery {
 	}
 
 	// Method for adding a user to the userlist
-	public static String addUserToUserlist(String username, String password) {
+	public String addUserToUserlist(String username, String password) {
 
 		String path = null;
 		try {
 			path = URLDecoder.decode(FileQuery.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8");
+			if(server.getServerPort()==9999){
+				path = path+"/Server1";
+			}else{
+				path = path+"/Server2";
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+		if(!hasBeenUsed) {
+			server.redirectMsg("addUser " + username + " " + password);
+			hasBeenUsed = true;
+		}else {
+			hasBeenUsed = false;
+		}
 		try {
 			File userlist = new File(path +"/userlist.txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(userlist, true));

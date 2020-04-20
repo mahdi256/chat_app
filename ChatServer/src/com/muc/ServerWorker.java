@@ -19,16 +19,19 @@ public class ServerWorker extends Thread {
 	private List<ServerWorker> workerList;
 	private BufferedReader bufferedReader;
 	private PrintWriter printWriter;
+	private FileQuery fileQuery;
 
-	public ServerWorker(Server server, Socket clientSocket) {
+	public ServerWorker(Server server, Socket clientSocket, FileQuery fileQuery) {
 		this.server = server;
 		this.clientSocket = clientSocket;
 		this.workerList = server.getWorkerList();
+		this.fileQuery = fileQuery;
 	}
 
 	@Override // muss noch bearbeitet werden
 	public void run() {
 		try {
+
 			handleClientSocket();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -82,7 +85,7 @@ public class ServerWorker extends Thread {
 			String msg = null;
 			String entryMethod = internTokens[2];
 
-			int cValue = FileQuery.checkLoginCredentials(username, password);
+			int cValue = fileQuery.checkLoginCredentials(username, password);
 
 			if (entryMethod.equalsIgnoreCase("login")) {
 
@@ -104,7 +107,7 @@ public class ServerWorker extends Thread {
                     printWriter.println(msg);
                     printWriter.flush();
 				}else if(cValue == 0){
-					FileQuery.addUserToUserlist(username, password);
+					fileQuery.addUserToUserlist(username, password);
 					msg = "registration successful";
 					this.username = username; //username wird in Klassen-Variable gespeichert
 					System.out.println("User registered succesfully: " + username + " Server: " + this.server.getServerPort());
@@ -118,7 +121,7 @@ public class ServerWorker extends Thread {
 
 	//lädt alle begonnen Konversationen des User, Rückgabe als String[]
 	public void loadChatlist(){
-		String[] chatlist = FileQuery.getAllChatsOfUser(this.username);
+		String[] chatlist = fileQuery.getAllChatsOfUser(this.username);
 		String msg = "chatList ";
 		for(int i = 0; i<chatlist.length; i++){
 			msg= msg + chatlist[i]+ " ";
@@ -141,7 +144,7 @@ public class ServerWorker extends Thread {
 		/*for(int i = 0;i<participants.length;i++){
 			System.out.println(participants[i]);
 		}*/
-		String chathistory = FileQuery.readChat(participants);
+		String chathistory = fileQuery.readChat(participants);
 
 		String msg ="chat " + chatName  + " " + chathistory;
 
@@ -233,20 +236,20 @@ public class ServerWorker extends Thread {
 		String[] participants = participantsString.split("#"); //old format: #user#user#
 		boolean allUsersExist=true;
 		for(int i=1; i<participants.length;i++){
-			if(!FileQuery.checkUsername(participants[i])){
+			if(!fileQuery.checkUsername(participants[i])){
 				System.out.println(participants[i] + "false");
 				allUsersExist=false;
 			}
 		}
-		if(!FileQuery.findChatFile(participants) && allUsersExist){
-            FileQuery.createChatFile(participants);
+		if(!fileQuery.findChatFile(participants) && allUsersExist){
+            fileQuery.createChatFile(participants);
 
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			String time = sdf.format(cal.getTime());
 
             String msg = "Chat erstellt um " + time;
-            FileQuery.writeChatMessage(participants,username,msg,time);
+            fileQuery.writeChatMessage(participants,username,msg,time);
             this.server.redirectMsg("chatlist "+participantsString);
             for(ServerWorker worker : workerList){
                 for (int i = 1; i < participants.length; i++) {
@@ -269,7 +272,7 @@ public class ServerWorker extends Thread {
 		String sender = internTokens[1];
 		String time = internTokens[2];
 
-		FileQuery.writeChatMessage(chatname,sender,message,time);
+		fileQuery.writeChatMessage(chatname,sender,message,time);
 
 		// refresh des Chats bei allen Clients(, die Chat offen haben)!
 		this.server.redirectMsg("message "+tokens[1]);
