@@ -60,7 +60,8 @@ class ChatClient{
     }
 
     public void logOff(){
-        clientOut.println("logOff");
+        System.out.println("logoff() aufgerufen, Logoff-Nachricht wird an Server gesendet");
+        clientOut.println("logoff");
         clientOut.flush();
     }
 
@@ -94,6 +95,15 @@ class ChatClient{
                         } else if("chat".equalsIgnoreCase(msg)){
                             String[] tokens2 = clientIn.split( " ", 3);
                             handleChat(tokens2);
+                        } else if("logoff".equalsIgnoreCase(msg)){
+                            try {
+                                socket.close();
+                                System.out.println("Socket wurde geschlossen");
+                                System.exit(0);
+                                break;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                     }

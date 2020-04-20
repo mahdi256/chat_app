@@ -19,6 +19,7 @@ public class ServerWorker extends Thread {
 	private List<ServerWorker> workerList;
 	private BufferedReader bufferedReader;
 	private PrintWriter printWriter;
+	private Boolean stophandleClientSocket = false;
 
 	public ServerWorker(Server server, Socket clientSocket) {
 		this.server = server;
@@ -175,11 +176,11 @@ public class ServerWorker extends Thread {
 	}*/
 
 	// Methode, die User auslogged, ServerWorker + Socket schließt
-	private void handleLogoff() throws IOException { //Methode ruft bei allen Server-Workern den Befehl send auf und gibt eine Nachricht bestehend aus offline und username mit
+	private void handleLogoff() throws IOException {
 		server.removeWorker(this);
 		this.workerList = server.getWorkerList();
-
-		clientSocket.close(); //Socket wird geschlossen
+		printWriter.println("logoff");
+		printWriter.flush();
 	}
 
 	private void handleClientSocket() throws IOException, InterruptedException { //Methode wird beim starten des ServerWorkers aufgerufen
@@ -198,9 +199,10 @@ public class ServerWorker extends Thread {
 				String[] tokens = line.split(" ", 2); //Teilt Nachricht in Teile
 				if (tokens != null && tokens.length > 0) {
 					String msg = tokens[0];
-					if ("logoff".equals(msg) || "quit".equalsIgnoreCase(msg)) { //wenn logoff-Commando empfangen wird
-						//handleLogoff();
-						break;
+					if ("logoff".equals(msg)) { //wenn logoff-Commando empfangen wird
+						handleLogoff();
+						stophandleClientSocket = true;
+						System.out.println(stophandleClientSocket);
 					} else if ("login".equalsIgnoreCase(msg)) { // wenn login-Comando empfangend wird
 						handleLogin(tokens);
 					} else if("chatList".equalsIgnoreCase(msg)) {
@@ -211,14 +213,16 @@ public class ServerWorker extends Thread {
 						loadChat(tokens[1]);
 					} else if("createChat".equalsIgnoreCase(msg)){
 						createChat(tokens[1]);
-					} else if("logOff".equalsIgnoreCase(msg)){
-						handleLogoff();
 					}else{
-						msg = "unknown " + msg; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
-						//outputStream.write(msg.getBytes());
+						msg = "unknownCommand " + msg; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
 						printWriter.println(msg);
 						printWriter.flush();
 					}
+				}
+				if(stophandleClientSocket){
+					clientSocket.close(); //Socket wird geschlossen
+					System.out.println("Socket von ServerWorker des Users " + username + " wurde geschlossen");
+					break;
 				}
 			}
 		}
