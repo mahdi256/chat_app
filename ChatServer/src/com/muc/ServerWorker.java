@@ -141,7 +141,6 @@ public class ServerWorker extends Thread {
 					if ("logoff".equals(msg)) {
 						handleLogoff();
 						stophandleClientSocket = true;
-						System.out.println(stophandleClientSocket);
 					} else if ("login".equalsIgnoreCase(msg)) {
 						handleLogin(tokens);
 					} else if("chatList".equalsIgnoreCase(msg)) {

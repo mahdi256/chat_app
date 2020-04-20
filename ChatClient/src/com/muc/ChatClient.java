@@ -32,7 +32,7 @@ class ChatClient{
     public static void main(String[] args) throws IOException {
         Random rand = new Random();
         serverPort = rand.nextInt((9999 - 9998) + 1) + 9998; //Es wird zufällig zwischen dem Server an Port 9998 und Port 9999 gewählt
-        System.out.println(serverPort); // Port des Servers mit dem kommuniziert wird, wird ausgegeben
+        System.out.println("Dieser Client wird versuchen sich mit dem Server zu verbinden, dessen Socket auf Port " + serverPort + " bereitsteht."); // Port des Servers mit dem kommuniziert wird, wird ausgegeben
         ChatClient client = new ChatClient("localhost", serverPort); //Objekt von ChatClient wird erstellt mit Server Port und Server Adresse
 
         userInterface = new GUI(client);
