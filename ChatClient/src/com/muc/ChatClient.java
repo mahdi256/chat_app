@@ -49,13 +49,13 @@ class ChatClient{
                 readMessageLoop();
             }
         };
-
         t1.start();
 
     }
 
     public void logOff(){
-        clientOut.println("logOff");
+        System.out.println("logoff() aufgerufen, Logoff-Nachricht wird an Server gesendet");
+        clientOut.println("logoff");
         clientOut.flush();
     }
 
@@ -97,6 +97,15 @@ class ChatClient{
                         } else if("chat".equalsIgnoreCase(msg)){
                             String[] tokens2 = clientIn.split( " ", 3);
                             handleChat(tokens2);
+                        } else if("logoff".equalsIgnoreCase(msg)){
+                            try {
+                                socket.close();
+                                System.out.println("Socket wurde geschlossen");
+                                System.exit(0);
+                                break;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                     }
@@ -182,7 +191,7 @@ class ChatClient{
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
-            String chatlist = bufferedIn.readLine();
+            String chatlist = bufferedIn.readLine(); // Timeout: Fehlermeldung "Es konnte keine Liste der vorhanderen CHats vom Server angefordert werden. Der Server ist möglicherweise zur Zeit nicht erreichbar. Bitte versuchen sie es erneut!"
             String[] components = chatlist.split(" ", 2);
             String[] chatListArray = components[1].split(" ");
             startMessageReader();
