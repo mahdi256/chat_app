@@ -3,7 +3,6 @@ package com.muc;
 import java.io.*;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ServerWorker extends Thread {
 		this.fileQuery = fileQuery;
 	}
 
-	@Override // muss noch bearbeitet werden
+	@Override
 	public void run() {
 		try {
 
@@ -41,42 +40,12 @@ public class ServerWorker extends Thread {
 		}
 	}
 
-	public PrintWriter getPrintWriter(){
-		return this.printWriter;
-	}
-
-	//gibt Username als String zurück
 	public String getUsername() {
 		return this.username;
 	}
 
-	//gibt geöffneten Chat als String zurück
-	public String getOpenedChat(){
-		return this.openedChat;
-	}
 
-
-	//Methode, um UI-Input in String[] participants zu packen
-	private String[] createParticipantArray(String InputStream){
-		String[] temp = null;
-		InputStream = InputStream + username;
-
-		temp = InputStream.split("#");
-
-		String[] participants = new String[temp.length];
-
-		int x = 0;
-		for(int i = 0; i < temp.length; i++){
-			participants[i] = temp[x];
-			x++;
-		}
-
-		return participants;
-
-	}
-
-
-	// Methode,  die Input des Login-Screens überprüft in dem Abgleich mit userlist
+	// Methode,  die Input des Login-Screens überprüft durch Abgleich mit userlist
 	private void handleLogin(String[] tokens) throws IOException {
 			String[] internTokens = tokens[1].split(" ");
 			String username = internTokens[0];
@@ -89,12 +58,11 @@ public class ServerWorker extends Thread {
 			if (entryMethod.equalsIgnoreCase("login")) {
 
 				if(cValue == 2){
-					msg = "login successful";// "ok login" wird an Client gesendet wenn Logindaten korrekt
+					msg = "login successful";// "login successful" wird an Client gesendet wenn Logindaten korrekt
                     printWriter.println(msg);
                     printWriter.flush();
 					this.username = username; //username wird in Klassen-Variable gespeichert
 					System.out.println("User logged in succesfully: " + username + " Server: " + this.server.getServerPort());
-					//findAllChatsOfUser(username); LUCA
 				}else{
 					msg = "login failed";
                     printWriter.println(msg);
@@ -110,7 +78,6 @@ public class ServerWorker extends Thread {
 					msg = "registration successful";
 					this.username = username; //username wird in Klassen-Variable gespeichert
 					System.out.println("User registered succesfully: " + username + " Server: " + this.server.getServerPort());
-					//outputStream.write(msg.getBytes());
                     printWriter.println(msg);
                     printWriter.flush();
 				}
@@ -125,9 +92,6 @@ public class ServerWorker extends Thread {
 		for(int i = 0; i<chatlist.length; i++){
 			msg= msg + chatlist[i]+ " ";
 		}
-
-		System.out.println("msg: "+msg);
-
 		try {
             printWriter.println(msg);
             printWriter.flush();
@@ -139,15 +103,9 @@ public class ServerWorker extends Thread {
 	// Methode, die aktualisierten Chat an Client sendet
 	public void loadChat(String chatName){ //chatName format: #username#username#
 		String[] participants = chatName.split("#");
-		/*for(int i = 0;i<participants.length;i++){
-			System.out.println(participants[i]);
-		}*/
 		String chathistory = fileQuery.readChat(participants);
-
 		String msg ="chat " + chatName  + " " + chathistory;
-
 		try{
-			//outputStream.write(msg.getBytes());
 			printWriter.println(msg);
 			printWriter.flush();
 		}catch (Exception e){
@@ -157,27 +115,6 @@ public class ServerWorker extends Thread {
 
 	}
 
-	//und Methode, die gesendete Nachricht in Chatverlauf schreibt  Chats aller User, die diesen geöffnet haben, aktualisiert
-	/*private void sendMessage(InputStream /* message ){
-		String username = getUsername();
-		String openedChat = getOpenedChat();
-		String[] participants = createParticipantArray(openedChat);
-		FileQuery.writeChatMessage(participants, username, /* message);
-		loadChatAll(openedChat);
-	}*/
-
-	// Methode, die den Chat aller User aktualisiert, die in Chat drin sind & diesen gerade geöffnet haben
-	/*private void loadChatAll (/*String Chattitel (participants)){
-		//String input = String Chattitel (participants);
-		String[] participants = createParticipantArray(/*input);
-		for(ServerWorker worker : workerList){
-			for (int i = 0; i < participants.length; i++){
-				if (worker.getUsername().equals(participants[i]) && worker.getOpenedChat().equals(/*input)){
-					worker.loadChat(/*input);
-				}
-			}}
-	}*/
-
 	// Methode, die User auslogged, ServerWorker + Socket schließt
 	private void handleLogoff() throws IOException {
 		server.removeWorker(this);
@@ -186,7 +123,8 @@ public class ServerWorker extends Thread {
 		printWriter.flush();
 	}
 
-	private void handleClientSocket() throws IOException, InterruptedException { //Methode wird beim starten des ServerWorkers aufgerufen
+	//Methode wird beim starten des ServerWorkers aufgerufen und ließt Nachrichten, die vom Client gesendet wurden, und verarbeitet diese entsprechend
+	private void handleClientSocket() throws IOException, InterruptedException {
 	    this.inputStream = clientSocket.getInputStream();
 		this.outputStream = clientSocket.getOutputStream();
         this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -194,19 +132,18 @@ public class ServerWorker extends Thread {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		String line;
-		while (true) { //Endlosschleifen
-			//System.out.println("handleClientSocket: warte auf eingehende Nachricht");
+		while (true) {
 			line = reader.readLine(); //wartet auf eingehende Nachrichten
 			if (line != null) {
-				System.out.println("Eingehende Nachricht: " + line);
+				System.out.println("Eingehende Nachricht am Server:  " + line);
 				String[] tokens = line.split(" ", 2); //Teilt Nachricht in Teile
 				if (tokens != null && tokens.length > 0) {
 					String msg = tokens[0];
-					if ("logoff".equals(msg)) { //wenn logoff-Commando empfangen wird
+					if ("logoff".equals(msg)) {
 						handleLogoff();
 						stophandleClientSocket = true;
 						System.out.println(stophandleClientSocket);
-					} else if ("login".equalsIgnoreCase(msg)) { // wenn login-Comando empfangend wird
+					} else if ("login".equalsIgnoreCase(msg)) {
 						handleLogin(tokens);
 					} else if("chatList".equalsIgnoreCase(msg)) {
 						loadChatlist();
@@ -216,14 +153,10 @@ public class ServerWorker extends Thread {
 						loadChat(tokens[1]);
 					} else if("createChat".equalsIgnoreCase(msg)){
 						createChat(tokens[1]);
-					}else{
-						msg = "unknownCommand " + msg; //wenn anderes Commando empfangen wird, wird eine Nachricht mit "unknown" und dem Commando an den Client geschickt
-						printWriter.println(msg);
-						printWriter.flush();
 					}
 				}
 				if(stophandleClientSocket){
-					clientSocket.close(); //Socket wird geschlossen
+					clientSocket.close();
 					System.out.println("Socket von ServerWorker des Users " + username + " wurde geschlossen");
 					break;
 				}
@@ -233,10 +166,11 @@ public class ServerWorker extends Thread {
 		clientSocket.close();
 	}
 
+	//Methode, die einen Chat erstellt und von der GUI aufgerufen wird
 	private void createChat(String participantsString){
-		String[] participants = participantsString.split("#"); //old format: #user#user#
+		String[] participants = participantsString.split("#");
 		boolean allUsersExist=true;
-		for(int i=1; i<participants.length;i++){
+		for(int i=1; i<participants.length;i++){ // prüft ob alle Nutzer, mit denen ein Chat begonnen werden soll, registriert sind
 			if(!fileQuery.checkUsername(participants[i])){
 				System.out.println(participants[i] + "false");
 				allUsersExist=false;
@@ -252,7 +186,7 @@ public class ServerWorker extends Thread {
             String msg = "Chat erstellt um " + time;
             fileQuery.writeChatMessage(participants,username,msg,time);
             this.server.redirectMsg("chatlist "+participantsString);
-            for(ServerWorker worker : workerList){
+            for(ServerWorker worker : workerList){ // Benachrichtigt alle am Chat beteilgten Clients über den neuen Chat
                 for (int i = 1; i < participants.length; i++) {
 					System.out.println("Teilnehmer in neuem Chat: "+ participants[i]);
 					if (worker.getUsername().equals(participants[i])) {
@@ -260,12 +194,12 @@ public class ServerWorker extends Thread {
 					}
 				}
             }
-            System.out.println("tokens: "+participantsString);
         }else{
-		    System.out.println("Chat bereits vorhanden oder ein User ist nicht registriert");
+		    System.out.println("Chat bereits vorhanden oder mindestens ein User ist nicht registriert");
         }
 	}
 
+	//Diese Methode verarbeitet ausgehende Chatnachrichten und wird vom GUI aufgerufen
 	private void handleMessage(String[] tokens){
 		String[] internTokens = tokens[1].split(" ", 4);
 		String message = internTokens[3];
@@ -275,11 +209,11 @@ public class ServerWorker extends Thread {
 
 		fileQuery.writeChatMessage(chatname,sender,message,time);
 
-		// refresh des Chats bei allen Clients(, die Chat offen haben)!
+		// neuladen des Chats bei allen Clients, die Chat zur Zeit geöffnet haben
 		this.server.redirectMsg("message "+tokens[1]);
 		for (ServerWorker worker : workerList){
 			for(int i = 0; i < chatname.length; i++) {
-				if (chatname[i].equalsIgnoreCase(worker.username)) {//prüfen ob Client, der dem worker zugeordnet ist, Teil des Chats ist
+				if (chatname[i].equalsIgnoreCase(worker.username)) { //prüfen ob Client, der dem worker zugeordnet ist, Teil des Chats ist
 					worker.loadChat(internTokens[0]); //loadChat() bei serverWorker aufrufen
 				}
 			}

@@ -11,15 +11,13 @@ import java.net.URLDecoder;
 
 public class FileQuery {
 
-//	important notes:
-//	returnStringArray[0] is reserved for the username of the sender of the message in returnStringArray[1]
 	private Server server;
 	private static boolean hasBeenUsed = false;
 
 	public FileQuery(Server server){
 		this.server = server;
 	}
-	// Method for getting filename of a chat-file by providing all involved users in a String-Array
+	//Methode um den Dateinamen eines Chats aus einem mitgegebenen String[] bestehend aus allen Usernamen zu generieren
 	public File getFilename(String[] participant) {
 		String path = "";
 		try {
@@ -32,9 +30,8 @@ public class FileQuery {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		//sort participant[] lexicographically 
-		
+
+		//sortiere participant[] lexikographisch
 		String temp;
 		for(int toBeSortedParticipant = 0; toBeSortedParticipant < participant.length ; toBeSortedParticipant++) {
 			for(int toBeComparedToParticipant = toBeSortedParticipant + 1; toBeComparedToParticipant < participant.length; toBeComparedToParticipant++) {
@@ -46,7 +43,7 @@ public class FileQuery {
 			}			
 		}
 		
-		// build path
+		// erstelle Pfad aus Dateipfad und allen participants
 		for (int i = 0; i < participant.length; i++) {
 			if(!participant[i].isEmpty() || !(participant[i] == null) || !(participant[i] == "")) {
 				path = path + participant[i] + "#"; // # is used as seperator
@@ -56,9 +53,8 @@ public class FileQuery {
 		File chatfile = new File(path + ".txt");
 		return chatfile;
 	}
-	
-	
-	// Method to check if a chatfile exists
+
+	//Methode um zu prüfen ob ein bestimmter Chat schon als Datei existiert
 	public Boolean findChatFile(String[] participant) {
 		File chatfile = getFilename(participant);
 		Boolean exits = chatfile.exists();
@@ -66,7 +62,7 @@ public class FileQuery {
 	}
 	
 
-	// Method for creating a file that contains a chat
+	//Methode um eine Datei zu erstellen, die den Chatverlauf enthält
 	public void createChatFile(String[] participant) {
 
 		File chatfile = getFilename(participant);
@@ -88,7 +84,7 @@ public class FileQuery {
 
 	}
 
-	// Method for writing a chatmessage to file
+	//Methode um eine Nachricht einer bereits existierenden Chat-Datei hinzuzufügen
 	public void writeChatMessage(String[] participant,String sender, String message, String time) {
 
 		File chatfile = getFilename(participant);
@@ -112,7 +108,7 @@ public class FileQuery {
 		}
 	}
 
-	// Methode, die überprüft ob ein nutzername in der nutzerliste vorkommt
+	// Methode, die überprüft ob ein Nutzername in der Nutzerliste vorkommt
 	public Boolean checkUsername(String username){
 
 		String path = null;
@@ -149,7 +145,7 @@ public class FileQuery {
 		return false;
 	}
 
-	// Method for reading a chat from file
+	// Methode um einen Chat-Verlauf aus einer Chat-Datei auszulesen
 	public String readChat(String[] participant) {
 		String[] temp = null;
 		String chatfiletext = null;
@@ -167,8 +163,7 @@ public class FileQuery {
 	}
 	
 	
-	//Diese Methode gibt die Namen aller Chats zurück in der sich eine Person befindet. 
-	// Das Übergabeparameter "user" ist case-sensitive! //
+	//Diese Methode gibt die Namen aller Chats zurück in der sich ein Nutzer befindet
 	public String[] getAllChatsOfUser(String user) {
 		
 		String path = null;
@@ -206,7 +201,7 @@ public class FileQuery {
 		return Chat;
 	}
 
-	// Method for creating the userlist (should only be executed once)
+	// Methode um eine Liste erstellen in der alle registrierten Nutzer gespeichert werden
 	public String createUserlist() {
 		
 		String path = null;
@@ -238,9 +233,9 @@ public class FileQuery {
 	}
 
 
-	// Method for checking Login credentials
+	// Mehtode, die prüft ob ein Nutzer mit dem mitgegebenen Nutzernamen und Passwort in der Nutzerliste existiert
 	public int checkLoginCredentials(String username, String password) {
-		int loginCredentialsCorrect = 0; // 2 login credetials are correct, 1 user exists but password is incorrect, 0 user does not exist
+		int loginCredentialsCorrect = 0; // 2 Nutzername und Passwort sind korrekt, 1 Nutzername existiert aber Passwort ist nicht korrekt, 0 Nutzername existiert nicht
 		
 		String path = null;
 		try {
@@ -283,7 +278,7 @@ public class FileQuery {
 		return loginCredentialsCorrect;
 	}
 
-	// Method for adding a user to the userlist
+	// Methode, die einen Nutzer mit Nutzername und Passwort in die Nutzerliste einfügt
 	public String addUserToUserlist(String username, String password) {
 
 		String path = null;

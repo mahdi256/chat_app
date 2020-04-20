@@ -2,44 +2,24 @@ package com.muc;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.imageio.ImageIO;
-import javax.swing.text.DefaultStyledDocument;
 import javax.swing.*;
-import java.io.FileReader;
-import javax.swing.text.html.HTMLEditorKit;
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
-import java.util.List;
-import java.util.concurrent.TimeUnit ;
-
-
 
 public class GUI {
 
     String      title     = "Messanger";
-    GUI         gui;
     JFrame      messangerFrame    = new JFrame(title);
-    JButton     sendMessage;
-    JTextField  messageBox;
-    JTextArea   chatBox;
     JTextField  usernameField;
     JTextField  passwordField;
     JFrame      loginFrame;
     JPanel messageAndTypePanel = new JPanel();
-
     JPanel messagePanel = new JPanel();
     String[][] chatHistory = {{"","","Please open or create a chat"}};
     String username;
     ChatClient client;
     JPanel lastChatsPanel = new JPanel();
     JLabel currentChatBar = new JLabel();
-
-    JScrollPane messagePane;
-
-
-
     int numberOfMessages;
 
     public GUI(ChatClient client){
@@ -350,7 +330,7 @@ public class GUI {
         JLabel empty3 = new JLabel("");
         JButton loginButton = new JButton("Login");
         JButton registerButton = new JButton("Register");
-        JLabel successMessageLabel = new JLabel("Please enter your crendentials!");
+        JLabel successMessageLabel = new JLabel("Please enter your credentials!");
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -683,14 +663,6 @@ public class GUI {
 
         // neuen Chat beginnen -> bei Click erhält GUI neuen (meist leeren) Verlauf
         JButton searchContactsButton = new JButton("+");
-        try {
-            Image img = ImageIO.read(getClass().getResource("loupe.png"));
-            //Image img = im.getScaledInstance( 25, 25,  java.awt.Image.SCALE_SMOOTH ) ;
-            //BufferedImage thumbnail = resize(img, Method.ULTRA_QUALITY, 125, OP_ANTIALIAS);
-            //searchContactsButton.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
 
         searchContactsButton.addActionListener(new ActionListener() {
             @Override
