@@ -71,8 +71,6 @@ public class ServerWorker extends Thread {
 
 	}
 
-	// zu ergänzen: Trennzeichen zwischen user und body oder user kennzeichen oder anders lösen
-	// format: "msg" "login" body...
 
 	// Methode,  die Input des Login-Screens überprüft in dem Abgleich mit userlist
 	private void handleLogin(String[] tokens) throws IOException {
@@ -123,7 +121,6 @@ public class ServerWorker extends Thread {
 		for(int i = 0; i<chatlist.length; i++){
 			msg= msg + chatlist[i]+ " ";
 		}
-		//msg = msg+"\n";
 
 		System.out.println("msg: "+msg);
 
@@ -135,7 +132,7 @@ public class ServerWorker extends Thread {
 		}
 	}
 
-	// Methode, die aktualisierten Chat bei Klick auf Chatbutton lädt
+	// Methode, die aktualisierten Chat an Client sendet
 	public void loadChat(String chatName){ //chatName format: #username#username#
 		String[] participants = chatName.split("#");
 		/*for(int i = 0;i<participants.length;i++){

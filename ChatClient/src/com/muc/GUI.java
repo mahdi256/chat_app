@@ -70,6 +70,10 @@ public class GUI {
         //  });
     }*/
 
+    public void interfaceLogoff(){
+        client.logOff();
+    }
+
     public String[] interfaceLogin(String[] loginData){
         // ihr könnt Login-Daten konsumieren
         boolean correctLogin = true;
@@ -78,7 +82,6 @@ public class GUI {
         }
         if(correctLogin) {
             if(client.connect()){
-
                 try {
                     String[] chatlist = client.login(loginData[0], loginData[1], loginData[2]);
                     return chatlist;
@@ -327,6 +330,7 @@ public class GUI {
                 }
                 else {
                     successMessageLabel.setText("Login failed");
+
                 }
 
             }
@@ -348,6 +352,7 @@ public class GUI {
                 }
                 else {
                     successMessageLabel.setText("Choose another username!");
+
                 }
 
             }
@@ -441,6 +446,16 @@ public class GUI {
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
+
+        messangerFrame.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                interfaceLogoff();
+                e.getWindow().dispose();
+            }
+        });
 
 //        messangerFrame.setLayout(new BoxLayout(messangerFrame.getContentPane(), BoxLayout.X_AXIS));
         messangerFrame.setLayout(new BoxLayout(messangerFrame.getContentPane(), BoxLayout.X_AXIS));

@@ -55,7 +55,6 @@ class ChatClient{
                 readMessageLoop();
             }
         };
-
         t1.start();
 
     }
@@ -180,7 +179,7 @@ class ChatClient{
             this.username = username;
             clientOut.println("chatList");
             clientOut.flush();
-            String chatlist = bufferedIn.readLine();
+            String chatlist = bufferedIn.readLine(); // Timeout: Fehlermeldung "Es konnte keine Liste der vorhanderen CHats vom Server angefordert werden. Der Server ist möglicherweise zur Zeit nicht erreichbar. Bitte versuchen sie es erneut!"
             String[] components = chatlist.split(" ", 2);
             String[] chatListArray = components[1].split(" ");
             startMessageReader();
