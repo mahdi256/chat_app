@@ -2,8 +2,7 @@ package com.muc;
 
 import java.io.*;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -179,9 +178,9 @@ public class ServerWorker extends Thread {
 		if(!fileQuery.findChatFile(participants) && allUsersExist){
             fileQuery.createChatFile(participants);
 
-			Calendar cal = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-			String time = sdf.format(cal.getTime());
+			Date date = new Date();
+			String time = date+"";
+			time = time.split(" ")[3];
 
             String msg = "Chat erstellt um " + time;
             fileQuery.writeChatMessage(participants,username,msg,time);

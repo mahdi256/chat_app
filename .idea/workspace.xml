@@ -21,32 +21,18 @@
   <component name="ChangeListManager">
     <list default="true" id="cbcff2a0-2f1f-493f-b324-72b998777aa2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/chatverlauf.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/chatverlauf.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/chatverlauf.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/ChatClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatClient/src/com/muc/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/LoginWin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/MessageListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/MessagePane.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/UserGraphInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/UserStatusListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/chatverlauf.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/emojis.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/loupe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatClient/src/com/muc/search.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/FileQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/FileQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/ChatServer/src/com/muc/ServerWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatServer/src/com/muc/testing/TestFileQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/chatverlauf.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/ChatClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatClient/com/muc/GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/MessageListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/UserStatusListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/chatverlauf.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/emojis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/loupe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatClient/com/muc/search.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerWorker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatServer/com/muc/ServerWorker.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -269,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587399011018</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="second working prototype">
+      <created>1587407807432</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587407807432</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,7 +291,8 @@
     <MESSAGE value="logindaten werden geprüft und logoff ist als methode für chatclient und serverworker da" />
     <MESSAGE value="fixed some UI bugs" />
     <MESSAGE value="first working prototype" />
-    <option name="LAST_COMMIT_MESSAGE" value="first working prototype" />
+    <MESSAGE value="second working prototype" />
+    <option name="LAST_COMMIT_MESSAGE" value="second working prototype" />
   </component>
   <component name="WindowStateProjectService">
     <state x="736" y="356" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587397291688">
@@ -313,26 +307,26 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1011" y="448" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587403328932" />
-    <state x="746" y="269" key="CommitChangelistDialog2" timestamp="1587399009431">
+    <state x="746" y="269" key="CommitChangelistDialog2" timestamp="1587407805458">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="746" y="269" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587399009431" />
-    <state width="2517" height="206" key="GridCell.Tab.0.bottom" timestamp="1587407682451">
+    <state x="746" y="269" key="CommitChangelistDialog2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407805458" />
+    <state width="2517" height="206" key="GridCell.Tab.0.bottom" timestamp="1587408054823">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="206" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407682451" />
-    <state width="2517" height="206" key="GridCell.Tab.0.center" timestamp="1587407682450">
+    <state width="2517" height="206" key="GridCell.Tab.0.bottom/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587408054823" />
+    <state width="2517" height="206" key="GridCell.Tab.0.center" timestamp="1587408054823">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="206" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407682450" />
-    <state width="2517" height="206" key="GridCell.Tab.0.left" timestamp="1587407682450">
+    <state width="2517" height="206" key="GridCell.Tab.0.center/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587408054823" />
+    <state width="2517" height="206" key="GridCell.Tab.0.left" timestamp="1587408054823">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="206" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407682450" />
-    <state width="2517" height="206" key="GridCell.Tab.0.right" timestamp="1587407682450">
+    <state width="2517" height="206" key="GridCell.Tab.0.left/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587408054823" />
+    <state width="2517" height="206" key="GridCell.Tab.0.right" timestamp="1587408054823">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="206" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407682450" />
+    <state width="2517" height="206" key="GridCell.Tab.0.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587408054823" />
     <state width="2517" height="303" key="GridCell.Tab.1.bottom" timestamp="1587302684726">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -349,10 +343,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="303" key="GridCell.Tab.1.right/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587302684726" />
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587399013585">
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587407809078">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587399013585" />
+    <state x="873" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/3840.0.2560.1400@0.0.2560.1400" timestamp="1587407809078" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>
