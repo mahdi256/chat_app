@@ -1,6 +1,7 @@
 package com.muc;
 
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import java.util.Random;
 class ChatClient{
     private String serverName;
     private static int serverPort;
-    private Socket socket;
+    private Socket socket = null;
     private InputStream inputStream;
     private OutputStream outputStream;
     private BufferedReader bufferedIn;
@@ -51,6 +52,15 @@ class ChatClient{
         };
         t1.start();
 
+    }
+
+    public void loginClosed(){
+        if(!(socket == null)){
+            System.out.println("loginClosed() aufgerufen, Logoff-Nachricht wird an Server gesendet");
+            clientOut.println("logoff");
+            clientOut.flush();
+        }
+        System.exit(0);
     }
 
     public void logOff(){
@@ -107,12 +117,15 @@ class ChatClient{
                                 e.printStackTrace();
                             }
                         }
-
                     }
                 }
-
             }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(userInterface.loginFrame,
+                    "Derzeit ist keine Verbindung zum Server möglich! Sie werden nun ausgeloggt.",
+                    "Fehler",
+                    JOptionPane.WARNING_MESSAGE);
+            userInterface.backToLogin();
             ex.printStackTrace();
             try {
                 socket.close();
@@ -143,8 +156,10 @@ class ChatClient{
                 chatHistory[i][j] = parameters[j];
             }
         }
-        if(activeChat==null||activeChat.equalsIgnoreCase(chatname)) {
-            userInterface.interfaceReceiveMessage(chatHistory);
+        if(activeChat != null){
+            if(activeChat.equalsIgnoreCase(chatname)) {
+                userInterface.interfaceReceiveMessage(chatHistory);
+            }
         }
 
     }
@@ -159,9 +174,13 @@ class ChatClient{
             clientOut = new PrintWriter(new OutputStreamWriter(outputStream));
             return true;
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(userInterface.loginFrame,
+                    "Derzeit ist keine Verbindung zum Server möglich! Der Socket am Port " + serverPort +" scheint nicht erreichbar zu sein.",
+                    "Fehler",
+                    JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
         //"me", "14.04.2020 - 20:10", "erste Nachricht &#129409;"

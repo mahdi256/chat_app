@@ -254,13 +254,13 @@ public class ServerWorker extends Thread {
             this.server.redirectMsg("chatlist "+participantsString);
             for(ServerWorker worker : workerList){
                 for (int i = 1; i < participants.length; i++) {
+					System.out.println("Teilnehmer in neuem Chat: "+ participants[i]);
 					if (worker.getUsername().equals(participants[i])) {
 						worker.loadChatlist();
 					}
 				}
             }
             System.out.println("tokens: "+participantsString);
-            this.loadChat(participantsString);
         }else{
 		    System.out.println("Chat bereits vorhanden oder ein User ist nicht registriert");
         }

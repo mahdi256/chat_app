@@ -74,6 +74,18 @@ public class GUI {
         //  });
     }*/
 
+
+    public void backToLogin(){
+
+        messangerFrame.dispose();
+        login();
+
+    }
+
+    public void interfaceLoginClosed(){
+        client.loginClosed();
+    }
+
     public void interfaceLogoff(){
         client.logOff();
     }
@@ -91,6 +103,7 @@ public class GUI {
                     return chatlist;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return null;
                 }
             }else{
                 int serverPort = client.getServerPort();
@@ -187,14 +200,6 @@ public class GUI {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         interfaceSendClickedChat(userButton.getText());
-
-                        SwingUtilities.invokeLater(() -> {
-                            JScrollBar bar = messagePane.getVerticalScrollBar();
-                            messagePane.validate();
-                            bar.validate();
-                            bar.setValue(bar.getMaximum());
-                        });
-
                     }
                 });
                 //button.setPreferredSize(new Dimension(100, 100));
@@ -309,53 +314,32 @@ public class GUI {
         //JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         //      JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        //  SwingUtilities.invokeLater(() -> {
-        //     JScrollBar bar = messagePane.getVerticalScrollBar();
-        //    bar.setValue(bar.getMaximum());
-        // });
 
         //JScrollBar bar = messagePane.getVerticalScrollBar();
         //bar.validate();
         //bar.setValue(bar.getMaximum());
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar bar = messagePane.getVerticalScrollBar();
-            messagePane.validate();
-            bar.validate();
-            bar.setValue(bar.getMaximum());
-        });
-
         messagePanel.revalidate();
         messagePanel.repaint();
-
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar bar = messagePane.getVerticalScrollBar();
-            messagePane.validate();
-            bar.validate();
-            bar.setValue(bar.getMaximum());
-        });
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JComponent comp = messagePane;
-                Rectangle bounds = new Rectangle(comp.getBounds());
-                comp.scrollRectToVisible(bounds);
-            }
-        });
-
-        messangerFrame.revalidate(); //Update the scrollbar size
-        JScrollBar vertical = messagePane.getVerticalScrollBar();
-        vertical.setValue(vertical.getMaximum());
 
 
     }
 
     public void login() {
-        JFrame loginFrame = new JFrame("Login");
+        loginFrame = new JFrame("Login");
         loginFrame.setVisible(true);
         //loginFrame = new JFrame("Login");
         usernameField = new JTextField(20);
         passwordField = new JTextField(20);
+
+        loginFrame.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                interfaceLoginClosed();
+                e.getWindow().dispose();
+            }
+        });
 
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passwordLabel = new JLabel("Password:");
@@ -633,19 +617,6 @@ public class GUI {
 
         JScrollPane messagePane = new JScrollPane(messagePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        //messagePane.add(messagePanel);
-
-
-
-        SwingUtilities.invokeLater(() -> {
-            JScrollBar bar = messagePane.getVerticalScrollBar();
-            messagePane.validate();
-            bar.validate();
-            bar.setValue(bar.getMaximum());
-        });
-
-
 
 
         //DefaultStyledDocument document = new DefaultStyledDocument();
