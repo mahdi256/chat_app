@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit ;
+
 
 
 public class GUI {
@@ -28,11 +30,13 @@ public class GUI {
     JPanel messageAndTypePanel = new JPanel();
 
     JPanel messagePanel = new JPanel();
-    String[][] chatHistory = {{"a","b","c"}};
+    String[][] chatHistory = {{"","","Please open or create a chat"}};
     String username;
     ChatClient client;
     JPanel lastChatsPanel = new JPanel();
     JLabel currentChatBar = new JLabel();
+
+    JScrollPane messagePane;
 
 
 
@@ -160,47 +164,56 @@ public class GUI {
 
         int numberChats = lastChats.length;
         //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
+        if (!(lastChats[0] == "" && numberChats == 1)) {
+            for (int j = 0; j < numberChats; j++) {
+                JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
+                userButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        interfaceSendClickedChat(userButton.getText());
 
-        for (int j = 0; j < numberChats; j++) {
-            JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
-            userButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    interfaceSendClickedChat(userButton.getText());
+                        SwingUtilities.invokeLater(() -> {
+                            JScrollBar bar = messagePane.getVerticalScrollBar();
+                            messagePane.validate();
+                            bar.validate();
+                            bar.setValue(bar.getMaximum());
+                        });
+
+                    }
+                });
+                //button.setPreferredSize(new Dimension(100, 100));
+                //   Dimension d = button.getPreferredSize();
+                // d.height = 50;
+                //button.setPreferredSize(d);
+                userButton.setFont(new Font("Arial", Font.PLAIN, 17));
+                userButton.setHorizontalAlignment(SwingConstants.LEFT);
+                userButton.setVerticalAlignment(SwingConstants.TOP);
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = j;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
+                if (j + 1 == numberChats) {
+                    gbc.weightx = 1.0;
+                    gbc.weighty = 1.0;
                 }
-            });
-            //button.setPreferredSize(new Dimension(100, 100));
-            //   Dimension d = button.getPreferredSize();
-            // d.height = 50;
-            //button.setPreferredSize(d);
-            userButton.setFont(new Font("Arial", Font.PLAIN, 17));
-            userButton.setHorizontalAlignment(SwingConstants.LEFT);
-            userButton.setVerticalAlignment(SwingConstants.TOP);
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = j;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.NORTHWEST;
-            if (j + 1 == numberChats) {
-                gbc.weightx = 1.0;
-                gbc.weighty = 1.0;
+                lastChatsPanel.add(userButton, gbc);
             }
-            lastChatsPanel.add(userButton, gbc);
+            for (int k = 0; k < numberChats; k++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = numberChats;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
+                //gbc.weightx = 1.0;
+                //gbc.weighty = 1.0;
+                JPanel filler = new JPanel();
+                filler.setOpaque(false);
+                lastChatsPanel.add(filler, gbc);
+            }
+            lastChatsPanel.revalidate();
+            lastChatsPanel.repaint();
         }
-        for (int k = 0; k < numberChats; k++) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = numberChats;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.NORTHWEST;
-            //gbc.weightx = 1.0;
-            //gbc.weighty = 1.0;
-            JPanel filler = new JPanel();
-            filler.setOpaque(false);
-            lastChatsPanel.add(filler, gbc);
-        }
-        lastChatsPanel.revalidate();
-        lastChatsPanel.repaint();
     }
 
     public void updateChatHistory(String[][] newChatHistory){
@@ -209,7 +222,7 @@ public class GUI {
 
         int numberOfMessages = newChatHistory.length;
         //messagePanel.setLayout(new GridBagLayout());
-        for (int i = 0; i < numberOfMessages; i++) {
+        for (int i = numberOfMessages-1; i > (-1); i--) {
 
             GridBagConstraints gbc1 = new GridBagConstraints();
             gbc1.gridx = 0;
@@ -288,9 +301,36 @@ public class GUI {
         //JScrollBar bar = messagePane.getVerticalScrollBar();
         //bar.validate();
         //bar.setValue(bar.getMaximum());
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar bar = messagePane.getVerticalScrollBar();
+            messagePane.validate();
+            bar.validate();
+            bar.setValue(bar.getMaximum());
+        });
 
         messagePanel.revalidate();
         messagePanel.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar bar = messagePane.getVerticalScrollBar();
+            messagePane.validate();
+            bar.validate();
+            bar.setValue(bar.getMaximum());
+        });
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JComponent comp = messagePane;
+                Rectangle bounds = new Rectangle(comp.getBounds());
+                comp.scrollRectToVisible(bounds);
+            }
+        });
+
+        messangerFrame.revalidate(); //Update the scrollbar size
+        JScrollBar vertical = messagePane.getVerticalScrollBar();
+        vertical.setValue(vertical.getMaximum());
+
 
     }
 
@@ -431,7 +471,7 @@ public class GUI {
 
 
     public void messanger() {
-
+        messangerFrame.setTitle(username);
         messangerFrame.setSize(new Dimension(1000,500));
         messangerFrame.setMinimumSize(new Dimension(1000,500));
         messangerFrame.setVisible(true);
@@ -510,7 +550,7 @@ public class GUI {
         numberOfMessages = chatHistory.length;
 
         messagePanel.setLayout(new GridBagLayout());
-        for (int i = 0; i < numberOfMessages; i++) {
+        for (int i = numberOfMessages-1; i > (-1); i--) {
 
             GridBagConstraints gbc1 = new GridBagConstraints();
             gbc1.gridx = 0;
@@ -622,6 +662,7 @@ public class GUI {
                         newString = newString + str + " ";}
                 }
                 interfaceSendMessage(newString.substring(1));
+                typeBarTextField.setText("");
             }
         });
         //typeBarSendButton.setMinimumSize(new Dimension(20, 100));
@@ -685,44 +726,46 @@ public class GUI {
         int numberChats = lastChats.length;
         //lastChatsPanel.setLayout(new GridLayout(numberChats, 1));
         lastChatsPanel.setLayout(new GridBagLayout());
-
-        for (int j = 0; j < numberChats; j++) {
-            JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
-            userButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    interfaceSendClickedChat(userButton.getText());
+        String[] compare = {""};
+        if(!(Arrays.equals(compare, lastChats))) {
+            for (int j = 0; j < numberChats; j++) {
+                JButton userButton = new JButton(lastChats[j]);//lastChats[i]);
+                userButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        interfaceSendClickedChat(userButton.getText());
+                    }
+                });
+                //button.setPreferredSize(new Dimension(100, 100));
+                //   Dimension d = button.getPreferredSize();
+                // d.height = 50;
+                //button.setPreferredSize(d);
+                userButton.setFont(new Font("Arial", Font.PLAIN, 17));
+                userButton.setHorizontalAlignment(SwingConstants.LEFT);
+                userButton.setVerticalAlignment(SwingConstants.TOP);
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = j;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
+                if (j + 1 == numberChats) {
+                    gbc.weightx = 1.0;
+                    gbc.weighty = 1.0;
                 }
-            });
-            //button.setPreferredSize(new Dimension(100, 100));
-            //   Dimension d = button.getPreferredSize();
-            // d.height = 50;
-            //button.setPreferredSize(d);
-            userButton.setFont(new Font("Arial", Font.PLAIN, 17));
-            userButton.setHorizontalAlignment(SwingConstants.LEFT);
-            userButton.setVerticalAlignment(SwingConstants.TOP);
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = j;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.NORTHWEST;
-            if (j + 1 == numberChats) {
-                gbc.weightx = 1.0;
-                gbc.weighty = 1.0;
+                lastChatsPanel.add(userButton, gbc);
             }
-            lastChatsPanel.add(userButton, gbc);
-        }
-        for (int k = 0; k < numberChats; k++) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = numberChats;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.NORTHWEST;
-            //gbc.weightx = 1.0;
-            //gbc.weighty = 1.0;
-            JPanel filler = new JPanel();
-            filler.setOpaque(false);
-            lastChatsPanel.add(filler, gbc);
+            for (int k = 0; k < numberChats; k++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = numberChats;
+                gbc.fill = GridBagConstraints.HORIZONTAL;
+                gbc.anchor = GridBagConstraints.NORTHWEST;
+                //gbc.weightx = 1.0;
+                //gbc.weighty = 1.0;
+                JPanel filler = new JPanel();
+                filler.setOpaque(false);
+                lastChatsPanel.add(filler, gbc);
+            }
         }
 
         JScrollPane lastChatsScrollPane = new JScrollPane(lastChatsPanel);
