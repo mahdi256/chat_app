@@ -222,7 +222,10 @@ public class FileQuery {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+		File directory = new File(path);
+		if(!directory.exists()) {
+			directory.mkdirs();
+		}
 		File userlist = new File(path +"/userlist.txt");
 		try {
 			userlist.createNewFile();
