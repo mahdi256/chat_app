@@ -11,6 +11,7 @@ public class Server extends Thread {
 	private final int serverPort;
 	private ServerSocket serverSocket;
 	private ArrayList<ServerWorker> workerList;
+	private FileQuery fileQuery;
 
 	// constructor (Port und ServerWorkerListe wird von ServerMain übergeben)
 	public Server(int serverPort) {
@@ -24,7 +25,10 @@ public class Server extends Thread {
 	@Override
 	public void run() {
 		try {
-			serverSocket = new ServerSocket( serverPort );
+			serverSocket = new ServerSocket( this.getServerPort() );
+			System.out.println("es wird eine filequery mit folgendem port erstellt: "+serverPort);
+			this.fileQuery = new FileQuery(this);
+			this.fileQuery.createUserlist();
 			if(this.getServerPort() == 9999){
 				Socket socket = new Socket("localhost", 9998);
 				this.output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -63,7 +67,7 @@ public class Server extends Thread {
 			try {
 				Socket clientSocket = serverSocket.accept();
 				// create a new Thread for each user/Client
-				ServerWorker worker = new ServerWorker(this, clientSocket);
+				ServerWorker worker = new ServerWorker(this, clientSocket, fileQuery);
 				workerList.add(worker);
 				worker.start();
 			}catch (Exception e){
@@ -100,6 +104,21 @@ public class Server extends Thread {
 								}
 							}
 						}
+					}else if(tokens[0].equalsIgnoreCase("addUser")){
+						String[] data = tokens[1].split(" ", 2);
+						fileQuery.addUserToUserlist(data[0], data[1]);
+					}else if(tokens[0].equalsIgnoreCase("createChat")){
+						String[] participants = tokens[1].split(" ");
+						File file = fileQuery.getFilename(participants);
+						try {
+							file.createNewFile();
+						}catch (IOException e){
+							e.printStackTrace();
+						}
+					}else if(tokens[0].equalsIgnoreCase("writeMessage")){
+						String[] internTokens = tokens[1].split(" ",4);
+						String[] participants = internTokens[0].split("#");
+						fileQuery.writeChatMessage(participants, internTokens[1], internTokens[3], internTokens[2]);
 					}
 				}
 

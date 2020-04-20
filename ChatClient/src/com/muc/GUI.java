@@ -92,6 +92,22 @@ public class GUI {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }else{
+                int serverPort = client.getServerPort();
+                if(serverPort==9999){
+                    serverPort=9998;
+                }else {
+                    serverPort=9999;
+                }
+                client.setServerPort(serverPort);
+                if(client.connect()) {
+                    try {
+                        String[] chatlist = client.login(loginData[0], loginData[1], loginData[2]);
+                        return chatlist;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }else {
             System.out.println("Login Daten falsch");

@@ -39,12 +39,6 @@ class ChatClient{
         userInterface = new GUI(client);
         userInterface.login();
 
-        /*if (!client.connect()) { //connect-Methode wird aufgerufen und Socket wird erstellt
-            System.err.println("Connect failed.");
-        } else {
-            System.out.println("Connect successful");
-        }*/
-
     }
 
     //ToDo startMessageReader(Chat[])
@@ -60,8 +54,17 @@ class ChatClient{
     }
 
     public void logOff(){
-        clientOut.println("logOff");
+        System.out.println("logoff() aufgerufen, Logoff-Nachricht wird an Server gesendet");
+        clientOut.println("logoff");
         clientOut.flush();
+    }
+
+    public void setServerPort(int port){
+        this.serverPort = port;
+    }
+
+    public int getServerPort(){
+        return this.serverPort;
     }
 
     public void openChat(String chatName){
@@ -94,6 +97,15 @@ class ChatClient{
                         } else if("chat".equalsIgnoreCase(msg)){
                             String[] tokens2 = clientIn.split( " ", 3);
                             handleChat(tokens2);
+                        } else if("logoff".equalsIgnoreCase(msg)){
+                            try {
+                                socket.close();
+                                System.out.println("Socket wurde geschlossen");
+                                System.exit(0);
+                                break;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                     }
